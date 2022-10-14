@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.my.home.ffxivgametime.controller.SettingsController">
+	<children>
+		<ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<image>
+				<Image url="@img/background_big.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/logo.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="30.0" fitWidth="70.0" layoutX="525.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/author.png" />
+			</image>
+		</ImageView>
+		<GridPane styleClass="panel" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0"
+			AnchorPane.topAnchor="60.0">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints maxHeight="405.0" minHeight="125.0" prefHeight="312.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="314.0" minHeight="33.0" prefHeight="86.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="314.0" minHeight="97.0" prefHeight="141.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" styleClass="panel">
+					<GridPane.margin>
+						<Insets bottom="10.0" left="60.0" right="60.0" top="70.0" />
+					</GridPane.margin>
+					<children>
+						<Label layoutX="187.0" layoutY="14.0" text="Paramètres GameTime" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima Bold" size="12.0" />
+							</font>
+						</Label>
+						<Label layoutX="129.0" layoutY="45.0" text="Focus :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="selectedFocus" alignment="CENTER" layoutX="172.0" layoutY="42.0" prefWidth="160.0" promptText="Application Windows" />
+						<Label layoutX="32.0" layoutY="78.0" text="Lancement de l'Anti-Afk :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="antiAfkExec" alignment="CENTER" layoutX="172.0" layoutY="75.0" prefHeight="25.0" prefWidth="52.0" promptText="ID" />
+						<Label layoutX="32.0" layoutY="111.0" text="Action de l'Anti-Afk :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="antiAfkAction" alignment="CENTER" layoutX="172.0" layoutY="108.0" prefHeight="25.0" prefWidth="52.0" promptText="ID" />
+						<Label layoutX="257.0" layoutY="78.0" text="Lancement de la Macro :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="macroExec" alignment="CENTER" layoutX="394.0" layoutY="75.0" prefHeight="25.0" prefWidth="52.0" promptText="ID" />
+						<Label layoutX="257.0" layoutY="111.0" text="Position de la souris :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="macroMousePos" alignment="CENTER" layoutX="394.0" layoutY="108.0" prefHeight="25.0" prefWidth="52.0" promptText="ID" />
+						<Label alignment="CENTER" layoutX="20.0" layoutY="139.0"
+							text="- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<Label layoutX="172.0" layoutY="160.0" text="Paramètres Final Fantasy XIV" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima Bold" size="12.0" />
+							</font>
+						</Label>
+						<Label layoutX="32.0" layoutY="191.0" text="Fermer la fenêtre :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="close" alignment="CENTER" layoutX="172.0" layoutY="188.0" prefHeight="25.0" prefWidth="52.0" promptText="ID" />
+						<Label layoutX="257.0" layoutY="191.0" text="Sélectionner :" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<TextField fx:id="confirm" alignment="CENTER" layoutX="394.0" layoutY="188.0" prefHeight="25.0" prefWidth="52.0" promptText="ID" />
+					</children>
+				</Pane>
+				<Pane prefHeight="200.0" prefWidth="200.0" styleClass="panel" GridPane.rowIndex="1">
+					<GridPane.margin>
+						<Insets bottom="10.0" left="185.0" right="185.0" top="10.0" />
+					</GridPane.margin>
+					<children>
+						<Button fx:id="keyboard" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayKeyboard" prefHeight="40.0"
+							prefWidth="60.0" styleClass="keyboard">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+							<tooltip>
+								<Tooltip text="Clavier">
+									<font>
+										<Font name="Ebrima" size="12.0" />
+									</font>
+								</Tooltip>
+							</tooltip>
+						</Button>
+						<Button fx:id="save" layoutX="85.0" layoutY="13.0" mnemonicParsing="false" onAction="#actionSave" prefHeight="40.0" prefWidth="60.0"
+							styleClass="save">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+							<tooltip>
+								<Tooltip text="Sauvegarder">
+									<font>
+										<Font name="Ebrima" size="12.0" />
+									</font>
+								</Tooltip>
+							</tooltip>
+						</Button>
+						<Button fx:id="reinit" layoutX="156.0" layoutY="13.0" mnemonicParsing="false" onAction="#actionReinit" prefHeight="40.0" prefWidth="60.0"
+							styleClass="reinit">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+							<tooltip>
+								<Tooltip text="Réinitialiser">
+									<font>
+										<Font name="Ebrima" size="12.0" />
+									</font>
+								</Tooltip>
+							</tooltip>
+						</Button>
+					</children>
+				</Pane>
+				<Pane prefHeight="200.0" prefWidth="200.0" styleClass="panel" GridPane.rowIndex="2">
+					<GridPane.margin>
+						<Insets bottom="70.0" left="80.0" right="80.0" top="10.0" />
+					</GridPane.margin>
+					<children>
+						<Label fx:id="message" alignment="CENTER" prefHeight="60.0" prefWidth="440.0" textAlignment="CENTER" textFill="#e8e8e8" wrapText="true">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+					</children>
+				</Pane>
+			</children>
+		</GridPane>
+	</children>
+</AnchorPane>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="350.0"
+	stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="fr.my.home.ffxivgametime.controller.MenuController">
+	<children>
+		<ImageView fitHeight="400.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<image>
+				<Image url="@img/background_small.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/logo.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="30.0" fitWidth="70.0" layoutX="275.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/author.png" />
+			</image>
+		</ImageView>
+		<AnchorPane styleClass="panel" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0"
+			AnchorPane.topAnchor="60.0">
+			<children>
+				<GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints maxHeight="238.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+						<RowConstraints maxHeight="238.0" minHeight="0.0" prefHeight="139.0" vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Pane prefHeight="200.0" prefWidth="200.0" styleClass="panel">
+							<GridPane.margin>
+								<Insets bottom="20.0" left="110.0" right="110.0" top="60.0" />
+							</GridPane.margin>
+							<children>
+								<Button fx:id="btnAntiAfk" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" mnemonicParsing="false"
+									onAction="#displayAntiAfk" prefHeight="40.0" prefWidth="100.0" styleClass="antiafk" text="Anti-AFK" textAlignment="CENTER" textFill="#e8e8e8"
+									textOverrun="CLIP">
+									<font>
+										<Font name="Ebrima Bold" size="16.0" />
+									</font>
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+								</Button>
+								<Button fx:id="btnMacro" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="66.0" mnemonicParsing="false"
+									onAction="#displayMacro" prefHeight="40.0" prefWidth="100.0" styleClass="macro" text="Macro" textAlignment="CENTER" textFill="#e8e8e8"
+									textOverrun="CLIP">
+									<font>
+										<Font name="Ebrima Bold" size="16.0" />
+									</font>
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+								</Button>
+							</children>
+						</Pane>
+						<Pane prefHeight="73.0" prefWidth="270.0" styleClass="panel" GridPane.rowIndex="1">
+							<GridPane.margin>
+								<Insets bottom="60.0" left="65.0" right="65.0" top="20.0" />
+							</GridPane.margin>
+							<children>
+								<Button fx:id="btnSettings" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+									onAction="#displaySettings" prefHeight="40.0" prefWidth="60.0" styleClass="settings" textAlignment="CENTER" textOverrun="CLIP">
+									<font>
+										<Font name="Ebrima" size="12.0" />
+									</font>
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+									<tooltip>
+										<Tooltip text="Paramètres">
+											<font>
+												<Font name="Ebrima" size="12.0" />
+											</font>
+										</Tooltip>
+									</tooltip>
+								</Button>
+								<Button fx:id="btnHelp" alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="10.0" mnemonicParsing="false"
+									onAction="#displayHelp" prefHeight="40.0" prefWidth="60.0" styleClass="help" textAlignment="CENTER" textOverrun="CLIP">
+									<font>
+										<Font name="Ebrima" size="12.0" />
+									</font>
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+									<tooltip>
+										<Tooltip text="Aide">
+											<font>
+												<Font name="Ebrima" size="12.0" />
+											</font>
+										</Tooltip>
+									</tooltip>
+								</Button>
+								<Button fx:id="btnUpdate" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" mnemonicParsing="false"
+									onAction="#displayUpdate" prefHeight="40.0" prefWidth="60.0" styleClass="update" text="v1.5" textAlignment="CENTER" textFill="#e8e8e8"
+									textOverrun="CLIP">
+									<font>
+										<Font name="Ebrima Bold" size="16.0" />
+									</font>
+									<cursor>
+										<Cursor fx:constant="HAND" />
+									</cursor>
+									<tooltip>
+										<Tooltip text="Mise à jour">
+											<font>
+												<Font name="Ebrima" size="12.0" />
+											</font>
+										</Tooltip>
+									</tooltip>
+								</Button>
+							</children>
+						</Pane>
+					</children>
+				</GridPane>
+			</children>
+		</AnchorPane>
+	</children>
+</AnchorPane>

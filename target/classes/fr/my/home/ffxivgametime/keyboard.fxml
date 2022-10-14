@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.my.home.ffxivgametime.controller.KeyboardController">
+	<children>
+		<ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0"
+			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<image>
+				<Image url="@img/background_medium.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="2.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/logo.png" />
+			</image>
+		</ImageView>
+		<ImageView fitHeight="30.0" fitWidth="70.0" layoutX="525.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/author.png" />
+			</image>
+		</ImageView>
+		<GridPane styleClass="panel" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0"
+			AnchorPane.topAnchor="60.0">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints maxHeight="224.0" minHeight="86.0" prefHeight="166.0" vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="353.0" minHeight="215.0" prefHeight="273.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Pane prefHeight="200.0" prefWidth="200.0" styleClass="panel">
+					<children>
+						<Label alignment="CENTER" layoutX="90.0" layoutY="14.0" prefHeight="30.0" prefWidth="120.0" text="Identifiant touche :"
+							textAlignment="CENTER" textFill="#e8e8e8" textOverrun="CLIP">
+							<font>
+								<Font name="Ebrima" size="12.0" />
+							</font>
+						</Label>
+						<Label fx:id="key_id" alignment="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="30.0" prefWidth="160.0"
+							text="(sélectionnez une touche)" textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima Bold" size="12.0" />
+							</font>
+						</Label>
+					</children>
+					<GridPane.margin>
+						<Insets bottom="10.0" left="150.0" right="150.0" top="20.0" />
+					</GridPane.margin>
+				</Pane>
+				<Pane prefHeight="180.0" prefWidth="560.0" styleClass="panel" GridPane.rowIndex="1">
+					<children>
+						<ImageView fitHeight="160.0" fitWidth="550.0" layoutX="5.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@img/keyboard_full.png" />
+							</image>
+						</ImageView>
+						<ImageView fx:id="k_echap" fitHeight="21.0" fitWidth="21.0" layoutX="11.0" layoutY="23.0" onMouseClicked="#keyPressEchap"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f1" fitHeight="21.0" fitWidth="22.0" layoutX="59.0" layoutY="23.0" onMouseClicked="#keyPressF1"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f2" fitHeight="21.0" fitWidth="21.0" layoutX="84.0" layoutY="23.0" onMouseClicked="#keyPressF2"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f3" fitHeight="21.0" fitWidth="22.0" layoutX="108.0" layoutY="23.0" onMouseClicked="#keyPressF3"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f4" fitHeight="21.0" fitWidth="21.0" layoutX="133.0" layoutY="23.0" onMouseClicked="#keyPressF4"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f5" fitHeight="21.0" fitWidth="21.0" layoutX="164.0" layoutY="23.0" onMouseClicked="#keyPressF5"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f6" fitHeight="21.0" fitWidth="21.0" layoutX="188.0" layoutY="23.0" onMouseClicked="#keyPressF6"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f7" fitHeight="21.0" fitWidth="21.0" layoutX="213.0" layoutY="23.0" onMouseClicked="#keyPressF7"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f8" fitHeight="21.0" fitWidth="21.0" layoutX="237.0" layoutY="23.0" onMouseClicked="#keyPressF8"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f9" fitHeight="21.0" fitWidth="21.0" layoutX="268.0" layoutY="23.0" onMouseClicked="#keyPressF9"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f10" fitHeight="21.0" fitWidth="22.0" layoutX="292.0" layoutY="23.0" onMouseClicked="#keyPressF10"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f11" fitHeight="21.0" fitWidth="21.0" layoutX="317.0" layoutY="23.0" onMouseClicked="#keyPressF11"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f12" fitHeight="21.0" fitWidth="22.0" layoutX="341.0" layoutY="23.0" onMouseClicked="#keyPressF12"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_ins" fitHeight="21.0" fitWidth="21.0" layoutX="374.0" layoutY="53.0" onMouseClicked="#keyPressIns"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_suppr" fitHeight="22.0" fitWidth="21.0" layoutX="374.0" layoutY="77.0" onMouseClicked="#keyPressSuppr"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_debut" fitHeight="21.0" fitWidth="22.0" layoutX="398.0" layoutY="53.0" onMouseClicked="#keyPressDebut"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_fin" fitHeight="22.0" fitWidth="21.0" layoutX="398.0" layoutY="77.0" onMouseClicked="#keyPressFin"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_page_haut" fitHeight="21.0" fitWidth="22.0" layoutX="422.0" layoutY="53.0" onMouseClicked="#keyPressPageHaut"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_page_bas" fitHeight="22.0" fitWidth="22.0" layoutX="422.0" layoutY="77.0" onMouseClicked="#keyPressPageBas"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_haut" fitHeight="22.0" fitWidth="22.0" layoutX="398.0" layoutY="126.0" onMouseClicked="#keyPressHaut"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_gauche" fitHeight="22.0" fitWidth="22.0" layoutX="373.0" layoutY="150.0" onMouseClicked="#keyPressGauche"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_bas" fitHeight="22.0" fitWidth="22.0" layoutX="398.0" layoutY="150.0" onMouseClicked="#keyPressBas"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_droite" fitHeight="22.0" fitWidth="22.0" layoutX="422.0" layoutY="150.0" onMouseClicked="#keyPressDroite"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_1" fitHeight="21.0" fitWidth="21.0" layoutX="35.0" layoutY="53.0" onMouseClicked="#keyPress1" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_2" fitHeight="21.0" fitWidth="22.0" layoutX="59.0" layoutY="53.0" onMouseClicked="#keyPress2" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_3" fitHeight="21.0" fitWidth="21.0" layoutX="84.0" layoutY="53.0" onMouseClicked="#keyPress3" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_4" fitHeight="21.0" fitWidth="22.0" layoutX="108.0" layoutY="53.0" onMouseClicked="#keyPress4" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_5" fitHeight="21.0" fitWidth="21.0" layoutX="133.0" layoutY="53.0" onMouseClicked="#keyPress5" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_6" fitHeight="21.0" fitWidth="21.0" layoutX="157.0" layoutY="53.0" onMouseClicked="#keyPress6" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_7" fitHeight="21.0" fitWidth="22.0" layoutX="181.0" layoutY="53.0" onMouseClicked="#keyPress7" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_8" fitHeight="21.0" fitWidth="21.0" layoutX="206.0" layoutY="53.0" onMouseClicked="#keyPress8" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_9" fitHeight="21.0" fitWidth="21.0" layoutX="230.0" layoutY="53.0" onMouseClicked="#keyPress9" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_0" fitHeight="21.0" fitWidth="22.0" layoutX="254.0" layoutY="53.0" onMouseClicked="#keyPress0" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_degree" fitHeight="21.0" fitWidth="21.0" layoutX="279.0" layoutY="53.0" onMouseClicked="#keyPressDegree"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_egal" fitHeight="21.0" fitWidth="22.0" layoutX="303.0" layoutY="53.0" onMouseClicked="#keyPressEgal"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_retour" fitHeight="21.0" fitWidth="35.0" layoutX="328.0" layoutY="53.0" onMouseClicked="#keyPressRetour"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_tab" fitHeight="22.0" fitWidth="32.0" layoutX="11.0" layoutY="77.0" onMouseClicked="#keyPressTab"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_a" fitHeight="22.0" fitWidth="21.0" layoutX="46.0" layoutY="77.0" onMouseClicked="#keyPressA" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_z" fitHeight="22.0" fitWidth="22.0" layoutX="70.0" layoutY="77.0" onMouseClicked="#keyPressZ" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_e" fitHeight="22.0" fitWidth="21.0" layoutX="95.0" layoutY="77.0" onMouseClicked="#keyPressE" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_r" fitHeight="22.0" fitWidth="21.0" layoutX="119.0" layoutY="77.0" onMouseClicked="#keyPressR" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_t" fitHeight="22.0" fitWidth="22.0" layoutX="143.0" layoutY="77.0" onMouseClicked="#keyPressT" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_y" fitHeight="22.0" fitWidth="21.0" layoutX="168.0" layoutY="77.0" onMouseClicked="#keyPressY" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_u" fitHeight="22.0" fitWidth="22.0" layoutX="192.0" layoutY="77.0" onMouseClicked="#keyPressU" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_i" fitHeight="22.0" fitWidth="21.0" layoutX="217.0" layoutY="77.0" onMouseClicked="#keyPressI" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_o" fitHeight="22.0" fitWidth="21.0" layoutX="241.0" layoutY="77.0" onMouseClicked="#keyPressO" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_p" fitHeight="22.0" fitWidth="22.0" layoutX="265.0" layoutY="77.0" onMouseClicked="#keyPressP" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_entree" fitHeight="46.0" fitWidth="20.0" layoutX="343.0" layoutY="77.0" onMouseClicked="#keyPressEntree"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_verr_maj" fitHeight="21.0" fitWidth="37.0" layoutX="11.0" layoutY="102.0" onMouseClicked="#keyPressVerrMaj"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_q" fitHeight="21.0" fitWidth="22.0" layoutX="51.0" layoutY="102.0" onMouseClicked="#keyPressQ" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_s" fitHeight="21.0" fitWidth="21.0" layoutX="76.0" layoutY="102.0" onMouseClicked="#keyPressS" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_d" fitHeight="21.0" fitWidth="21.0" layoutX="100.0" layoutY="102.0" onMouseClicked="#keyPressD"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_f" fitHeight="21.0" fitWidth="22.0" layoutX="124.0" layoutY="102.0" onMouseClicked="#keyPressF"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_g" fitHeight="21.0" fitWidth="21.0" layoutX="149.0" layoutY="102.0" onMouseClicked="#keyPressG"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_h" fitHeight="21.0" fitWidth="22.0" layoutX="173.0" layoutY="102.0" onMouseClicked="#keyPressH"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_j" fitHeight="21.0" fitWidth="21.0" layoutX="198.0" layoutY="102.0" onMouseClicked="#keyPressJ"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_k" fitHeight="21.0" fitWidth="21.0" layoutX="222.0" layoutY="102.0" onMouseClicked="#keyPressK"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_l" fitHeight="21.0" fitWidth="22.0" layoutX="246.0" layoutY="102.0" onMouseClicked="#keyPressL"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_m" fitHeight="21.0" fitWidth="21.0" layoutX="271.0" layoutY="102.0" onMouseClicked="#keyPressM"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_maj_gauche" fitHeight="22.0" fitWidth="24.0" layoutX="11.0" layoutY="126.0" onMouseClicked="#keyPressMaj"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_w" fitHeight="22.0" fitWidth="22.0" layoutX="62.0" layoutY="126.0" onMouseClicked="#keyPressW" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_x" fitHeight="22.0" fitWidth="21.0" layoutX="87.0" layoutY="126.0" onMouseClicked="#keyPressX" pickOnBounds="true"
+							preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_c" fitHeight="22.0" fitWidth="21.0" layoutX="111.0" layoutY="126.0" onMouseClicked="#keyPressC"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_v" fitHeight="22.0" fitWidth="22.0" layoutX="135.0" layoutY="126.0" onMouseClicked="#keyPressV"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_b" fitHeight="22.0" fitWidth="21.0" layoutX="160.0" layoutY="126.0" onMouseClicked="#keyPressB"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_n" fitHeight="22.0" fitWidth="22.0" layoutX="184.0" layoutY="126.0" onMouseClicked="#keyPressN"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_maj_droite" fitHeight="22.0" fitWidth="57.0" layoutX="306.0" layoutY="126.0" onMouseClicked="#keyPressMaj"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_ctrl_gauche" fitHeight="22.0" fitWidth="29.0" layoutX="11.0" layoutY="150.0" onMouseClicked="#keyPressCtrl"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_win_gauche" fitHeight="22.0" fitWidth="27.0" layoutX="43.0" layoutY="150.0" onMouseClicked="#keyPressWin"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_alt" fitHeight="22.0" fitWidth="27.0" layoutX="73.0" layoutY="150.0" onMouseClicked="#keyPressAlt"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_espace" fitHeight="22.0" fitWidth="168.0" layoutX="103.0" layoutY="150.0" onMouseClicked="#keyPressEspace"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_ctrl_droite" fitHeight="22.0" fitWidth="30.0" layoutX="333.0" layoutY="150.0" onMouseClicked="#keyPressCtrl"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_div" fitHeight="21.0" fitWidth="22.0" layoutX="479.0" layoutY="53.0" onMouseClicked="#keyPressPNDiv"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_mult" fitHeight="21.0" fitWidth="21.0" layoutX="504.0" layoutY="53.0" onMouseClicked="#keyPressPNMult"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_moins" fitHeight="21.0" fitWidth="22.0" layoutX="528.0" layoutY="53.0" onMouseClicked="#keyPressPNMoins"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_plus" fitHeight="46.0" fitWidth="22.0" layoutX="528.0" layoutY="77.0" onMouseClicked="#keyPressPNPlus"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_entree" fitHeight="46.0" fitWidth="22.0" layoutX="528.0" layoutY="126.0" onMouseClicked="#keyPressEntree"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_point" fitHeight="22.0" fitWidth="21.0" layoutX="504.0" layoutY="150.0" onMouseClicked="#keyPressPNPoint"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_0" fitHeight="22.0" fitWidth="46.0" layoutX="455.0" layoutY="150.0" onMouseClicked="#keyPressPN0"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_1" fitHeight="22.0" fitWidth="21.0" layoutX="455.0" layoutY="126.0" onMouseClicked="#keyPressPN1"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_2" fitHeight="22.0" fitWidth="22.0" layoutX="479.0" layoutY="126.0" onMouseClicked="#keyPressPN2"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_3" fitHeight="22.0" fitWidth="21.0" layoutX="504.0" layoutY="126.0" onMouseClicked="#keyPressPN3"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_4" fitHeight="21.0" fitWidth="21.0" layoutX="455.0" layoutY="102.0" onMouseClicked="#keyPressPN4"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_5" fitHeight="21.0" fitWidth="22.0" layoutX="479.0" layoutY="102.0" onMouseClicked="#keyPressPN5"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_6" fitHeight="21.0" fitWidth="21.0" layoutX="504.0" layoutY="102.0" onMouseClicked="#keyPressPN6"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_7" fitHeight="22.0" fitWidth="21.0" layoutX="455.0" layoutY="77.0" onMouseClicked="#keyPressPN7"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_8" fitHeight="22.0" fitWidth="22.0" layoutX="479.0" layoutY="77.0" onMouseClicked="#keyPressPN8"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+						<ImageView fx:id="k_pn_9" fitHeight="22.0" fitWidth="21.0" layoutX="504.0" layoutY="77.0" onMouseClicked="#keyPressPN9"
+							pickOnBounds="true" preserveRatio="true">
+							<cursor>
+								<Cursor fx:constant="HAND" />
+							</cursor>
+						</ImageView>
+					</children>
+					<GridPane.margin>
+						<Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+					</GridPane.margin>
+				</Pane>
+			</children>
+		</GridPane>
+	</children>
+</AnchorPane>
