@@ -99,22 +99,22 @@ public class HelpController {
 		helpMessage8.setText(str7.toString());
 		StringBuilder sb2 = new StringBuilder();
 		sb2.append("START");
-		sb2.append("\nmousemove( x , y )");
-		sb2.append("\nmouseclick( left / right )");
-		sb2.append("\nkeypress( [m +] k )");
-		sb2.append("\nkeypresstime( [m +] k , ms)");
-		sb2.append("\nsleep( s )");
-		sb2.append("\nsleeprng( s )");
+		sb2.append("\nmousemove(x,y)");
+		sb2.append("\nmouseclick(left/right)");
+		sb2.append("\nkeypress([m,]k)");
+		sb2.append("\nkeypresstime([m,]k,ms)");
+		sb2.append("\nsleep(s)");
+		sb2.append("\nsleeprng(s)");
 		sb2.append("\nSTOP");
 		helpMessage9.setText(sb2.toString());
 		String str8 = "Paramètres :";
 		helpMessage10.setText(str8.toString());
 		StringBuilder sb3 = new StringBuilder();
 		sb3.append("x / y  ►  coordonnées de la souris");
-		sb3.append("\nm / k  ►  identifiants touches clavier");
+		sb3.append("\nm / k  ►  labels touches clavier");
 		sb3.append("\ns / ms  ►  temps en secondes / millisecondes");
 		helpMessage11.setText(sb3.toString());
-		String str9 = "Identifiants touches clavier :";
+		String str9 = "Labels touches clavier :";
 		helpMessage12.setText(str9.toString());
 	}
 

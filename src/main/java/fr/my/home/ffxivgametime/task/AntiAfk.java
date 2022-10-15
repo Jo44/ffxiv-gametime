@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.controller.AntiAfkController;
 import fr.my.home.ffxivgametime.tools.GlobalTools;
+import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
 
 /**
@@ -48,7 +49,7 @@ public class AntiAfk implements Runnable {
 		try {
 
 			// Set parameters
-			kbAfkAction = Settings.getKeybindAntiAfkAction();
+			kbAfkAction = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkAction());
 			focusApp = Settings.getFocusApp();
 			antiAfkDelay = AntiAfkController.getAntiAfkDelay();
 			antiAfkMin = AntiAfkController.getAntiAfkMin();

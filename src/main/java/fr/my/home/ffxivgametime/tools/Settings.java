@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Settings
  * 
- * @version 1.1
+ * @version 1.2
  */
 public class Settings {
 	private static Logger logger = LogManager.getLogger(Settings.class);
@@ -34,31 +34,13 @@ public class Settings {
 				FileInputStream fis = new FileInputStream(SETTINGS_FILE.getAbsolutePath());
 				properties.load(fis);
 				fis.close();
-				// Check properties
-				checkProperties();
 				logger.info("-> fichier settings.cfg charge avec succes");
 			} else {
 				throw new IOException();
 			}
 		} catch (IOException ioe) {
 			// Write default settings in file
-			writeSettings("Final Fantasy XIV", 116, 32, 117, 118, 27, 96, "", "", "", "", "");
-		}
-	}
-
-	/**
-	 * Check properties
-	 * 
-	 * @throws IOException
-	 */
-	private static void checkProperties() throws IOException {
-		if (properties.getProperty("keybind.antiafk.exec") == null || properties.getProperty("keybind.antiafk.exec").trim().isEmpty()
-				|| properties.getProperty("keybind.antiafk.action") == null || properties.getProperty("keybind.antiafk.action").trim().isEmpty()
-				|| properties.getProperty("keybind.macro.exec") == null || properties.getProperty("keybind.macro.exec").trim().isEmpty()
-				|| properties.getProperty("keybind.macro.mousepos") == null || properties.getProperty("keybind.macro.mousepos").trim().isEmpty()
-				|| properties.getProperty("keybind.close") == null || properties.getProperty("keybind.close").trim().isEmpty()
-				|| properties.getProperty("keybind.confirm") == null || properties.getProperty("keybind.confirm").trim().isEmpty()) {
-			throw new IOException();
+			writeSettings("Final Fantasy XIV", "F5", "Espace", "F6", "F7", "Echap", "Num 0", "", "", "", "", "");
 		}
 	}
 
@@ -78,19 +60,20 @@ public class Settings {
 	 * @param repairFavFile
 	 * @param materiaFavFile
 	 */
-	public static void writeSettings(String focusApp, int kbAntiAfkExec, int kbAntiAfkAction, int kbMacroExec, int kbMacroMousePos, int kbClose,
-			int kbConfirm, String craftFavFile, String setUpFavFile, String foodFavFile, String repairFavFile, String materiaFavFile) {
+	public static void writeSettings(String focusApp, String kbAntiAfkExec, String kbAntiAfkAction, String kbMacroExec, String kbMacroMousePos,
+			String kbClose, String kbConfirm, String craftFavFile, String setUpFavFile, String foodFavFile, String repairFavFile,
+			String materiaFavFile) {
 		try {
 			// Create file settings.cfg
 			FileWriter fileWriter = new FileWriter(SETTINGS_FILE.getAbsoluteFile());
 			fileWriter.write("### FFXIV GameTime - Fichier de configuration ###");
 			fileWriter.append("\nfocus.app=" + focusApp);
-			fileWriter.append("\nkeybind.antiafk.exec=" + String.valueOf(kbAntiAfkExec));
-			fileWriter.append("\nkeybind.antiafk.action=" + String.valueOf(kbAntiAfkAction));
-			fileWriter.append("\nkeybind.macro.exec=" + String.valueOf(kbMacroExec));
-			fileWriter.append("\nkeybind.macro.mousepos=" + String.valueOf(kbMacroMousePos));
-			fileWriter.append("\nkeybind.close=" + String.valueOf(kbClose));
-			fileWriter.append("\nkeybind.confirm=" + String.valueOf(kbConfirm));
+			fileWriter.append("\nkeybind.antiafk.exec=" + kbAntiAfkExec);
+			fileWriter.append("\nkeybind.antiafk.action=" + kbAntiAfkAction);
+			fileWriter.append("\nkeybind.macro.exec=" + kbMacroExec);
+			fileWriter.append("\nkeybind.macro.mousepos=" + kbMacroMousePos);
+			fileWriter.append("\nkeybind.close=" + kbClose);
+			fileWriter.append("\nkeybind.confirm=" + kbConfirm);
 			fileWriter.append("\ncraft.fav.file=" + craftFavFile);
 			fileWriter.append("\nset.up.fav.file=" + setUpFavFile);
 			fileWriter.append("\nfood.fav.file=" + foodFavFile);
@@ -104,12 +87,12 @@ public class Settings {
 		} finally {
 			// Load values
 			properties.setProperty("focus.app", focusApp);
-			properties.setProperty("keybind.antiafk.exec", String.valueOf(kbAntiAfkExec));
-			properties.setProperty("keybind.antiafk.action", String.valueOf(kbAntiAfkAction));
-			properties.setProperty("keybind.macro.exec", String.valueOf(kbMacroExec));
-			properties.setProperty("keybind.macro.mousepos", String.valueOf(kbMacroMousePos));
-			properties.setProperty("keybind.close", String.valueOf(kbClose));
-			properties.setProperty("keybind.confirm", String.valueOf(kbConfirm));
+			properties.setProperty("keybind.antiafk.exec", kbAntiAfkExec);
+			properties.setProperty("keybind.antiafk.action", kbAntiAfkAction);
+			properties.setProperty("keybind.macro.exec", kbMacroExec);
+			properties.setProperty("keybind.macro.mousepos", kbMacroMousePos);
+			properties.setProperty("keybind.close", kbClose);
+			properties.setProperty("keybind.confirm", kbConfirm);
 			properties.setProperty("craft.fav.file", craftFavFile);
 			properties.setProperty("set.up.fav.file", setUpFavFile);
 			properties.setProperty("food.fav.file", foodFavFile);
@@ -134,55 +117,55 @@ public class Settings {
 	/**
 	 * Get keybind antiafk : exec
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public static int getKeybindAntiAfkExec() {
-		return Integer.parseInt(properties.getProperty("keybind.antiafk.exec"));
+	public static String getKeybindAntiAfkExec() {
+		return properties.getProperty("keybind.antiafk.exec");
 	}
 
 	/**
 	 * Get keybind antiafk : action
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public static int getKeybindAntiAfkAction() {
-		return Integer.parseInt(properties.getProperty("keybind.antiafk.action"));
+	public static String getKeybindAntiAfkAction() {
+		return properties.getProperty("keybind.antiafk.action");
 	}
 
 	/**
 	 * Get keybind macro : exec
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public static int getKeybindMacroExec() {
-		return Integer.parseInt(properties.getProperty("keybind.macro.exec"));
+	public static String getKeybindMacroExec() {
+		return properties.getProperty("keybind.macro.exec");
 	}
 
 	/**
 	 * Get keybind macro : mousepos
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public static int getKeybindMacroMousePos() {
-		return Integer.parseInt(properties.getProperty("keybind.macro.mousepos"));
+	public static String getKeybindMacroMousePos() {
+		return properties.getProperty("keybind.macro.mousepos");
 	}
 
 	/**
 	 * Get keybind close
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public static int getKeybindClose() {
-		return Integer.parseInt(properties.getProperty("keybind.close"));
+	public static String getKeybindClose() {
+		return properties.getProperty("keybind.close");
 	}
 
 	/**
 	 * Get keybind confirm
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public static int getKeybindConfirm() {
-		return Integer.parseInt(properties.getProperty("keybind.confirm"));
+	public static String getKeybindConfirm() {
+		return properties.getProperty("keybind.confirm");
 	}
 
 	/**

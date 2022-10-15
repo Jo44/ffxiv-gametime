@@ -8,18 +8,18 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 
 # Downloads (Windows x64)
 
-* Final Fantasy XIV - GameTime (1.5) :  
-https://drive.google.com/file/d/1ZdQ0zUTIr1gj3oiGflYUhbf4cHN4KfGi  
-* Macro craft example :  
-https://drive.google.com/file/d/1zo_CEZbXbN4uoI24LfOaO-RIVXimUJhZ  
-* Macro setup example :  
-https://drive.google.com/file/d/1LQMbFViSrs7oFscnPgdimdDEvHE4Eggh  
-* Macro food example :  
-https://drive.google.com/file/d/1REey0JwxksL4RyL1LZ-zTuQU1Ws2cNLk  
-* Macro repair example :  
-https://drive.google.com/file/d/1Ovhaq6JG-wClvTVSs8kUgAz-4-CzZbO1  
-* Macro materia example :  
-https://drive.google.com/file/d/18Zy0infpiCJ7T-um31HXad3zv7-Yea-Y  
+* Final Fantasy XIV - GameTime (1.6) :  
+https://drive.google.com/file/d/1Ie_-361FREVQdpwcrlPLCebxgHheAOgV  
+* Macro - Craft example :  
+https://drive.google.com/file/d/18pmMFWXN3mPXxidQq1dunoKhzKI-elBj  
+* Macro - Setup example :  
+https://drive.google.com/file/d/1dJ_BcelgxKe3QX62ijGOEPgvEw5gTXy_  
+* Macro - Food example :  
+https://drive.google.com/file/d/1OBT2XyFWPMWBHtgSoJ9ZyVlASPOYg8mx  
+* Macro - Repair example :  
+https://drive.google.com/file/d/1861QOD_LWNpsXfiiaWbatVdFsn6gPF8U  
+* Macro - Materia example :  
+https://drive.google.com/file/d/1tRZrvsBmh9iC2SeuSWENH4c8lH0bQA2g  
 * Java Development Kit (JDK) (16.0.2) :  
 https://drive.google.com/file/d/1rqq5BiupeqV8is0o-OOyUGhFv549VmP5  
 NB: Java JDK v16+ is required to run Final Fantasy XIV - GameTime
@@ -32,9 +32,12 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
+* Update 1.6 - 15/10/2022 :
+  * Swap key IDs to real key labels  
+  * Improve global UI  
 * Update 1.5 - 14/10/2022 :  
   * Macro - Add estimated time left  
   * Macro - Load fav macro files  
 * Update 1.4 - 13/10/2022 :  
-  * Macro advanced functionalities  
+  * Macro - Advanced functionalities  
   * Improve global UI

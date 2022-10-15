@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 /**
  * KeyboardController
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class KeyboardController {
 	private static Logger logger = LogManager.getLogger(KeyboardController.class);
@@ -23,7 +23,7 @@ public class KeyboardController {
 	private Label key_id;
 
 	@FXML
-	private ImageView k_echap;
+	private ImageView k_escape;
 
 	@FXML
 	private ImageView k_f1;
@@ -62,36 +62,6 @@ public class KeyboardController {
 	private ImageView k_f12;
 
 	@FXML
-	private ImageView k_ins;
-
-	@FXML
-	private ImageView k_suppr;
-
-	@FXML
-	private ImageView k_debut;
-
-	@FXML
-	private ImageView k_fin;
-
-	@FXML
-	private ImageView k_page_haut;
-
-	@FXML
-	private ImageView k_page_bas;
-
-	@FXML
-	private ImageView k_haut;
-
-	@FXML
-	private ImageView k_gauche;
-
-	@FXML
-	private ImageView k_bas;
-
-	@FXML
-	private ImageView k_droite;
-
-	@FXML
 	private ImageView k_1;
 
 	@FXML
@@ -122,13 +92,13 @@ public class KeyboardController {
 	private ImageView k_0;
 
 	@FXML
-	private ImageView k_degree;
+	private ImageView k_right_parenthesis;
 
 	@FXML
-	private ImageView k_egal;
+	private ImageView k_equals;
 
 	@FXML
-	private ImageView k_retour;
+	private ImageView k_back_space;
 
 	@FXML
 	private ImageView k_tab;
@@ -164,10 +134,10 @@ public class KeyboardController {
 	private ImageView k_p;
 
 	@FXML
-	private ImageView k_entree;
+	private ImageView k_enter;
 
 	@FXML
-	private ImageView k_verr_maj;
+	private ImageView k_caps_lock;
 
 	@FXML
 	private ImageView k_q;
@@ -200,7 +170,7 @@ public class KeyboardController {
 	private ImageView k_m;
 
 	@FXML
-	private ImageView k_maj_gauche;
+	private ImageView k_shift;
 
 	@FXML
 	private ImageView k_w;
@@ -221,73 +191,61 @@ public class KeyboardController {
 	private ImageView k_n;
 
 	@FXML
-	private ImageView k_maj_droite;
+	private ImageView k_ctrl;
 
 	@FXML
-	private ImageView k_ctrl_gauche;
-
-	@FXML
-	private ImageView k_win_gauche;
+	private ImageView k_windows;
 
 	@FXML
 	private ImageView k_alt;
 
 	@FXML
-	private ImageView k_espace;
+	private ImageView k_space;
 
 	@FXML
-	private ImageView k_win_droite;
+	private ImageView k_up;
 
 	@FXML
-	private ImageView k_ctrl_droite;
+	private ImageView k_down;
 
 	@FXML
-	private ImageView k_pn_div;
+	private ImageView k_left;
 
 	@FXML
-	private ImageView k_pn_mult;
+	private ImageView k_right;
 
 	@FXML
-	private ImageView k_pn_moins;
+	private ImageView k_np_decimal;
 
 	@FXML
-	private ImageView k_pn_plus;
+	private ImageView k_np_0;
 
 	@FXML
-	private ImageView k_pn_entree;
+	private ImageView k_np_1;
 
 	@FXML
-	private ImageView k_pn_point;
+	private ImageView k_np_2;
 
 	@FXML
-	private ImageView k_pn_0;
+	private ImageView k_np_3;
 
 	@FXML
-	private ImageView k_pn_1;
+	private ImageView k_np_4;
 
 	@FXML
-	private ImageView k_pn_2;
+	private ImageView k_np_5;
 
 	@FXML
-	private ImageView k_pn_3;
+	private ImageView k_np_6;
 
 	@FXML
-	private ImageView k_pn_4;
+	private ImageView k_np_7;
 
 	@FXML
-	private ImageView k_pn_5;
+	private ImageView k_np_8;
 
 	@FXML
-	private ImageView k_pn_6;
-
-	@FXML
-	private ImageView k_pn_7;
-
-	@FXML
-	private ImageView k_pn_8;
-
-	@FXML
-	private ImageView k_pn_9;
+	private ImageView k_np_9;
 
 	/**
 	 * Constructor
@@ -307,13 +265,13 @@ public class KeyboardController {
 	}
 
 	/**
-	 * Key press : echap
+	 * Key press : escape
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressEchap() throws IOException {
-		key_id.setText("27");
+	private void keyPressEscape() throws IOException {
+		key_id.setText("Echap");
 	}
 
 	/**
@@ -323,7 +281,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF1() throws IOException {
-		key_id.setText("112");
+		key_id.setText("F1");
 	}
 
 	/**
@@ -333,7 +291,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF2() throws IOException {
-		key_id.setText("113");
+		key_id.setText("F2");
 	}
 
 	/**
@@ -343,7 +301,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF3() throws IOException {
-		key_id.setText("114");
+		key_id.setText("F3");
 	}
 
 	/**
@@ -353,7 +311,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF4() throws IOException {
-		key_id.setText("115");
+		key_id.setText("F4");
 	}
 
 	/**
@@ -363,7 +321,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF5() throws IOException {
-		key_id.setText("116");
+		key_id.setText("F5");
 	}
 
 	/**
@@ -373,7 +331,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF6() throws IOException {
-		key_id.setText("117");
+		key_id.setText("F6");
 	}
 
 	/**
@@ -383,7 +341,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF7() throws IOException {
-		key_id.setText("118");
+		key_id.setText("F7");
 	}
 
 	/**
@@ -393,7 +351,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF8() throws IOException {
-		key_id.setText("119");
+		key_id.setText("F8");
 	}
 
 	/**
@@ -403,7 +361,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF9() throws IOException {
-		key_id.setText("120");
+		key_id.setText("F9");
 	}
 
 	/**
@@ -413,7 +371,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF10() throws IOException {
-		key_id.setText("121");
+		key_id.setText("F10");
 	}
 
 	/**
@@ -423,7 +381,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF11() throws IOException {
-		key_id.setText("122");
+		key_id.setText("F11");
 	}
 
 	/**
@@ -433,107 +391,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF12() throws IOException {
-		key_id.setText("123");
-	}
-
-	/**
-	 * Key press : ins
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressIns() throws IOException {
-		key_id.setText("155");
-	}
-
-	/**
-	 * Key press : suppr
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressSuppr() throws IOException {
-		key_id.setText("127");
-	}
-
-	/**
-	 * Key press : debut
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressDebut() throws IOException {
-		key_id.setText("36");
-	}
-
-	/**
-	 * Key press : fin
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressFin() throws IOException {
-		key_id.setText("35");
-	}
-
-	/**
-	 * Key press : page haut
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressPageHaut() throws IOException {
-		key_id.setText("33");
-	}
-
-	/**
-	 * Key press : page bas
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressPageBas() throws IOException {
-		key_id.setText("34");
-	}
-
-	/**
-	 * Key press : haut
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressHaut() throws IOException {
-		key_id.setText("38");
-	}
-
-	/**
-	 * Key press : gauche
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressGauche() throws IOException {
-		key_id.setText("37");
-	}
-
-	/**
-	 * Key press : bas
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressBas() throws IOException {
-		key_id.setText("40");
-	}
-
-	/**
-	 * Key press : droite
-	 * 
-	 * @throws IOException
-	 */
-	@FXML
-	private void keyPressDroite() throws IOException {
-		key_id.setText("39");
+		key_id.setText("F12");
 	}
 
 	/**
@@ -543,7 +401,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress1() throws IOException {
-		key_id.setText("49");
+		key_id.setText("1");
 	}
 
 	/**
@@ -553,7 +411,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress2() throws IOException {
-		key_id.setText("50");
+		key_id.setText("2");
 	}
 
 	/**
@@ -563,7 +421,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress3() throws IOException {
-		key_id.setText("51");
+		key_id.setText("3");
 	}
 
 	/**
@@ -573,7 +431,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress4() throws IOException {
-		key_id.setText("52");
+		key_id.setText("4");
 	}
 
 	/**
@@ -583,7 +441,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress5() throws IOException {
-		key_id.setText("53");
+		key_id.setText("5");
 	}
 
 	/**
@@ -593,7 +451,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress6() throws IOException {
-		key_id.setText("54");
+		key_id.setText("6");
 	}
 
 	/**
@@ -603,7 +461,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress7() throws IOException {
-		key_id.setText("55");
+		key_id.setText("7");
 	}
 
 	/**
@@ -613,7 +471,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress8() throws IOException {
-		key_id.setText("56");
+		key_id.setText("8");
 	}
 
 	/**
@@ -623,7 +481,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress9() throws IOException {
-		key_id.setText("57");
+		key_id.setText("9");
 	}
 
 	/**
@@ -633,37 +491,37 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPress0() throws IOException {
-		key_id.setText("48");
+		key_id.setText("0");
 	}
 
 	/**
-	 * Key press : degree
+	 * Key press : right parenthesis
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressDegree() throws IOException {
-		key_id.setText("522");
+	private void keyPressRightParenthesis() throws IOException {
+		key_id.setText("Parenthese");
 	}
 
 	/**
-	 * Key press : egal
+	 * Key press : equals
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressEgal() throws IOException {
-		key_id.setText("61");
+	private void keyPressEquals() throws IOException {
+		key_id.setText("Egal");
 	}
 
 	/**
-	 * Key press : retour
+	 * Key press : back space
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressRetour() throws IOException {
-		key_id.setText("8");
+	private void keyPressBackSpace() throws IOException {
+		key_id.setText("Retour");
 	}
 
 	/**
@@ -673,7 +531,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressTab() throws IOException {
-		key_id.setText("9");
+		key_id.setText("Tab");
 	}
 
 	/**
@@ -683,7 +541,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressA() throws IOException {
-		key_id.setText("65");
+		key_id.setText("A");
 	}
 
 	/**
@@ -693,7 +551,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressZ() throws IOException {
-		key_id.setText("90");
+		key_id.setText("Z");
 	}
 
 	/**
@@ -703,7 +561,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressE() throws IOException {
-		key_id.setText("69");
+		key_id.setText("E");
 	}
 
 	/**
@@ -713,7 +571,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressR() throws IOException {
-		key_id.setText("82");
+		key_id.setText("R");
 	}
 
 	/**
@@ -723,7 +581,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressT() throws IOException {
-		key_id.setText("84");
+		key_id.setText("T");
 	}
 
 	/**
@@ -733,7 +591,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressY() throws IOException {
-		key_id.setText("89");
+		key_id.setText("Y");
 	}
 
 	/**
@@ -743,7 +601,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressU() throws IOException {
-		key_id.setText("85");
+		key_id.setText("U");
 	}
 
 	/**
@@ -753,7 +611,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressI() throws IOException {
-		key_id.setText("73");
+		key_id.setText("I");
 	}
 
 	/**
@@ -763,7 +621,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressO() throws IOException {
-		key_id.setText("79");
+		key_id.setText("O");
 	}
 
 	/**
@@ -773,27 +631,27 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressP() throws IOException {
-		key_id.setText("80");
+		key_id.setText("P");
 	}
 
 	/**
-	 * Key press : entree
+	 * Key press : enter
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressEntree() throws IOException {
-		key_id.setText("10");
+	private void keyPressEnter() throws IOException {
+		key_id.setText("Entree");
 	}
 
 	/**
-	 * Key press : verr maj
+	 * Key press : caps lock
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressVerrMaj() throws IOException {
-		key_id.setText("20");
+	private void keyPressCapsLock() throws IOException {
+		key_id.setText("Verr Maj");
 	}
 
 	/**
@@ -803,7 +661,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressQ() throws IOException {
-		key_id.setText("81");
+		key_id.setText("Q");
 	}
 
 	/**
@@ -813,7 +671,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressS() throws IOException {
-		key_id.setText("83");
+		key_id.setText("S");
 	}
 
 	/**
@@ -823,7 +681,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressD() throws IOException {
-		key_id.setText("68");
+		key_id.setText("D");
 	}
 
 	/**
@@ -833,7 +691,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressF() throws IOException {
-		key_id.setText("70");
+		key_id.setText("F");
 	}
 
 	/**
@@ -843,7 +701,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressG() throws IOException {
-		key_id.setText("71");
+		key_id.setText("G");
 	}
 
 	/**
@@ -853,7 +711,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressH() throws IOException {
-		key_id.setText("72");
+		key_id.setText("H");
 	}
 
 	/**
@@ -863,7 +721,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressJ() throws IOException {
-		key_id.setText("74");
+		key_id.setText("J");
 	}
 
 	/**
@@ -873,7 +731,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressK() throws IOException {
-		key_id.setText("75");
+		key_id.setText("K");
 	}
 
 	/**
@@ -883,7 +741,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressL() throws IOException {
-		key_id.setText("76");
+		key_id.setText("L");
 	}
 
 	/**
@@ -893,17 +751,17 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressM() throws IOException {
-		key_id.setText("77");
+		key_id.setText("M");
 	}
 
 	/**
-	 * Key press : maj
+	 * Key press : shift
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressMaj() throws IOException {
-		key_id.setText("16");
+	private void keyPressShift() throws IOException {
+		key_id.setText("Maj");
 	}
 
 	/**
@@ -913,7 +771,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressW() throws IOException {
-		key_id.setText("87");
+		key_id.setText("W");
 	}
 
 	/**
@@ -923,7 +781,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressX() throws IOException {
-		key_id.setText("88");
+		key_id.setText("X");
 	}
 
 	/**
@@ -933,7 +791,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressC() throws IOException {
-		key_id.setText("67");
+		key_id.setText("C");
 	}
 
 	/**
@@ -943,7 +801,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressV() throws IOException {
-		key_id.setText("86");
+		key_id.setText("V");
 	}
 
 	/**
@@ -953,7 +811,7 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressB() throws IOException {
-		key_id.setText("66");
+		key_id.setText("B");
 	}
 
 	/**
@@ -963,27 +821,27 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressN() throws IOException {
-		key_id.setText("78");
+		key_id.setText("N");
 	}
 
 	/**
-	 * Key press : ctrl gauche
+	 * Key press : ctrl
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
 	private void keyPressCtrl() throws IOException {
-		key_id.setText("17");
+		key_id.setText("Ctrl");
 	}
 
 	/**
-	 * Key press : win
+	 * Key press : windows
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressWin() throws IOException {
-		key_id.setText("524");
+	private void keyPressWindows() throws IOException {
+		key_id.setText("Windows");
 	}
 
 	/**
@@ -993,167 +851,167 @@ public class KeyboardController {
 	 */
 	@FXML
 	private void keyPressAlt() throws IOException {
-		key_id.setText("18");
+		key_id.setText("Alt");
 	}
 
 	/**
-	 * Key press : espace
+	 * Key press : space
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressEspace() throws IOException {
-		key_id.setText("32");
+	private void keyPressSpace() throws IOException {
+		key_id.setText("Espace");
 	}
 
 	/**
-	 * Key press : PN /
+	 * Key press : up
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPNDiv() throws IOException {
-		key_id.setText("111");
+	private void keyPressUp() throws IOException {
+		key_id.setText("Haut");
 	}
 
 	/**
-	 * Key press : PN *
+	 * Key press : down
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPNMult() throws IOException {
-		key_id.setText("106");
+	private void keyPressDown() throws IOException {
+		key_id.setText("Bas");
 	}
 
 	/**
-	 * Key press : PN -
+	 * Key press : left
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPNMoins() throws IOException {
-		key_id.setText("109");
+	private void keyPressLeft() throws IOException {
+		key_id.setText("Gauche");
 	}
 
 	/**
-	 * Key press : PN +
+	 * Key press : right
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPNPlus() throws IOException {
-		key_id.setText("107");
+	private void keyPressRight() throws IOException {
+		key_id.setText("Droite");
 	}
 
 	/**
-	 * Key press : PN .
+	 * Key press : NP .
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPNPoint() throws IOException {
-		key_id.setText("110");
+	private void keyPressNPDecimal() throws IOException {
+		key_id.setText("Num .");
 	}
 
 	/**
-	 * Key press : PN 0
+	 * Key press : NP 0
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN0() throws IOException {
-		key_id.setText("96");
+	private void keyPressNP0() throws IOException {
+		key_id.setText("Num 0");
 	}
 
 	/**
-	 * Key press : PN 1
+	 * Key press : NP 1
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN1() throws IOException {
-		key_id.setText("97");
+	private void keyPressNP1() throws IOException {
+		key_id.setText("Num 1");
 	}
 
 	/**
-	 * Key press : PN 2
+	 * Key press : NP 2
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN2() throws IOException {
-		key_id.setText("98");
+	private void keyPressNP2() throws IOException {
+		key_id.setText("Num 2");
 	}
 
 	/**
-	 * Key press : PN 3
+	 * Key press : NP 3
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN3() throws IOException {
-		key_id.setText("99");
+	private void keyPressNP3() throws IOException {
+		key_id.setText("Num 3");
 	}
 
 	/**
-	 * Key press : PN 4
+	 * Key press : NP 4
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN4() throws IOException {
-		key_id.setText("100");
+	private void keyPressNP4() throws IOException {
+		key_id.setText("Num 4");
 	}
 
 	/**
-	 * Key press : PN 5
+	 * Key press : NP 5
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN5() throws IOException {
-		key_id.setText("101");
+	private void keyPressNP5() throws IOException {
+		key_id.setText("Num 5");
 	}
 
 	/**
-	 * Key press : PN 6
+	 * Key press : NP 6
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN6() throws IOException {
-		key_id.setText("102");
+	private void keyPressNP6() throws IOException {
+		key_id.setText("Num 6");
 	}
 
 	/**
-	 * Key press : PN 7
+	 * Key press : NP 7
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN7() throws IOException {
-		key_id.setText("103");
+	private void keyPressNP7() throws IOException {
+		key_id.setText("Num 7");
 	}
 
 	/**
-	 * Key press : PN 8
+	 * Key press : NP 8
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN8() throws IOException {
-		key_id.setText("104");
+	private void keyPressNP8() throws IOException {
+		key_id.setText("Num 8");
 	}
 
 	/**
-	 * Key press : PN 9
+	 * Key press : NP 9
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	private void keyPressPN9() throws IOException {
-		key_id.setText("105");
+	private void keyPressNP9() throws IOException {
+		key_id.setText("Num 9");
 	}
 
 }

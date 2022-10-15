@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * FFXIV GameTime (JavaFX App)
  * 
- * @version 1.1
+ * @version 1.2
  */
 public class MyApp extends Application {
 	private static Logger logger = LogManager.getLogger(MyApp.class);
@@ -26,9 +26,8 @@ public class MyApp extends Application {
 	//////////
 	// TODO //
 	//////////
-	// Next Updates :
-	// - Real key name from keyboard instead of ID
-	/////////////
+	// -
+	//////////
 
 	// Attributes
 
@@ -104,6 +103,17 @@ public class MyApp extends Application {
 				break;
 		}
 		stage.setScene(newScene);
+		// Calculate the center position of the parent Stage
+		double centerXPosition = MyApp.getStage().getX() + MyApp.getStage().getWidth() / 2d;
+		double centerYPosition = MyApp.getStage().getY() + MyApp.getStage().getHeight() / 2d;
+		// Hide the pop-up stage before it is shown and becomes relocated
+		stage.setOnShowing(ev -> stage.hide());
+		// Relocate the pop-up Stage
+		stage.setOnShown(ev -> {
+			stage.setX(centerXPosition - stage.getWidth() / 2d);
+			stage.setY(centerYPosition - stage.getHeight() / 2d);
+			stage.show();
+		});
 		stage.show();
 	}
 

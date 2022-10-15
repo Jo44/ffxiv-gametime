@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * SettingsController
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class SettingsController {
 	private static Logger logger = LogManager.getLogger(SettingsController.class);
@@ -29,12 +29,12 @@ public class SettingsController {
 	// Attributes
 
 	private String focusApp;
-	private int antiAfkExecValue;
-	private int antiAfkActionValue;
-	private int macroExecValue;
-	private int macroMousePosValue;
-	private int closeValue;
-	private int confirmValue;
+	private String antiAfkExecValue;
+	private String antiAfkActionValue;
+	private String macroExecValue;
+	private String macroMousePosValue;
+	private String closeValue;
+	private String confirmValue;
 	private String craftFavFileValue;
 	private String setUpFavFileValue;
 	private String foodFavFileValue;
@@ -111,12 +111,12 @@ public class SettingsController {
 
 		// Display settings values
 		selectedFocus.setText(focusApp);
-		antiAfkExec.setText(String.valueOf(antiAfkExecValue));
-		antiAfkAction.setText(String.valueOf(antiAfkActionValue));
-		macroExec.setText(String.valueOf(macroExecValue));
-		macroMousePos.setText(String.valueOf(macroMousePosValue));
-		close.setText(String.valueOf(closeValue));
-		confirm.setText(String.valueOf(confirmValue));
+		antiAfkExec.setText(antiAfkExecValue);
+		antiAfkAction.setText(antiAfkActionValue);
+		macroExec.setText(macroExecValue);
+		macroMousePos.setText(macroMousePosValue);
+		close.setText(closeValue);
+		confirm.setText(confirmValue);
 
 		// Unfocus textfield
 		Platform.runLater(() -> pane.requestFocus());
@@ -159,40 +159,10 @@ public class SettingsController {
 	 */
 	@FXML
 	private void actionSave() throws IOException {
-		// Check settings
-		if (checkSettings()) {
-			// Save settings
-			saveSettings();
-			// Update message
-			message.setStyle("-fx-text-fill: #e8e8e8;");
-			message.setText("Les paramètres ont été correctement sauvegardés");
-		} else {
-			// Update message
-			message.setStyle("-fx-text-fill: #e14343;");
-			message.setText("Les paramètres ne sont pas corrects : valeurs attendues -> entier [ID touche]");
-		}
-	}
-
-	/**
-	 * Check settings
-	 * 
-	 * @return boolean
-	 */
-	private boolean checkSettings() {
-		boolean valid = true;
-		try {
-			focusApp = selectedFocus.getText();
-			// Try parse values
-			antiAfkExecValue = Integer.parseInt(antiAfkExec.getText());
-			antiAfkActionValue = Integer.parseInt(antiAfkAction.getText());
-			macroExecValue = Integer.parseInt(macroExec.getText());
-			macroMousePosValue = Integer.parseInt(macroMousePos.getText());
-			closeValue = Integer.parseInt(close.getText());
-			confirmValue = Integer.parseInt(confirm.getText());
-		} catch (Exception ex) {
-			valid = false;
-		}
-		return valid;
+		// Save settings
+		saveSettings();
+		// Update message
+		message.setText("Les paramètres ont été correctement sauvegardés");
 	}
 
 	/**
@@ -212,24 +182,23 @@ public class SettingsController {
 	private void actionReinit() throws IOException {
 		// Reinit settings
 		focusApp = "Final Fantasy XIV";
-		antiAfkExecValue = 116;
-		antiAfkActionValue = 32;
-		macroExecValue = 117;
-		macroMousePosValue = 118;
-		closeValue = 27;
-		confirmValue = 96;
+		antiAfkExecValue = "F5";
+		antiAfkActionValue = "Espace";
+		macroExecValue = "F6";
+		macroMousePosValue = "F7";
+		closeValue = "Echap";
+		confirmValue = "Num 0";
 		// Write settings
 		Settings.writeSettings(focusApp, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
 				craftFavFileValue, setUpFavFileValue, foodFavFileValue, repairFavFileValue, materiaFavFileValue);
 		// Set UI
 		selectedFocus.setText(focusApp);
-		antiAfkExec.setText(String.valueOf(antiAfkExecValue));
-		antiAfkAction.setText(String.valueOf(antiAfkActionValue));
-		macroExec.setText(String.valueOf(macroExecValue));
-		macroMousePos.setText(String.valueOf(macroMousePosValue));
-		close.setText(String.valueOf(closeValue));
-		confirm.setText(String.valueOf(confirmValue));
-		message.setStyle("-fx-text-fill: #e8e8e8;");
+		antiAfkExec.setText(antiAfkExecValue);
+		antiAfkAction.setText(antiAfkActionValue);
+		macroExec.setText(macroExecValue);
+		macroMousePos.setText(macroMousePosValue);
+		close.setText(closeValue);
+		confirm.setText(confirmValue);
 		message.setText("Les paramètres ont été correctement réinitialisés");
 	}
 

@@ -110,7 +110,7 @@
 									</tooltip>
 								</Button>
 								<Button fx:id="btnUpdate" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" mnemonicParsing="false"
-									onAction="#displayUpdate" prefHeight="40.0" prefWidth="60.0" styleClass="update" text="v1.5" textAlignment="CENTER" textFill="#e8e8e8"
+									onAction="#displayUpdate" prefHeight="40.0" prefWidth="60.0" styleClass="update" text="v1.6" textAlignment="CENTER" textFill="#e8e8e8"
 									textOverrun="CLIP">
 									<font>
 										<Font name="Ebrima Bold" size="16.0" />

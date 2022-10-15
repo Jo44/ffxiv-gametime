@@ -11,6 +11,7 @@ import fr.my.home.ffxivgametime.MyApp;
 import fr.my.home.ffxivgametime.task.Macro;
 import fr.my.home.ffxivgametime.task.MacroUpdater;
 import fr.my.home.ffxivgametime.tools.GlobalTools;
+import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -181,8 +182,8 @@ public class MacroController implements GlobalKeyListener {
 		// Init Keyboard Hook
 		initKeyboardHook();
 		// Init settings
-		kbMacroExec = Settings.getKeybindMacroExec();
-		kbMacroMousePos = Settings.getKeybindMacroMousePos();
+		kbMacroExec = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindMacroExec());
+		kbMacroMousePos = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindMacroMousePos());
 		// Init spinners listeners
 		spMacroDelay.editorProperty().get().setAlignment(Pos.CENTER);
 		spMacroStep.editorProperty().get().setAlignment(Pos.CENTER);

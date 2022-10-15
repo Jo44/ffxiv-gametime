@@ -18,13 +18,14 @@ import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.controller.MacroController;
 import fr.my.home.ffxivgametime.tools.GlobalTools;
+import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
 import javafx.application.Platform;
 
 /**
  * Macro Task
  * 
- * @version 1.3
+ * @version 1.4
  */
 public class Macro implements Runnable {
 	private static Logger logger = LogManager.getLogger(Macro.class);
@@ -96,8 +97,8 @@ public class Macro implements Runnable {
 			boolean closeRequired = false;
 			boolean setUpRequired = false;
 			timeLeft = "";
-			kbClose = Settings.getKeybindClose();
-			kbConfirm = Settings.getKeybindConfirm();
+			kbClose = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindClose());
+			kbConfirm = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindConfirm());
 			craft = new ArrayList<String>();
 			setUp = new ArrayList<String>();
 			food = new ArrayList<String>();
@@ -364,8 +365,8 @@ public class Macro implements Runnable {
 		// START
 		// mousemove(x,y)
 		// mouseclick(side)
-		// keypress([modifier+]key)
-		// keypresstime([modifier+]key,time)
+		// keypress([modifier,]key)
+		// keypresstime([modifier,]key,time)
 		// sleep(time)
 		// sleeprng(time)
 		// STOP
@@ -399,32 +400,31 @@ public class Macro implements Runnable {
 					String keys = cmd.substring(13, cmd.indexOf(")"));
 					String[] keyCombination = keys.split("\\,");
 					if (keyCombination.length == 2) {
-						Integer.parseInt(keyCombination[1]);
-						if (keyCombination[0].contains("+")) {
-							String[] keyCombination2 = keyCombination[0].split("\\+");
-							if (keyCombination2.length == 2) {
-								Integer.parseInt(keyCombination2[0]);
-								Integer.parseInt(keyCombination2[1]);
-								valid = true;
-							}
-						} else {
-							Integer.parseInt(keyCombination[0]);
+						// No modifier
+						if (KeyboardStrokeMap.getKeyEvent(keyCombination[0]) != 0) {
+							Integer.parseInt(keyCombination[1]);
+							valid = true;
+						}
+					} else if (keyCombination.length == 3) {
+						// Modifier
+						if (KeyboardStrokeMap.getKeyEvent(keyCombination[0]) != 0 && KeyboardStrokeMap.getKeyEvent(keyCombination[1]) != 0) {
+							Integer.parseInt(keyCombination[2]);
 							valid = true;
 						}
 					}
 				} else if (cmd.startsWith("keypress(")) {
 					// Cmd keypress
 					String keys = cmd.substring(9, cmd.indexOf(")"));
-					if (keys.contains("+")) {
-						String[] keyCombination = keys.split("\\+");
-						if (keyCombination.length == 2) {
-							Integer.parseInt(keyCombination[0]);
-							Integer.parseInt(keyCombination[1]);
+					if (!keys.contains(",") && KeyboardStrokeMap.getKeyEvent(keys) != 0) {
+						// No modifier
+						valid = true;
+					} else {
+						// Modifier
+						String[] keyCombination = keys.split("\\,");
+						if (keyCombination.length == 2 && KeyboardStrokeMap.getKeyEvent(keyCombination[0]) != 0
+								&& KeyboardStrokeMap.getKeyEvent(keyCombination[1]) != 0) {
 							valid = true;
 						}
-					} else {
-						Integer.parseInt(keys);
-						valid = true;
 					}
 				} else if (cmd.startsWith("sleeprng(")) {
 					// Cmd sleeprng
@@ -466,37 +466,46 @@ public class Macro implements Runnable {
 					String[] coordinates = cmd.substring(10, cmd.indexOf(")")).split(",");
 					int x = Integer.parseInt(coordinates[0]);
 					int y = Integer.parseInt(coordinates[1]);
+					// Action
 					mouseMove(x, y);
 				} else if (cmd.startsWith("mouseclick(")) {
 					// Cmd mouseclick
 					String side = cmd.substring(11, cmd.indexOf(")"));
+					// Action
 					mouseClick(side);
 				} else if (cmd.startsWith("keypresstime(")) {
 					// Cmd keypress time
 					String keys = cmd.substring(13, cmd.indexOf(")"));
 					String[] keyCombination = keys.split("\\,");
-					int time = Integer.parseInt(keyCombination[1]);
-					if (keyCombination[0].contains("+")) {
-						String[] keyCombination2 = keyCombination[0].split("\\+");
-						int modifier = Integer.parseInt(keyCombination2[0]);
-						int key = Integer.parseInt(keyCombination2[1]);
-						keyPress(modifier, key);
-						keyPressTime(modifier, key, time);
-					} else {
-						int key = Integer.parseInt(keyCombination[0]);
+					// TODO : check
+					int time = Integer.parseInt(keyCombination[keyCombination.length - 1]);
+					if (keyCombination.length == 2) {
+						// No modifier
+						int key = KeyboardStrokeMap.getKeyEvent(keyCombination[0]);
+						// Action
 						keyPressTime(key, time);
+					} else if (keyCombination.length == 3) {
+						// Modifier
+						int modifier = KeyboardStrokeMap.getKeyEvent(keyCombination[0]);
+						int key = KeyboardStrokeMap.getKeyEvent(keyCombination[1]);
+						// Action
+						keyPressTime(modifier, key, time);
 					}
 				} else if (cmd.startsWith("keypress(")) {
 					// Cmd keypress
 					String keys = cmd.substring(9, cmd.indexOf(")"));
-					if (keys.contains("+")) {
-						String[] keyCombination = keys.split("\\+");
-						int modifier = Integer.parseInt(keyCombination[0]);
-						int key = Integer.parseInt(keyCombination[1]);
-						keyPress(modifier, key);
-					} else {
-						int key = Integer.parseInt(keys);
+					if (!keys.contains(",")) {
+						// No modifier
+						int key = KeyboardStrokeMap.getKeyEvent(keys);
+						// Action
 						keyPress(key);
+					} else {
+						// Modifier
+						String[] keyCombination = keys.split("\\,");
+						int modifier = KeyboardStrokeMap.getKeyEvent(keyCombination[0]);
+						int key = KeyboardStrokeMap.getKeyEvent(keyCombination[1]);
+						// Action
+						keyPress(modifier, key);
 					}
 				} else if (cmd.startsWith("sleeprng(")) {
 					// Cmd sleeprng

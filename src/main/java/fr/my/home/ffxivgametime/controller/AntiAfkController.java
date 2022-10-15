@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.MyApp;
 import fr.my.home.ffxivgametime.task.AntiAfk;
+import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -77,7 +78,7 @@ public class AntiAfkController implements GlobalKeyListener {
 		// Init Keyboard Hook
 		initKeyboardHook();
 		// Init settings
-		kbAfkExec = Settings.getKeybindAntiAfkExec();
+		kbAfkExec = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkExec());
 		// Init spinners listeners
 		spAntiAfkDelay.editorProperty().get().setAlignment(Pos.CENTER);
 		spAntiAfkMin.editorProperty().get().setAlignment(Pos.CENTER);

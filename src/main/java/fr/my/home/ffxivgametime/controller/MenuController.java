@@ -92,7 +92,7 @@ public class MenuController {
 	 */
 	@FXML
 	private void displaySettings() throws IOException {
-		Scene dialogScene = new Scene(MyApp.loadFXML("settings"), 600, 600);
+		Scene dialogScene = new Scene(MyApp.loadFXML("settings"), 600, 400);
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.initOwner(MyApp.getStage());
