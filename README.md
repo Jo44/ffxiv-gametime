@@ -1,5 +1,7 @@
 # Final Fantasy XIV - GameTime
 
+![FFXIV-GameTime](https://user-images.githubusercontent.com/38272817/196051883-b8db1abc-e845-4b35-9558-f5bc9dc167e4.png)
+
 This third-party software saves your time while playing Final Fantasy XIV  
 The "Anti-Afk" feature simulates activity preventing being kicked from an instance due to inactivity  
 The 'Macro' feature automates execution of in-game macros for easier crafting process
