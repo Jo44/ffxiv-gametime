@@ -26,7 +26,10 @@ public class MyApp extends Application {
 	//////////
 	// TODO //
 	//////////
-	// -
+	// v1.7 :
+	// - Fix double click macro -> solo thread
+	// - Update process from GitHub
+	// - Save app name + mouse pos before getting focus, to restore parameters after action
 	//////////
 
 	// Attributes
