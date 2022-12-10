@@ -72,7 +72,7 @@
 								</Button>
 							</children>
 						</Pane>
-						<Pane prefHeight="73.0" prefWidth="270.0" styleClass="panel" GridPane.rowIndex="1">
+						<Pane styleClass="panel" GridPane.rowIndex="1">
 							<GridPane.margin>
 								<Insets bottom="60.0" left="65.0" right="65.0" top="20.0" />
 							</GridPane.margin>
@@ -110,7 +110,7 @@
 									</tooltip>
 								</Button>
 								<Button fx:id="btnUpdate" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="10.0" mnemonicParsing="false"
-									onAction="#displayUpdate" prefHeight="40.0" prefWidth="60.0" styleClass="update" text="v1.6" textAlignment="CENTER" textFill="#e8e8e8"
+									onAction="#processUpdate" prefHeight="40.0" prefWidth="60.0" styleClass="update" text="v1.6" textAlignment="CENTER" textFill="#e8e8e8"
 									textOverrun="CLIP">
 									<font>
 										<Font name="Ebrima Bold" size="16.0" />

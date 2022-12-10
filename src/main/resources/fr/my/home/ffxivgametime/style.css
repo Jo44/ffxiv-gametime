@@ -76,6 +76,14 @@
     -fx-background-position: center;
 }
 
+.classic, .classic:hover {
+	-fx-background-color: #0000;
+	-fx-border-color: white;
+    -fx-background-size: 40.0px 26.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 /* Anti-AFK */
 
 .combo-box > .list-cell {
@@ -131,3 +139,23 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+/* Dialog */
+
+.dialog {
+    -fx-background-color: #222220;
+}
+
+.dialog > *.label.content {
+    -fx-font-size: 14.0px;
+    -fx-text-fill: #e8e8e8;
+}
+
+.dialog .button{
+   -fx-background-color: #0000;
+   -fx-border-color: white;
+   -fx-text-fill: #e8e8e8;
+   -fx-cursor: hand;
+   -fx-font-weight: bold;
+ }
+ 

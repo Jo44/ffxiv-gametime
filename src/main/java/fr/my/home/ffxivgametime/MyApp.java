@@ -27,8 +27,8 @@ public class MyApp extends Application {
 	// TODO //
 	//////////
 	// v1.7 :
-	// - Fix double click macro -> solo thread
 	// - Update process from GitHub
+	// - Fix double click macro -> solo thread
 	// - Save app name + mouse pos before getting focus, to restore parameters after action
 	//////////
 
@@ -65,11 +65,10 @@ public class MyApp extends Application {
 		// Init settings
 		new Settings();
 		// Init scene
-		Scene scene = new Scene(loadFXML("menu"), 350, 400);
-		stage.setTitle("FFXIV GameTime - Menu");
 		stage.getIcons().add(new Image(MyApp.class.getResourceAsStream("/fr/my/home/ffxivgametime/img/icon.png")));
 		stage.setResizable(false);
-		stage.setScene(scene);
+		stage.setScene(new Scene(loadFXML("menu"), 350, 400));
+		stage.setTitle("FFXIV GameTime - Menu");
 		stage.show();
 		MyApp.stage = stage;
 	}
@@ -88,16 +87,16 @@ public class MyApp extends Application {
 			case "antiafk":
 				// Anti-AFK
 				newScene = new Scene(loadFXML("antiafk"), 350, 400);
-				stage.setTitle("FFXIV GameTime - Anti-AFK");
 				AntiAfkController antiAfkController = fxmlLoader.getController();
 				stage.setOnCloseRequest(e -> antiAfkController.shutdown());
+				stage.setTitle("FFXIV GameTime - Anti-AFK");
 				break;
 			case "macro":
 				// Macro
 				newScene = new Scene(loadFXML("macro"), 600, 600);
-				stage.setTitle("FFXIV GameTime - Macro");
 				MacroController macroController = fxmlLoader.getController();
 				stage.setOnCloseRequest(e -> macroController.shutdown());
+				stage.setTitle("FFXIV GameTime - Macro");
 				break;
 			case "menu":
 				// Menu

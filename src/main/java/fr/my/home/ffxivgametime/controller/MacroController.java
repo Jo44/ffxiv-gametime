@@ -36,8 +36,6 @@ public class MacroController implements GlobalKeyListener {
 
 	// Attributes
 
-	@SuppressWarnings("unused")
-	private MyApp myApp;
 	private GlobalKeyboardHook keyboardHook;
 	private static boolean stopMacro = true;
 	private static int kbMacroExec = 0;
@@ -753,15 +751,6 @@ public class MacroController implements GlobalKeyListener {
 		if (keyboardHook != null) {
 			keyboardHook.shutdownHook();
 		}
-	}
-
-	/**
-	 * Called by main application to give reference back to itself
-	 * 
-	 * @param myApp
-	 */
-	public void setMainApp(MyApp myApp) {
-		this.myApp = myApp;
 	}
 
 	// Getters / Setters

@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Settings
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class Settings {
 	private static Logger logger = LogManager.getLogger(Settings.class);
@@ -20,6 +20,7 @@ public class Settings {
 	// Attributes
 
 	private static final File SETTINGS_FILE = new File(System.getenv("APPDATA") + "\\ffxiv-gametime\\settings.cfg");
+	private static final String APP_VERSION = "1.6";
 	private static Properties properties;
 
 	/**
@@ -67,6 +68,7 @@ public class Settings {
 			// Create file settings.cfg
 			FileWriter fileWriter = new FileWriter(SETTINGS_FILE.getAbsoluteFile());
 			fileWriter.write("### FFXIV GameTime - Fichier de configuration ###");
+			fileWriter.append("\napp.version=" + APP_VERSION);
 			fileWriter.append("\nfocus.app=" + focusApp);
 			fileWriter.append("\nkeybind.antiafk.exec=" + kbAntiAfkExec);
 			fileWriter.append("\nkeybind.antiafk.action=" + kbAntiAfkAction);
@@ -86,6 +88,7 @@ public class Settings {
 			logger.error("-> impossible de creer/modifier le fichier settings.cfg");
 		} finally {
 			// Load values
+			properties.setProperty("app.version", APP_VERSION);
 			properties.setProperty("focus.app", focusApp);
 			properties.setProperty("keybind.antiafk.exec", kbAntiAfkExec);
 			properties.setProperty("keybind.antiafk.action", kbAntiAfkAction);
@@ -104,6 +107,15 @@ public class Settings {
 	/**
 	 * Getters
 	 */
+
+	/**
+	 * Get app version
+	 * 
+	 * @return String
+	 */
+	public static String getAppVersion() {
+		return properties.getProperty("app.version");
+	}
 
 	/**
 	 * Get focus app
