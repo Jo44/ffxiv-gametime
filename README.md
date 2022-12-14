@@ -10,10 +10,10 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 
 # Downloads (Windows x64)
 
-* Final Fantasy XIV - GameTime (1.6) :  
+* Final Fantasy XIV - GameTime (1.7) :  
 https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/FFXIV-GameTime.zip  
 * Java Development Kit (JDK) (16.0.2) :  
-https://drive.google.com/file/d/1rqq5BiupeqV8is0o-OOyUGhFv549VmP5  
+https://drive.google.com/file/d/17rp_mWY9NdcUZeBZoDZaDgS0hSCF_Nu5  
 NB: Java JDK v16+ is required to run Final Fantasy XIV - GameTime
 
 # /!\ Warning /!\\
@@ -24,7 +24,11 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
-* Update 1.6 - 15/10/2022 :
+* Update 1.7 - 14/12/2022 :  
+  * Update process  
+  * Restore focus  
+  * Unique task threads  
+* Update 1.6 - 15/10/2022 :  
   * Swap key IDs to real key labels  
   * Improve global UI  
 * Update 1.5 - 14/10/2022 :  
