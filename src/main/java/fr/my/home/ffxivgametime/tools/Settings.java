@@ -20,7 +20,7 @@ public class Settings {
 	// Attributes
 
 	private static final File SETTINGS_FILE = new File(System.getenv("APPDATA") + "\\ffxiv-gametime\\settings.cfg");
-	private static final String APP_VERSION = "1.6";
+	private static final String APP_VERSION = "1.7";
 	private static Properties properties;
 
 	/**
@@ -48,7 +48,7 @@ public class Settings {
 	/**
 	 * Write settings in file
 	 * 
-	 * @param focusApp
+	 * @param appFocus
 	 * @param kbAntiAfkExec
 	 * @param kbAntiAfkAction
 	 * @param kbMacroExec
@@ -61,7 +61,7 @@ public class Settings {
 	 * @param repairFavFile
 	 * @param materiaFavFile
 	 */
-	public static void writeSettings(String focusApp, String kbAntiAfkExec, String kbAntiAfkAction, String kbMacroExec, String kbMacroMousePos,
+	public static void writeSettings(String appFocus, String kbAntiAfkExec, String kbAntiAfkAction, String kbMacroExec, String kbMacroMousePos,
 			String kbClose, String kbConfirm, String craftFavFile, String setUpFavFile, String foodFavFile, String repairFavFile,
 			String materiaFavFile) {
 		try {
@@ -69,7 +69,7 @@ public class Settings {
 			FileWriter fileWriter = new FileWriter(SETTINGS_FILE.getAbsoluteFile());
 			fileWriter.write("### FFXIV GameTime - Fichier de configuration ###");
 			fileWriter.append("\napp.version=" + APP_VERSION);
-			fileWriter.append("\nfocus.app=" + focusApp);
+			fileWriter.append("\napp.focus=" + appFocus);
 			fileWriter.append("\nkeybind.antiafk.exec=" + kbAntiAfkExec);
 			fileWriter.append("\nkeybind.antiafk.action=" + kbAntiAfkAction);
 			fileWriter.append("\nkeybind.macro.exec=" + kbMacroExec);
@@ -89,7 +89,7 @@ public class Settings {
 		} finally {
 			// Load values
 			properties.setProperty("app.version", APP_VERSION);
-			properties.setProperty("focus.app", focusApp);
+			properties.setProperty("app.focus", appFocus);
 			properties.setProperty("keybind.antiafk.exec", kbAntiAfkExec);
 			properties.setProperty("keybind.antiafk.action", kbAntiAfkAction);
 			properties.setProperty("keybind.macro.exec", kbMacroExec);
@@ -118,12 +118,12 @@ public class Settings {
 	}
 
 	/**
-	 * Get focus app
+	 * Get app focus
 	 * 
 	 * @return String
 	 */
-	public static String getFocusApp() {
-		return properties.getProperty("focus.app");
+	public static String getAppFocus() {
+		return properties.getProperty("app.focus");
 	}
 
 	/**

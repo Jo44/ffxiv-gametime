@@ -25,7 +25,7 @@ import javafx.application.Platform;
 /**
  * Macro Task
  * 
- * @version 1.4
+ * @version 1.5
  */
 public class Macro implements Runnable {
 	private static Logger logger = LogManager.getLogger(Macro.class);
@@ -50,7 +50,6 @@ public class Macro implements Runnable {
 
 	// UI values
 
-	private String focusApp = null;
 	private int macroDelay = 0;
 	private String craftFilePath = "";
 	private int macroStep = 0;
@@ -104,7 +103,6 @@ public class Macro implements Runnable {
 			food = new ArrayList<String>();
 			repair = new ArrayList<String>();
 			materia = new ArrayList<String>();
-			focusApp = Settings.getFocusApp();
 			macroDelay = MacroController.getMacroDelay();
 			craftFilePath = MacroController.getCraftFilePath();
 			macroStep = MacroController.getMacroStep();
@@ -457,8 +455,6 @@ public class Macro implements Runnable {
 		for (int i = 0; i < list.size(); i++) {
 			// Exec command .. (if action isn't stopped)
 			if (!MacroController.getStopMacro()) {
-				// Get window focus
-				GlobalTools.setFocusToWindowsApp(focusApp);
 				// Get command
 				String cmd = list.get(i);
 				// Cmd mousemove
@@ -477,7 +473,6 @@ public class Macro implements Runnable {
 					// Cmd keypress time
 					String keys = cmd.substring(13, cmd.indexOf(")"));
 					String[] keyCombination = keys.split("\\,");
-					// TODO : check
 					int time = Integer.parseInt(keyCombination[keyCombination.length - 1]);
 					if (keyCombination.length == 2) {
 						// No modifier
@@ -559,7 +554,13 @@ public class Macro implements Runnable {
 	 * @param y
 	 */
 	private void mouseMove(int x, int y) {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		robot.mouseMove(x, y);
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**
@@ -568,6 +569,9 @@ public class Macro implements Runnable {
 	 * @param side
 	 */
 	private void mouseClick(String side) {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		if (side.equals("right")) {
 			robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
 			robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
@@ -575,6 +579,9 @@ public class Macro implements Runnable {
 			robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 			robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 		}
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**
@@ -583,8 +590,14 @@ public class Macro implements Runnable {
 	 * @param key
 	 */
 	private void keyPress(int key) {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		robot.keyPress(key);
 		robot.keyRelease(key);
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**
@@ -594,10 +607,16 @@ public class Macro implements Runnable {
 	 * @param key
 	 */
 	private void keyPress(int modifier, int key) {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		robot.keyPress(modifier);
 		robot.keyPress(key);
 		robot.keyRelease(key);
 		robot.keyRelease(modifier);
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**
@@ -608,9 +627,15 @@ public class Macro implements Runnable {
 	 * @throws InterruptedException
 	 */
 	private void keyPressTime(int key, int time) throws InterruptedException {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		robot.keyPress(key);
 		Thread.sleep(time);
 		robot.keyRelease(key);
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**
@@ -622,11 +647,17 @@ public class Macro implements Runnable {
 	 * @throws InterruptedException
 	 */
 	private void keyPressTime(int modifier, int key, int time) throws InterruptedException {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		robot.keyPress(modifier);
 		robot.keyPress(key);
 		Thread.sleep(time);
 		robot.keyRelease(key);
 		robot.keyRelease(modifier);
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**

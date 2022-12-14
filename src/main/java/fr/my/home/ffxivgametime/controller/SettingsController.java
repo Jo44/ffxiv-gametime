@@ -28,7 +28,7 @@ public class SettingsController {
 
 	// Attributes
 
-	private String focusApp;
+	private String appFocus;
 	private String antiAfkExecValue;
 	private String antiAfkActionValue;
 	private String macroExecValue;
@@ -96,7 +96,7 @@ public class SettingsController {
 		logger.info("-> Settings <-");
 
 		// Init settings values
-		focusApp = Settings.getFocusApp();
+		appFocus = Settings.getAppFocus();
 		antiAfkExecValue = Settings.getKeybindAntiAfkExec();
 		antiAfkActionValue = Settings.getKeybindAntiAfkAction();
 		macroExecValue = Settings.getKeybindMacroExec();
@@ -110,7 +110,7 @@ public class SettingsController {
 		materiaFavFileValue = Settings.getMateriaFavFile();
 
 		// Display settings values
-		selectedFocus.setText(focusApp);
+		selectedFocus.setText(appFocus);
 		antiAfkExec.setText(antiAfkExecValue);
 		antiAfkAction.setText(antiAfkActionValue);
 		macroExec.setText(macroExecValue);
@@ -169,7 +169,7 @@ public class SettingsController {
 	 * Save settings
 	 */
 	private void saveSettings() {
-		Settings.writeSettings(focusApp, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
+		Settings.writeSettings(appFocus, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
 				craftFavFileValue, setUpFavFileValue, foodFavFileValue, repairFavFileValue, materiaFavFileValue);
 	}
 
@@ -181,7 +181,7 @@ public class SettingsController {
 	@FXML
 	private void actionReinit() throws IOException {
 		// Reinit settings
-		focusApp = "Final Fantasy XIV";
+		appFocus = "Final Fantasy XIV";
 		antiAfkExecValue = "F5";
 		antiAfkActionValue = "Espace";
 		macroExecValue = "F6";
@@ -189,10 +189,10 @@ public class SettingsController {
 		closeValue = "Echap";
 		confirmValue = "Num 0";
 		// Write settings
-		Settings.writeSettings(focusApp, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
+		Settings.writeSettings(appFocus, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
 				craftFavFileValue, setUpFavFileValue, foodFavFileValue, repairFavFileValue, materiaFavFileValue);
 		// Set UI
-		selectedFocus.setText(focusApp);
+		selectedFocus.setText(appFocus);
 		antiAfkExec.setText(antiAfkExecValue);
 		antiAfkAction.setText(antiAfkActionValue);
 		macroExec.setText(macroExecValue);

@@ -23,15 +23,6 @@ import javafx.stage.Stage;
 public class MyApp extends Application {
 	private static Logger logger = LogManager.getLogger(MyApp.class);
 
-	//////////
-	// TODO //
-	//////////
-	// v1.7 :
-	// - Update process from GitHub
-	// - Fix double click macro -> solo thread
-	// - Save app name + mouse pos before getting focus, to restore parameters after action
-	//////////
-
 	// Attributes
 
 	private static Stage stage;

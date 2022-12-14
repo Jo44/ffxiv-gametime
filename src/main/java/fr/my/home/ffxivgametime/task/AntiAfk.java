@@ -15,7 +15,7 @@ import fr.my.home.ffxivgametime.tools.Settings;
 /**
  * Anti-Afk Task
  * 
- * @version 1.1
+ * @version 1.2
  */
 public class AntiAfk implements Runnable {
 	private static Logger logger = LogManager.getLogger(AntiAfk.class);
@@ -27,7 +27,6 @@ public class AntiAfk implements Runnable {
 
 	// UI values
 
-	private String focusApp = null;
 	private int antiAfkDelay = 0;
 	private int antiAfkMin = 0;
 	private int antiAfkMax = 0;
@@ -50,7 +49,6 @@ public class AntiAfk implements Runnable {
 
 			// Set parameters
 			kbAfkAction = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkAction());
-			focusApp = Settings.getFocusApp();
 			antiAfkDelay = AntiAfkController.getAntiAfkDelay();
 			antiAfkMin = AntiAfkController.getAntiAfkMin();
 			antiAfkMax = AntiAfkController.getAntiAfkMax();
@@ -66,9 +64,6 @@ public class AntiAfk implements Runnable {
 
 			// Execute action .. (while action isn't stopped)
 			while (!AntiAfkController.getStopAntiAfk()) {
-
-				// Get window focus
-				GlobalTools.setFocusToWindowsApp(focusApp);
 
 				// Execute action with selected method
 				switch (antiAfkMethod) {
@@ -117,15 +112,24 @@ public class AntiAfk implements Runnable {
 	 * @param actionAfk
 	 */
 	private void action(int actionAfk) {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		robot.keyPress(actionAfk);
 		robot.keyRelease(actionAfk);
 		logger.info("-> Touche Action appuyee");
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 	/**
 	 * Press direction key (random Z, S, A or E)
 	 */
 	private void move() {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
 		switch (GlobalTools.getRandomIntBetween1and4()) {
 			case 1:
 				robot.keyPress(KeyEvent.VK_Z);
@@ -148,6 +152,9 @@ public class AntiAfk implements Runnable {
 				logger.info("-> Touche E appuyee");
 				break;
 		}
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
 	}
 
 }

@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 /**
  * MenuController
  * 
- * @version 1.0
+ * @version 1.1
  */
 public class MenuController {
 	private static Logger logger = LogManager.getLogger(MenuController.class);
@@ -78,6 +78,17 @@ public class MenuController {
 	@FXML
 	private void initialize() {
 		logger.info("-> Menu <-");
+
+		// Set version UI
+		setVersionUI();
+	}
+
+	/**
+	 * Set version UI
+	 */
+	private void setVersionUI() {
+		// Set Update button
+		btnUpdate.setText("v" + Settings.getAppVersion());
 	}
 
 	/**

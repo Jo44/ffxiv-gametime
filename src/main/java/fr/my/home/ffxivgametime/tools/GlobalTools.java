@@ -1,14 +1,18 @@
 package fr.my.home.ffxivgametime.tools;
 
+import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinDef.HWND;
 
 /**
  * GlobalTools
  * 
- * @version 1.1
+ * @version 1.2
  */
 public class GlobalTools {
+
+	private static String windowsFocus = null;
+	private static boolean windowsFocusSaved = false;
 
 	/**
 	 * Random float between min and max
@@ -113,19 +117,49 @@ public class GlobalTools {
 	}
 
 	/**
-	 * Set focus to windows app
-	 * 
-	 * @param focusValue
+	 * Get application focus
 	 */
-	public static void setFocusToWindowsApp(String focusValue) {
+	public static void getAppFocus() {
+		String focusValue = Settings.getAppFocus();
 		if (focusValue != null && !focusValue.trim().isEmpty()) {
+			// Save windows focus
+			saveWindowsFocus();
+			// Focus on application
 			User32 user32 = User32.INSTANCE;
-			WinDef.HWND hWnd = user32.FindWindow(null, focusValue);
+			HWND hWnd = user32.FindWindow(null, focusValue);
 			if (user32.IsWindowVisible(hWnd)) {
 				user32.ShowWindow(hWnd, User32.SW_SHOWMAXIMIZED);
 				user32.SetForegroundWindow(hWnd);
 				user32.SetFocus(hWnd);
 			}
+		}
+	}
+
+	/**
+	 * Save Windows focus
+	 */
+	private static void saveWindowsFocus() {
+		HWND fgWindow = User32.INSTANCE.GetForegroundWindow();
+		int titleLength = User32.INSTANCE.GetWindowTextLength(fgWindow) + 1;
+		char[] title = new char[titleLength];
+		User32.INSTANCE.GetWindowText(fgWindow, title, titleLength);
+		windowsFocus = Native.toString(title);
+		windowsFocusSaved = true;
+	}
+
+	/**
+	 * Restore Windows state
+	 */
+	public static void restoreWindowsFocus() {
+		if (windowsFocusSaved && windowsFocus != null && !windowsFocus.trim().isEmpty()) {
+			User32 user32 = User32.INSTANCE;
+			HWND hWnd = user32.FindWindow(null, windowsFocus);
+			if (user32.IsWindowVisible(hWnd)) {
+				user32.ShowWindow(hWnd, User32.SW_SHOW);
+				user32.SetForegroundWindow(hWnd);
+				user32.SetFocus(hWnd);
+			}
+			windowsFocusSaved = false;
 		}
 	}
 

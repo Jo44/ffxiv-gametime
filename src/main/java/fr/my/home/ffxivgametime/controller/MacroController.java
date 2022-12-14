@@ -3,6 +3,7 @@ package fr.my.home.ffxivgametime.controller;
 import java.awt.MouseInfo;
 import java.io.File;
 import java.io.IOException;
+import java.lang.Thread.State;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,13 +30,14 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * MacroController
  * 
- * @version 1.3
+ * @version 1.4
  */
 public class MacroController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(MacroController.class);
 
 	// Attributes
 
+	private Thread taskThread;
 	private GlobalKeyboardHook keyboardHook;
 	private static boolean stopMacro = true;
 	private static int kbMacroExec = 0;
@@ -235,10 +237,15 @@ public class MacroController implements GlobalKeyListener {
 						updateUI(iterationLeft, timeLeft);
 					}
 				};
-				// Launch dedicated thread, execution controlled by boolean stopMacro
+				// Thread execution controlled by boolean stopMacro
 				stopMacro = false;
-				Thread threadMacro = new Thread(new Macro(macroUpdater));
-				threadMacro.start();
+				// Check thread state
+				if (taskThread == null || taskThread.getState() == State.TERMINATED) {
+					// Launch dedicated daemon thread
+					taskThread = new Thread(new Macro(macroUpdater));
+					taskThread.setDaemon(true);
+					taskThread.start();
+				}
 			} else {
 				// Turn off toggle button
 				tbMacro.setSelected(false);
@@ -330,7 +337,7 @@ public class MacroController implements GlobalKeyListener {
 			craftFilePath = lbCraftFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (craftFilePath != null && craftFilePath.length() >= 8 && !craftFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getFocusApp(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
 						craftFilePath, Settings.getSetUpFavFile(), Settings.getFoodFavFile(), Settings.getRepairFavFile(),
 						Settings.getMateriaFavFile());
@@ -427,7 +434,7 @@ public class MacroController implements GlobalKeyListener {
 			setUpFilePath = lbSetUpFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (setUpFilePath != null && setUpFilePath.length() >= 8 && !setUpFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getFocusApp(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
 						Settings.getCraftFavFile(), setUpFilePath, Settings.getFoodFavFile(), Settings.getRepairFavFile(),
 						Settings.getMateriaFavFile());
@@ -510,7 +517,7 @@ public class MacroController implements GlobalKeyListener {
 			foodFilePath = lbFoodFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (foodFilePath != null && foodFilePath.length() >= 8 && !foodFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getFocusApp(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
 						Settings.getCraftFavFile(), Settings.getSetUpFavFile(), foodFilePath, Settings.getRepairFavFile(),
 						Settings.getMateriaFavFile());
@@ -593,7 +600,7 @@ public class MacroController implements GlobalKeyListener {
 			repairFilePath = lbRepairFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (repairFilePath != null && repairFilePath.length() >= 8 && !repairFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getFocusApp(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
 						Settings.getCraftFavFile(), Settings.getSetUpFavFile(), Settings.getFoodFavFile(), repairFilePath,
 						Settings.getMateriaFavFile());
@@ -676,7 +683,7 @@ public class MacroController implements GlobalKeyListener {
 			materiaFilePath = lbMateriaFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (materiaFilePath != null && materiaFilePath.length() >= 8 && !materiaFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getFocusApp(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
 						Settings.getCraftFavFile(), Settings.getSetUpFavFile(), Settings.getFoodFavFile(), Settings.getRepairFavFile(),
 						materiaFilePath);

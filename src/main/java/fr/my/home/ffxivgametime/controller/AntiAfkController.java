@@ -1,6 +1,7 @@
 package fr.my.home.ffxivgametime.controller;
 
 import java.io.IOException;
+import java.lang.Thread.State;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,13 +24,14 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * AntiAfkController
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class AntiAfkController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(AntiAfkController.class);
 
 	// Attributes
 
+	private Thread taskThread;
 	private GlobalKeyboardHook keyboardHook;
 	private static boolean stopAntiAfk = true;
 	private static int kbAfkExec = 0;
@@ -104,10 +106,15 @@ public class AntiAfkController implements GlobalKeyListener {
 		if (tbAntiAfk.isSelected()) {
 			// If minDelay <= maxDelay
 			if (spAntiAfkMin.getValue() <= spAntiAfkMax.getValue()) {
-				// Launch dedicated thread, execution controlled by boolean stopAntiAfk
+				// Thread execution controlled by boolean stopAntiAfk
 				stopAntiAfk = false;
-				Thread threadAntiAfk = new Thread(new AntiAfk());
-				threadAntiAfk.start();
+				// Check thread state
+				if (taskThread == null || taskThread.getState() == State.TERMINATED) {
+					// Launch dedicated daemon thread
+					taskThread = new Thread(new AntiAfk());
+					taskThread.setDaemon(true);
+					taskThread.start();
+				}
 			} else {
 				// Turn off toggle button
 				tbAntiAfk.setSelected(false);
