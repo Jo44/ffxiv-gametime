@@ -1,6 +1,6 @@
 # Final Fantasy XIV - GameTime
 
-![ffxiv-gametime-screenshot](https://user-images.githubusercontent.com/38272817/207498901-27537491-a47c-4b29-a319-5eb08f3d2ba5.jpg)
+![ffxiv-gametime-screenshot](https://user-images.githubusercontent.com/38272817/207499665-b896ead1-2fbb-4200-9d19-4f2ba9ea950a.jpg)
 
 This third-party software saves your time while playing Final Fantasy XIV  
 The "Anti-Afk" feature simulates activity preventing being kicked from an instance due to inactivity  
