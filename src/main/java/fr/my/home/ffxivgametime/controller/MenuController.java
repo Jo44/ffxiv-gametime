@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
@@ -32,21 +31,22 @@ import javafx.stage.Stage;
 /**
  * MenuController
  * 
- * @version 1.1
+ * @version 1.2
  */
 public class MenuController {
 	private static Logger logger = LogManager.getLogger(MenuController.class);
 
-	// Attributes
-
 	private static final String TMP_DIR = "tmp";
 	private static final String VERSION_FILE = "ffxiv-gametime.version";
-	private static final String VERSION_LINK = "https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/ffxiv-gametime.version";
+	private static final String VERSION_URL = "https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/ffxiv-gametime.version";
 	private static final String UPDATER_FILE = "FFXIV-GameTime-Updater.exe";
 	private static String currentVersion;
 	private static String newerVersion;
 
 	// Components
+
+	@FXML
+	private Button btnTest;
 
 	@FXML
 	private Button btnAntiAfk;
@@ -78,7 +78,6 @@ public class MenuController {
 	@FXML
 	private void initialize() {
 		logger.info("-> Menu <-");
-
 		// Set version UI
 		setVersionUI();
 	}
@@ -89,6 +88,17 @@ public class MenuController {
 	private void setVersionUI() {
 		// Set Update button
 		btnUpdate.setText("v" + Settings.getAppVersion());
+	}
+
+	/**
+	 * Display Test
+	 * 
+	 * @throws IOException
+	 */
+	@FXML
+	private void displayTest() throws IOException {
+		// Switch scene
+		MyApp.switchScene("test");
 	}
 
 	/**
@@ -125,7 +135,7 @@ public class MenuController {
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.initOwner(MyApp.getStage());
 		dialog.setResizable(false);
-		dialog.setScene(new Scene(MyApp.loadFXML("settings"), 600, 400));
+		dialog.setScene(new Scene(MyApp.loadFXML("settings"), 600, 600));
 		dialog.setTitle("FFXIV GameTime - Paramètres");
 		// Calculate the center position of the parent Stage
 		double centerXPosition = MyApp.getStage().getX() + MyApp.getStage().getWidth() / 2d;
@@ -173,10 +183,9 @@ public class MenuController {
 	 * Process Update
 	 * 
 	 * @throws IOException
-	 * @throws URISyntaxException
 	 */
 	@FXML
-	private void processUpdate() throws IOException, URISyntaxException {
+	private void processUpdate() throws IOException {
 
 		logger.info("-> Update <-");
 
@@ -255,7 +264,7 @@ public class MenuController {
 
 		boolean updateRequired = false;
 		// Download version file
-		File versionFile = downloadFile(VERSION_LINK, VERSION_FILE);
+		File versionFile = downloadFile(VERSION_URL, VERSION_FILE);
 		// Get update version
 		newerVersion = getNewerVersion(versionFile);
 		// Compare to current version

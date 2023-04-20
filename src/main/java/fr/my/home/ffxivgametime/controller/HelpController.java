@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 /**
  * HelpController
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class HelpController {
 	private static Logger logger = LogManager.getLogger(HelpController.class);
@@ -79,43 +79,31 @@ public class HelpController {
 	private void initialize() {
 		logger.info("-> Help <-");
 		// Init Help Messages
-		String str1 = "Les fichiers de macro doivent être enregistrés au format";
-		helpMessage1.setText(str1.toString());
-		String str2 = "*.mgt";
-		helpMessage2.setText(str2.toString());
-		String str3 = "et respecter la";
-		helpMessage3.setText(str3.toString());
-		String str4 = "syntaxe";
-		helpMessage4.setText(str4.toString());
-		String str5 = ".";
-		helpMessage5.setText(str5.toString());
-		StringBuilder sb1 = new StringBuilder();
-		sb1.append("Les paramètres Final Fantasy XIV doivent être configurés en adéquation avec les raccourcis");
-		sb1.append("\ndu jeu pour pouvoir utiliser les fonctionnalitées avancées des macros de craft .");
-		helpMessage6.setText(sb1.toString());
-		String str6 = "( Echap > Attribution des touches > Système > Fermer la fenêtre / Sélectionner )";
-		helpMessage7.setText(str6.toString());
-		String str7 = "Syntaxe :";
-		helpMessage8.setText(str7.toString());
-		StringBuilder sb2 = new StringBuilder();
-		sb2.append("START");
-		sb2.append("\nmousemove(x,y)");
-		sb2.append("\nmouseclick(left/right)");
-		sb2.append("\nkeypress([m,]k)");
-		sb2.append("\nkeypresstime([m,]k,ms)");
-		sb2.append("\nsleep(s)");
-		sb2.append("\nsleeprng(s)");
-		sb2.append("\nSTOP");
-		helpMessage9.setText(sb2.toString());
-		String str8 = "Paramètres :";
-		helpMessage10.setText(str8.toString());
-		StringBuilder sb3 = new StringBuilder();
-		sb3.append("x / y  ►  coordonnées de la souris");
-		sb3.append("\nm / k  ►  labels touches clavier");
-		sb3.append("\ns / ms  ►  temps en secondes / millisecondes");
-		helpMessage11.setText(sb3.toString());
-		String str9 = "Labels touches clavier :";
-		helpMessage12.setText(str9.toString());
+		helpMessage1.setText("Les fichiers de macro doivent être enregistrés au format");
+		helpMessage2.setText("*.mgt");
+		helpMessage3.setText("et respecter la");
+		helpMessage4.setText("syntaxe");
+		helpMessage5.setText(".");
+		StringBuilder sb = new StringBuilder("Les paramètres Final Fantasy XIV doivent être configurés en adéquation avec les raccourcis");
+		sb.append("\ndu jeu pour pouvoir utiliser les fonctionnalitées avancées des macros de craft .");
+		helpMessage6.setText(sb.toString());
+		helpMessage7.setText("( Echap > Attribution des touches > Système > Fermer la fenêtre / Sélectionner )");
+		helpMessage8.setText("Syntaxe :");
+		sb = new StringBuilder("START");
+		sb.append("\nmousemove(x,y)");
+		sb.append("\nmouseclick(left/right)");
+		sb.append("\nkeypress([m,]k)");
+		sb.append("\nkeypresstime([m,]k,ms)");
+		sb.append("\nsleep(s)");
+		sb.append("\nsleeprng(s)");
+		sb.append("\nSTOP");
+		helpMessage9.setText(sb.toString());
+		helpMessage10.setText("Paramètres :");
+		sb = new StringBuilder("x / y  ►  coordonnées de la souris");
+		sb.append("\nm / k  ►  labels touches clavier");
+		sb.append("\ns / ms  ►  temps en secondes / millisecondes");
+		helpMessage11.setText(sb.toString());
+		helpMessage12.setText("Labels touches clavier :");
 	}
 
 	/**

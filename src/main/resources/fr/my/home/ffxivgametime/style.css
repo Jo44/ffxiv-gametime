@@ -1,8 +1,22 @@
 /* Global */
 
+.font-green {
+	-fx-text-fill: #5df921;
+}
+
+.font-red {
+	-fx-text-fill: #d32121;
+}
+
+
 .panel {
 	-fx-background-color: #0008;
     -fx-border-color: black;
+}
+
+.panel-border {
+	-fx-border-style: dotted;
+	-fx-border-color: white;
 }
 
 .toggle-button {
@@ -33,6 +47,14 @@
 }
 
 /* Menu */
+
+.secret, .secret:hover {
+	-fx-background-color: #0000;
+	-fx-border-color: #0000;
+    -fx-background-size: 26.0px 26.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
 
 .antiafk, .antiafk:hover {
 	-fx-background-color: #0000;
@@ -92,9 +114,41 @@
 
 /* Macro */
 
-.select, .select:hover {
+.status {
+	-fx-background-color: #000;
+	-fx-border-color: #bbb;
+}
+
+.buff-food {
 	-fx-background-color: #0000;
-	-fx-border-color: white;
+	-fx-background-image: url(img/buff_food.png);
+    -fx-background-size: 22.0px 22.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.gear-green {
+	-fx-background-color: #0000;
+	-fx-background-image: url(img/gear_green.png);
+    -fx-background-size: 6.5px 6.5px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.gear-red {
+	-fx-background-color: #0000;
+	-fx-background-image: url(img/gear_red.png);
+    -fx-background-size: 6.5px 6.5px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.gear-white {
+	-fx-background-color: #0000;
+	-fx-background-image: url(img/gear_white.png);
+    -fx-background-size: 6.5px 6.5px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 
 .fav-get, .fav-get:hover {

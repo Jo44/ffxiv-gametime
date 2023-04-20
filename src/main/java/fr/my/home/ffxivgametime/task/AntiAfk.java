@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.controller.AntiAfkController;
+import fr.my.home.ffxivgametime.controller.type.AntiAfkMethod;
 import fr.my.home.ffxivgametime.tools.GlobalTools;
 import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
@@ -15,22 +16,20 @@ import fr.my.home.ffxivgametime.tools.Settings;
 /**
  * Anti-Afk Task
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class AntiAfk implements Runnable {
 	private static Logger logger = LogManager.getLogger(AntiAfk.class);
 
-	// Attributes
-
 	private Robot robot;
-	private int kbAfkAction = 0;
+	private final int kbAfkAction = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkAction());
 
 	// UI values
 
-	private int antiAfkDelay = 0;
-	private int antiAfkMin = 0;
-	private int antiAfkMax = 0;
-	private int antiAfkMethod = 0;
+	private final int antiAfkDelay = AntiAfkController.getAntiAfkDelay();
+	private final int antiAfkMin = AntiAfkController.getAntiAfkMin();
+	private final int antiAfkMax = AntiAfkController.getAntiAfkMax();
+	private final AntiAfkMethod antiAfkMethod = AntiAfkController.getAntiAfkMethod();
 
 	/**
 	 * Constructor
@@ -47,13 +46,6 @@ public class AntiAfk implements Runnable {
 
 		try {
 
-			// Set parameters
-			kbAfkAction = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkAction());
-			antiAfkDelay = AntiAfkController.getAntiAfkDelay();
-			antiAfkMin = AntiAfkController.getAntiAfkMin();
-			antiAfkMax = AntiAfkController.getAntiAfkMax();
-			antiAfkMethod = AntiAfkController.getAntiAfkMethod();
-
 			// Init robot
 			robot = new Robot();
 			robot.setAutoDelay(100);
@@ -68,11 +60,11 @@ public class AntiAfk implements Runnable {
 				// Execute action with selected method
 				switch (antiAfkMethod) {
 					// Action
-					case 0:
+					case ACTION:
 						action(kbAfkAction);
 						break;
 					// Mix (random action or move)
-					case 1:
+					case MIX:
 						if (GlobalTools.getRandomIntBetween1and2() == 1) {
 							action(kbAfkAction);
 						} else {
@@ -80,7 +72,7 @@ public class AntiAfk implements Runnable {
 						}
 						break;
 					// Move
-					case 2:
+					case MOVE:
 						move();
 						break;
 				}
@@ -115,6 +107,7 @@ public class AntiAfk implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Keypress
 		robot.keyPress(actionAfk);
 		robot.keyRelease(actionAfk);
 		logger.info("-> Touche Action appuyee");
@@ -130,6 +123,7 @@ public class AntiAfk implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Random keypress
 		switch (GlobalTools.getRandomIntBetween1and4()) {
 			case 1:
 				robot.keyPress(KeyEvent.VK_Z);

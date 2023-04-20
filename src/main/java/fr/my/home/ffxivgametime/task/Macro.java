@@ -1,10 +1,14 @@
 package fr.my.home.ffxivgametime.task;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,11 +16,17 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntBinaryOperator;
+
+import javax.imageio.ImageIO;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.controller.MacroController;
+import fr.my.home.ffxivgametime.controller.type.AdvancedStatus;
+import fr.my.home.ffxivgametime.controller.type.GearStatus;
+import fr.my.home.ffxivgametime.controller.type.MacroType;
 import fr.my.home.ffxivgametime.tools.GlobalTools;
 import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
@@ -25,12 +35,10 @@ import javafx.application.Platform;
 /**
  * Macro Task
  * 
- * @version 1.5
+ * @version 1.6
  */
 public class Macro implements Runnable {
 	private static Logger logger = LogManager.getLogger(Macro.class);
-
-	// Attributes
 
 	private Robot robot;
 	private MacroUpdater macroUpdater = null;
@@ -38,36 +46,45 @@ public class Macro implements Runnable {
 	private int screenHeight = 0;
 	private LocalDateTime marker1 = null;
 	private LocalDateTime marker2 = null;
-	private String timeLeft = null;
-	private int kbClose = 0;
-	@SuppressWarnings("unused")
-	private int kbConfirm = 0;
-	private List<String> craft = null;
-	private List<String> setUp = null;
-	private List<String> food = null;
-	private List<String> repair = null;
-	private List<String> materia = null;
+	private boolean closeRequired = false;
+	private boolean setUpRequired = false;
+	private final int kbClose = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindClose());
+	private String timeLeft = "calcul ...";
+	private AdvancedStatus advancedStatus = AdvancedStatus.ALL_GOOD;
+	private boolean foodStatus = false;
+	private final GearStatus[] gearStatus = new GearStatus[12];
+	private final boolean gearMod = Settings.getGearMod();
+	private final int gearFromX = Settings.getGearFromX();
+	private final int gearFromY = Settings.getGearFromY();
+	private final int gearOffsetX = Settings.getGearOffsetX();
+	private final int gearOffsetY = Settings.getGearOffsetY();
+	private final List<String> craft = new ArrayList<String>();
+	private final List<String> setUp = new ArrayList<String>();
+	private final List<String> food = new ArrayList<String>();
+	private final List<String> repair = new ArrayList<String>();
+	private final List<String> materia = new ArrayList<String>();
 
 	// UI values
 
-	private int macroDelay = 0;
-	private String craftFilePath = "";
-	private int macroStep = 0;
-	private int macroLeftIteration = 0;
-	private boolean cbAdvancedValue = false;
-	private String setUpFilePath = "";
-	private boolean cbFoodValue = false;
-	private int foodStep = 0;
-	private int foodLeftIteration = 0;
-	private String foodFilePath = "";
-	private boolean cbRepairValue = false;
-	private int repairStep = 0;
-	private int repairLeftIteration = 0;
-	private String repairFilePath = "";
-	private boolean cbMateriaValue = false;
-	private int materiaStep = 0;
-	private int materiaLeftIteration = 0;
-	private String materiaFilePath = "";
+	private final int macroDelay = MacroController.getMacroDelay();
+	private final String craftFilePath = MacroController.getCraftFilePath();
+	private final int macroStep = MacroController.getMacroStep();
+	private int macroLeftIteration = macroStep;
+	private final boolean cbAdvancedValue = MacroController.getCbAdvanced();
+	private final boolean cbAutoValue = MacroController.getCbAuto();
+	private final String setUpFilePath = MacroController.getSetUpFilePath();
+	private final boolean cbFoodValue = MacroController.getCbFood();
+	private final int foodStep = MacroController.getFoodStep();
+	private int foodLeftIteration = foodStep;
+	private final String foodFilePath = MacroController.getFoodFilePath();
+	private final boolean cbRepairValue = MacroController.getCbRepair();
+	private final int repairStep = MacroController.getRepairStep();
+	private int repairLeftIteration = repairStep;
+	private final String repairFilePath = MacroController.getRepairFilePath();
+	private final boolean cbMateriaValue = MacroController.getCbMateria();
+	private final int materiaStep = MacroController.getMateriaStep();
+	private int materiaLeftIteration = materiaStep;
+	private final String materiaFilePath = MacroController.getMateriaFilePath();
 
 	/**
 	 * Constructor
@@ -91,36 +108,6 @@ public class Macro implements Runnable {
 	public void run() {
 
 		try {
-
-			// Set parameters
-			boolean closeRequired = false;
-			boolean setUpRequired = false;
-			timeLeft = "";
-			kbClose = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindClose());
-			kbConfirm = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindConfirm());
-			craft = new ArrayList<String>();
-			setUp = new ArrayList<String>();
-			food = new ArrayList<String>();
-			repair = new ArrayList<String>();
-			materia = new ArrayList<String>();
-			macroDelay = MacroController.getMacroDelay();
-			craftFilePath = MacroController.getCraftFilePath();
-			macroStep = MacroController.getMacroStep();
-			this.macroLeftIteration = macroStep;
-			cbAdvancedValue = MacroController.getCbAdvanced();
-			setUpFilePath = MacroController.getSetUpFilePath();
-			cbFoodValue = MacroController.getCbFood();
-			foodStep = MacroController.getFoodStep();
-			this.foodLeftIteration = foodStep;
-			foodFilePath = MacroController.getFoodFilePath();
-			cbRepairValue = MacroController.getCbRepair();
-			repairStep = MacroController.getRepairStep();
-			this.repairLeftIteration = repairStep;
-			repairFilePath = MacroController.getRepairFilePath();
-			cbMateriaValue = MacroController.getCbMateria();
-			materiaStep = MacroController.getMateriaStep();
-			this.materiaLeftIteration = materiaStep;
-			materiaFilePath = MacroController.getMateriaFilePath();
 
 			// Init robot
 			robot = new Robot();
@@ -185,18 +172,19 @@ public class Macro implements Runnable {
 					// Execute action .. (while action isn't stopped and remaining iteration)
 					while (!MacroController.getStopMacro() && macroLeftIteration > 0) {
 
+						// Update UI
+						macroUpdater.setValues(macroLeftIteration, timeLeft, false, null);
+						Platform.runLater(macroUpdater);
 						// Time marker #1
 						marker1 = LocalDateTime.now();
 						// Execute macro
 						execMacro(craft);
-						// Update iteration
-						macroLeftIteration--;
 						// Time marker #2
 						marker2 = LocalDateTime.now();
 						// Set UI values
 						timeLeft = GlobalTools.formatTimeLeft(totalCraftDuration());
-						macroUpdater.setValues(macroLeftIteration, timeLeft);
-						Platform.runLater(macroUpdater);
+						// Update iteration
+						macroLeftIteration--;
 
 					}
 				} else if (setUpChecked) {
@@ -206,28 +194,31 @@ public class Macro implements Runnable {
 
 						// Reset close UI parameter
 						closeRequired = true;
-
-						// Food ON
-						if (cbFoodValue && foodChecked && foodLeftIteration == 0) {
-
-							// Close UI if needed
-							closeRequired = closeUI(closeRequired);
-							// Execute macro
-							execMacro(food);
-							// Reset Iteration
-							this.foodLeftIteration = foodStep;
-							// New set up required
-							setUpRequired = true;
-
+						// Update UI
+						if (cbAutoValue) {
+							// Check status
+							checkAdvancedStatus();
+							macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
+						} else {
+							macroUpdater.setValues(macroLeftIteration, timeLeft, false, null);
 						}
+						Platform.runLater(macroUpdater);
 
 						// Repair ON
-						if (cbRepairValue && repairChecked && repairLeftIteration == 0) {
+						if (cbRepairValue && repairChecked && (advancedStatus == AdvancedStatus.NEED_REPAIR || repairLeftIteration == 0)) {
 
+							logger.info("[Task] Repair");
 							// Close UI if needed
 							closeRequired = closeUI(closeRequired);
 							// Execute macro
 							execMacro(repair);
+							// Update UI
+							if (cbAutoValue) {
+								// Check status
+								checkAdvancedStatus();
+								macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
+							}
+							Platform.runLater(macroUpdater);
 							// Reset Iteration
 							this.repairLeftIteration = repairStep;
 							// New set up required
@@ -236,14 +227,44 @@ public class Macro implements Runnable {
 						}
 
 						// Materia ON
-						if (cbMateriaValue && materiaChecked && materiaLeftIteration == 0) {
+						if (cbMateriaValue && materiaChecked && (advancedStatus == AdvancedStatus.NEED_MATERIA || materiaLeftIteration == 0)) {
 
+							logger.info("[Task] Materialisation");
 							// Close UI if needed
 							closeRequired = closeUI(closeRequired);
 							// Execute macro
 							execMacro(materia);
+							// Update UI
+							if (cbAutoValue) {
+								// Check status
+								checkAdvancedStatus();
+								macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
+							}
+							Platform.runLater(macroUpdater);
 							// Reset Iteration
 							this.materiaLeftIteration = materiaStep;
+							// New set up required
+							setUpRequired = true;
+
+						}
+
+						// Food ON
+						if (cbFoodValue && foodChecked && (advancedStatus == AdvancedStatus.NEED_FOOD || foodLeftIteration == 0)) {
+
+							logger.info("[Task] Food");
+							// Close UI if needed
+							closeRequired = closeUI(closeRequired);
+							// Execute macro
+							execMacro(food);
+							// Update UI
+							if (cbAutoValue) {
+								// Check status
+								checkAdvancedStatus();
+								macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
+							}
+							Platform.runLater(macroUpdater);
+							// Reset Iteration
+							this.foodLeftIteration = foodStep;
 							// New set up required
 							setUpRequired = true;
 
@@ -265,17 +286,17 @@ public class Macro implements Runnable {
 						marker1 = LocalDateTime.now();
 						// Execute macro
 						execMacro(craft);
-						// Update iterations
-						macroLeftIteration--;
-						foodLeftIteration--;
-						repairLeftIteration--;
-						materiaLeftIteration--;
 						// Time marker #2
 						marker2 = LocalDateTime.now();
 						// Set UI values
 						timeLeft = GlobalTools.formatTimeLeft(totalCraftDuration());
-						macroUpdater.setValues(macroLeftIteration, timeLeft);
-						Platform.runLater(macroUpdater);
+						// Update iterations
+						macroLeftIteration--;
+						if (!cbAutoValue) {
+							foodLeftIteration--;
+							repairLeftIteration--;
+							materiaLeftIteration--;
+						}
 
 					}
 				}
@@ -290,7 +311,7 @@ public class Macro implements Runnable {
 			// Turn off task when finished
 			MacroController.setStopMacro(true);
 			// Set UI values
-			macroUpdater.setValues(0, "0 min");
+			macroUpdater.setValues(0, "0 min", false, null);
 			Platform.runLater(macroUpdater);
 		}
 
@@ -532,6 +553,223 @@ public class Macro implements Runnable {
 	}
 
 	/**
+	 * Vérifie le status avancé food/repair/materia
+	 */
+	private void checkAdvancedStatus() {
+		// Get application focus
+		GlobalTools.getAppFocus();
+
+		// Speed-up robot for checking
+		robot.setAutoDelay(0);
+
+		// Init values
+		advancedStatus = AdvancedStatus.ALL_GOOD;
+		Point[] pTable = new Point[12];
+
+		// Get all points of comparaison (gear status)
+		Point point = null;
+		for (int i = 0; i < 12; i++) {
+			if (i < 6) {
+				point = new Point(gearFromX, gearFromY + (i * gearOffsetY));
+			} else {
+				if (gearMod) {
+					point = new Point(gearFromX + gearOffsetX, gearFromY + ((i - 6) * gearOffsetY));
+				} else {
+					// Add offset Y if no gear mod
+					point = new Point(gearFromX + gearOffsetX, gearFromY + gearOffsetY + ((i - 6) * gearOffsetY));
+				}
+			}
+			pTable[i] = point;
+		}
+
+		// Check gear for all points
+		Color pixelColor = null;
+
+		for (int i = 0; i < 12; i++) {
+			pixelColor = robot.getPixelColor(pTable[i].x, pTable[i].y);
+			// If red => need repair
+			if (pixelColor.getRed() > 200 && pixelColor.getGreen() < 100 && pixelColor.getBlue() < 100) {
+				gearStatus[i] = GearStatus.REPAIR;
+			} else if (pixelColor.getRed() > 200 && pixelColor.getGreen() > 200 && pixelColor.getBlue() > 200) {
+				// If white => need materia
+				gearStatus[i] = GearStatus.MATERIA;
+			} else {
+				// If other => no need
+				gearStatus[i] = GearStatus.GOOD;
+			}
+		}
+
+		// Check & set AdvancedStatus
+		boolean needFood = needFood();
+		if (needRepair(gearStatus)) {
+			advancedStatus = AdvancedStatus.NEED_REPAIR;
+		} else if (needMateria(gearStatus)) {
+			advancedStatus = AdvancedStatus.NEED_MATERIA;
+		} else if (needFood) {
+			advancedStatus = AdvancedStatus.NEED_FOOD;
+		} else {
+			advancedStatus = AdvancedStatus.ALL_GOOD;
+		}
+
+		// Slow-down robot after checking
+		robot.setAutoDelay(100);
+
+		// Restore Windows focus
+		GlobalTools.restoreWindowsFocus();
+	}
+
+	/**
+	 * Check if gear need repair
+	 * 
+	 * @param gearStatus
+	 * @return boolean
+	 */
+	private boolean needRepair(GearStatus[] gearStatus) {
+		boolean needRepair = false;
+		// Check if any gear need repair
+		for (int i = 0; i < 12; i++) {
+			if (gearStatus[i] == GearStatus.REPAIR) {
+				needRepair = true;
+				break;
+			}
+		}
+		return needRepair;
+	}
+
+	/**
+	 * Check if gear need materia
+	 * 
+	 * @param gearStatus
+	 * @return boolean
+	 */
+	private boolean needMateria(GearStatus[] gearStatus) {
+		boolean needMateria = false;
+		// Check if any gear need repair
+		for (int i = 0; i < 12; i++) {
+			if (gearStatus[i] == GearStatus.MATERIA) {
+				needMateria = true;
+				break;
+			}
+		}
+		return needMateria;
+	}
+
+	/**
+	 * Check if need food
+	 * 
+	 * @return boolean
+	 */
+	private boolean needFood() {
+		// Get screenshot
+		BufferedImage mainImage = robot.createScreenCapture(new Rectangle(screenWidth, screenHeight));
+		try {
+			// Get comparaison image
+			BufferedImage subImage = ImageIO.read(Macro.class.getResource("../img/buff_food_check.png"));
+			// Precision threshold
+			int threshold = 100;
+			// Search ...
+			foodStatus = existInsideImage(mainImage, subImage, threshold);
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			foodStatus = true;
+		}
+		return !foodStatus;
+	}
+
+	/**
+	 * Determines if the sub image is present in the main image
+	 * 
+	 * @param mainImage
+	 * @param subImage
+	 * @param threshold
+	 * @return boolean
+	 */
+	private boolean existInsideImage(BufferedImage mainImage, BufferedImage subImage, int threshold) {
+		return scanImage(mainImage, subImage, (rgb0, rgb1) -> {
+			int difference = computeDifference(rgb0, rgb1);
+			if (difference > threshold) {
+				return 1;
+			}
+			return 0;
+		});
+	}
+
+	/**
+	 * Compute difference between RGB values
+	 * 
+	 * @param rgb0
+	 * @param rgb1
+	 * @return int
+	 */
+	private int computeDifference(int rgb0, int rgb1) {
+		int r0 = (rgb0 & 0x00FF0000) >> 16;
+		int g0 = (rgb0 & 0x0000FF00) >> 8;
+		int b0 = (rgb0 & 0x000000FF);
+
+		int r1 = (rgb1 & 0x00FF0000) >> 16;
+		int g1 = (rgb1 & 0x0000FF00) >> 8;
+		int b1 = (rgb1 & 0x000000FF);
+
+		int dr = Math.abs(r0 - r1);
+		int dg = Math.abs(g0 - g1);
+		int db = Math.abs(b0 - b1);
+
+		return dr + dg + db;
+	}
+
+	/**
+	 * Scan main image pixel by pixel
+	 * 
+	 * @param mainImage
+	 * @param subImage
+	 * @param rgbComparator
+	 * @return boolean
+	 */
+	private boolean scanImage(BufferedImage mainImage, BufferedImage subImage, IntBinaryOperator rgbComparator) {
+		int width = mainImage.getWidth();
+		int height = mainImage.getHeight();
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (isSubImageAt(mainImage, x, y, subImage, rgbComparator)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Determines if the sub image is present at this position
+	 * 
+	 * @param mainImage
+	 * @param x
+	 * @param y
+	 * @param subImage
+	 * @param rgbComparator
+	 * @return boolean
+	 */
+	private boolean isSubImageAt(BufferedImage mainImage, int x, int y, BufferedImage subImage, IntBinaryOperator rgbComparator) {
+		int width = subImage.getWidth();
+		int height = subImage.getHeight();
+		if (x + width > mainImage.getWidth()) {
+			return false;
+		}
+		if (y + height > mainImage.getHeight()) {
+			return false;
+		}
+		for (int ix = 0; ix < width; ix++) {
+			for (int iy = 0; iy < height; iy++) {
+				int mainRgb = mainImage.getRGB(x + ix, y + iy);
+				int subRgb = subImage.getRGB(ix, iy);
+				if (rgbComparator.applyAsInt(mainRgb, subRgb) != 0) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Close UI
 	 * 
 	 * @param closeRequired
@@ -557,6 +795,7 @@ public class Macro implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Mouse move
 		robot.mouseMove(x, y);
 
 		// Restore Windows focus
@@ -573,9 +812,11 @@ public class Macro implements Runnable {
 		GlobalTools.getAppFocus();
 
 		if (side.equals("right")) {
+			// Right click
 			robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
 			robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
 		} else {
+			// Left click
 			robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 			robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 		}
@@ -593,6 +834,7 @@ public class Macro implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Keypress
 		robot.keyPress(key);
 		robot.keyRelease(key);
 
@@ -610,6 +852,7 @@ public class Macro implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Keypress with modifier
 		robot.keyPress(modifier);
 		robot.keyPress(key);
 		robot.keyRelease(key);
@@ -630,6 +873,7 @@ public class Macro implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Keypress
 		robot.keyPress(key);
 		Thread.sleep(time);
 		robot.keyRelease(key);
@@ -650,6 +894,7 @@ public class Macro implements Runnable {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
+		// Keypress with modifier
 		robot.keyPress(modifier);
 		robot.keyPress(key);
 		Thread.sleep(time);

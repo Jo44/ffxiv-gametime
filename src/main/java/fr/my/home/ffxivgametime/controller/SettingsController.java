@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,25 +22,28 @@ import javafx.stage.Stage;
 /**
  * SettingsController
  * 
- * @version 1.3
+ * @version 1.4
  */
 public class SettingsController {
 	private static Logger logger = LogManager.getLogger(SettingsController.class);
 
-	// Attributes
-
-	private String appFocus;
-	private String antiAfkExecValue;
-	private String antiAfkActionValue;
-	private String macroExecValue;
-	private String macroMousePosValue;
-	private String closeValue;
-	private String confirmValue;
-	private String craftFavFileValue;
-	private String setUpFavFileValue;
-	private String foodFavFileValue;
-	private String repairFavFileValue;
-	private String materiaFavFileValue;
+	private static String appFocus = Settings.getAppFocus();
+	private static String antiAfkExecValue = Settings.getKeybindAntiAfkExec();
+	private static String antiAfkActionValue = Settings.getKeybindAntiAfkAction();
+	private static String macroExecValue = Settings.getKeybindMacroExec();
+	private static String macroMousePosValue = Settings.getKeybindMacroMousePos();
+	private static String closeValue = Settings.getKeybindClose();
+	private static String confirmValue = Settings.getKeybindConfirm();
+	private static String gearModValue = String.valueOf(Settings.getGearMod());
+	private static String gearFromXValue = String.valueOf(Settings.getGearFromX());
+	private static String gearFromYValue = String.valueOf(Settings.getGearFromY());
+	private static String gearOffsetXValue = String.valueOf(Settings.getGearOffsetX());
+	private static String gearOffsetYValue = String.valueOf(Settings.getGearOffsetY());
+	private static final String CRAFT_FAV_FILE = Settings.getCraftFavFile();
+	private static final String SET_UP_FAV_FILE = Settings.getSetUpFavFile();
+	private static final String FOOD_FAV_FILE = Settings.getFoodFavFile();
+	private static final String REPAIR_FAV_FILE = Settings.getRepairFavFile();
+	private static final String MATERIA_FAV_FILE = Settings.getMateriaFavFile();
 
 	// Components
 
@@ -68,6 +72,21 @@ public class SettingsController {
 	private TextField confirm;
 
 	@FXML
+	private CheckBox gearMod;
+
+	@FXML
+	private TextField gearFromX;
+
+	@FXML
+	private TextField gearFromY;
+
+	@FXML
+	private TextField gearOffsetX;
+
+	@FXML
+	private TextField gearOffsetY;
+
+	@FXML
 	private Button keyboard;
 
 	@FXML
@@ -94,22 +113,15 @@ public class SettingsController {
 	@FXML
 	private void initialize() {
 		logger.info("-> Settings <-");
+		// Set UI
+		setUI();
+	}
 
-		// Init settings values
-		appFocus = Settings.getAppFocus();
-		antiAfkExecValue = Settings.getKeybindAntiAfkExec();
-		antiAfkActionValue = Settings.getKeybindAntiAfkAction();
-		macroExecValue = Settings.getKeybindMacroExec();
-		macroMousePosValue = Settings.getKeybindMacroMousePos();
-		closeValue = Settings.getKeybindClose();
-		confirmValue = Settings.getKeybindConfirm();
-		craftFavFileValue = Settings.getCraftFavFile();
-		setUpFavFileValue = Settings.getSetUpFavFile();
-		foodFavFileValue = Settings.getFoodFavFile();
-		repairFavFileValue = Settings.getRepairFavFile();
-		materiaFavFileValue = Settings.getMateriaFavFile();
-
-		// Display settings values
+	/**
+	 * Set UI values
+	 */
+	private void setUI() {
+		// Set UI
 		selectedFocus.setText(appFocus);
 		antiAfkExec.setText(antiAfkExecValue);
 		antiAfkAction.setText(antiAfkActionValue);
@@ -117,10 +129,17 @@ public class SettingsController {
 		macroMousePos.setText(macroMousePosValue);
 		close.setText(closeValue);
 		confirm.setText(confirmValue);
-
-		// Unfocus textfield
+		if (gearModValue.equals("true")) {
+			gearMod.setSelected(true);
+		} else {
+			gearMod.setSelected(false);
+		}
+		gearFromX.setText(gearFromXValue);
+		gearFromY.setText(gearFromYValue);
+		gearOffsetX.setText(gearOffsetXValue);
+		gearOffsetY.setText(gearOffsetYValue);
+		// Trick to unfocus textfield
 		Platform.runLater(() -> pane.requestFocus());
-
 	}
 
 	/**
@@ -154,32 +173,37 @@ public class SettingsController {
 
 	/**
 	 * Action Save
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void actionSave() throws IOException {
+	private void actionSave() {
+		// Update settings
+		appFocus = selectedFocus.getText().trim();
+		antiAfkExecValue = antiAfkExec.getText().trim();
+		antiAfkActionValue = antiAfkAction.getText().trim();
+		macroExecValue = macroExec.getText().trim();
+		macroMousePosValue = macroMousePos.getText().trim();
+		closeValue = close.getText().trim();
+		confirmValue = confirm.getText().trim();
+		gearModValue = String.valueOf(gearMod.isSelected());
+		gearFromXValue = gearFromX.getText().trim();
+		gearFromYValue = gearFromY.getText().trim();
+		gearOffsetXValue = gearOffsetX.getText().trim();
+		gearOffsetYValue = gearOffsetY.getText().trim();
 		// Save settings
-		saveSettings();
-		// Update message
-		message.setText("Les paramètres ont été correctement sauvegardés");
-	}
-
-	/**
-	 * Save settings
-	 */
-	private void saveSettings() {
-		Settings.writeSettings(appFocus, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
-				craftFavFileValue, setUpFavFileValue, foodFavFileValue, repairFavFileValue, materiaFavFileValue);
+		if (Settings.saveSettings(appFocus, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
+				gearModValue, gearFromXValue, gearFromYValue, gearOffsetXValue, gearOffsetYValue, CRAFT_FAV_FILE, SET_UP_FAV_FILE, FOOD_FAV_FILE,
+				REPAIR_FAV_FILE, MATERIA_FAV_FILE)) {
+			message.setText("Les paramètres ont été correctement sauvegardés");
+		} else {
+			message.setText("Les paramètres actuels ne sont pas valides");
+		}
 	}
 
 	/**
 	 * Action Reinit
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void actionReinit() throws IOException {
+	private void actionReinit() {
 		// Reinit settings
 		appFocus = "Final Fantasy XIV";
 		antiAfkExecValue = "F5";
@@ -188,18 +212,21 @@ public class SettingsController {
 		macroMousePosValue = "F7";
 		closeValue = "Echap";
 		confirmValue = "Num 0";
-		// Write settings
-		Settings.writeSettings(appFocus, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
-				craftFavFileValue, setUpFavFileValue, foodFavFileValue, repairFavFileValue, materiaFavFileValue);
-		// Set UI
-		selectedFocus.setText(appFocus);
-		antiAfkExec.setText(antiAfkExecValue);
-		antiAfkAction.setText(antiAfkActionValue);
-		macroExec.setText(macroExecValue);
-		macroMousePos.setText(macroMousePosValue);
-		close.setText(closeValue);
-		confirm.setText(confirmValue);
-		message.setText("Les paramètres ont été correctement réinitialisés");
+		gearModValue = "false";
+		gearFromXValue = String.valueOf(1706);
+		gearFromYValue = String.valueOf(897);
+		gearOffsetXValue = String.valueOf(18);
+		gearOffsetYValue = String.valueOf(6);
+		// Save settings
+		if (Settings.saveSettings(appFocus, antiAfkExecValue, antiAfkActionValue, macroExecValue, macroMousePosValue, closeValue, confirmValue,
+				gearModValue, gearFromXValue, gearFromYValue, gearOffsetXValue, gearOffsetYValue, CRAFT_FAV_FILE, SET_UP_FAV_FILE, FOOD_FAV_FILE,
+				REPAIR_FAV_FILE, MATERIA_FAV_FILE)) {
+			// Set UI
+			setUI();
+			message.setText("Les paramètres ont été correctement réinitialisés");
+		} else {
+			message.setText("Une erreur est survenue");
+		}
 	}
 
 }

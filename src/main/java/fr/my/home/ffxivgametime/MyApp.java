@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.controller.AntiAfkController;
 import fr.my.home.ffxivgametime.controller.MacroController;
+import fr.my.home.ffxivgametime.controller.TestController;
 import fr.my.home.ffxivgametime.tools.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +19,10 @@ import javafx.stage.Stage;
 /**
  * FFXIV GameTime (JavaFX App)
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class MyApp extends Application {
 	private static Logger logger = LogManager.getLogger(MyApp.class);
-
-	// Attributes
-
 	private static Stage stage;
 	private static FXMLLoader fxmlLoader;
 
@@ -75,6 +73,13 @@ public class MyApp extends Application {
 		Scene newScene = null;
 		// Init scene
 		switch (scene) {
+			case "test":
+				// Test
+				newScene = new Scene(loadFXML("test"), 600, 600);
+				TestController testController = fxmlLoader.getController();
+				stage.setOnCloseRequest(e -> testController.shutdown());
+				stage.setTitle("FFXIV GameTime - Test");
+				break;
 			case "antiafk":
 				// Anti-AFK
 				newScene = new Scene(loadFXML("antiafk"), 350, 400);

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.MyApp;
+import fr.my.home.ffxivgametime.controller.type.AntiAfkMethod;
 import fr.my.home.ffxivgametime.task.AntiAfk;
 import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
@@ -24,21 +25,19 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * AntiAfkController
  * 
- * @version 1.3
+ * @version 1.4
  */
 public class AntiAfkController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(AntiAfkController.class);
 
-	// Attributes
-
 	private Thread taskThread;
 	private GlobalKeyboardHook keyboardHook;
 	private static boolean stopAntiAfk = true;
-	private static int kbAfkExec = 0;
+	private static final int KB_ANTI_AFK_EXEC = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkExec());
 	private static int antiAfkDelay = 3;
 	private static int antiAfkMin = 2;
 	private static int antiAfkMax = 5;
-	private static int antiAfkMethod = 0;
+	private static AntiAfkMethod antiAfkMethod = AntiAfkMethod.ACTION;
 
 	// Components
 
@@ -77,8 +76,6 @@ public class AntiAfkController implements GlobalKeyListener {
 		logger.info("-> Anti-AFK <-");
 		// Init Keyboard Hook
 		initKeyboardHook();
-		// Init settings
-		kbAfkExec = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindAntiAfkExec());
 		// Init spinners listeners
 		spAntiAfkDelay.editorProperty().get().setAlignment(Pos.CENTER);
 		spAntiAfkMin.editorProperty().get().setAlignment(Pos.CENTER);
@@ -127,21 +124,18 @@ public class AntiAfkController implements GlobalKeyListener {
 
 	/**
 	 * Update Method Afk
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void antiAfkMethod() throws IOException {
-		String value = cbAntiAfkMethod.getValue();
-		switch (value) {
+	private void antiAfkMethod() {
+		switch (cbAntiAfkMethod.getValue()) {
 			case "Action":
-				antiAfkMethod = 0;
+				antiAfkMethod = AntiAfkMethod.ACTION;
 				break;
 			case "Mixte":
-				antiAfkMethod = 1;
+				antiAfkMethod = AntiAfkMethod.MIX;
 				break;
 			case "Déplacement":
-				antiAfkMethod = 2;
+				antiAfkMethod = AntiAfkMethod.MOVE;
 				break;
 		}
 	}
@@ -179,7 +173,7 @@ public class AntiAfkController implements GlobalKeyListener {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				if (event.getVirtualKeyCode() == kbAfkExec) {
+				if (event.getVirtualKeyCode() == KB_ANTI_AFK_EXEC) {
 					// Anti-Afk
 					if (tbAntiAfk.isSelected()) {
 						tbAntiAfk.setSelected(false);
@@ -228,7 +222,7 @@ public class AntiAfkController implements GlobalKeyListener {
 		return antiAfkMax;
 	}
 
-	public static int getAntiAfkMethod() {
+	public static AntiAfkMethod getAntiAfkMethod() {
 		return antiAfkMethod;
 	}
 

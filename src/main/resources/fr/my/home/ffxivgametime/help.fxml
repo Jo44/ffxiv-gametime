@@ -45,7 +45,7 @@
 			<children>
 				<Pane prefHeight="200.0" prefWidth="200.0" styleClass="panel">
 					<GridPane.margin>
-						<Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+						<Insets bottom="10.0" left="30.0" right="30.0" top="20.0" />
 					</GridPane.margin>
 					<children>
 						<Label fx:id="helpMessage1" alignment="CENTER" layoutX="44.0" layoutY="6.0" prefHeight="30.0" prefWidth="302.0" textAlignment="CENTER"

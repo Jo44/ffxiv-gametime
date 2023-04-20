@@ -58,8 +58,8 @@
 								<Font name="Ebrima" size="18.0" />
 							</font>
 						</Label>
-						<ToggleButton fx:id="tbAntiAfk" layoutX="202.0" maxHeight="42.0" maxWidth="42.0" mnemonicParsing="false" onAction="#antiAfkExec"
-							prefHeight="42.0" prefWidth="42.0">
+						<ToggleButton fx:id="tbAntiAfk" layoutX="192.0" layoutY="10.0" maxHeight="42.0" maxWidth="42.0" mnemonicParsing="false"
+							onAction="#antiAfkExec" prefHeight="42.0" prefWidth="42.0">
 							<cursor>
 								<Cursor fx:constant="HAND" />
 							</cursor>

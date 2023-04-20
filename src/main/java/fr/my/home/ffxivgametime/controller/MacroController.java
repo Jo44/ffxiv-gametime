@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import fr.my.home.ffxivgametime.MyApp;
+import fr.my.home.ffxivgametime.controller.type.GearStatus;
 import fr.my.home.ffxivgametime.task.Macro;
 import fr.my.home.ffxivgametime.task.MacroUpdater;
 import fr.my.home.ffxivgametime.tools.GlobalTools;
@@ -22,6 +23,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import lc.kra.system.keyboard.GlobalKeyboardHook;
 import lc.kra.system.keyboard.event.GlobalKeyEvent;
@@ -30,31 +32,31 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * MacroController
  * 
- * @version 1.4
+ * @version 1.5
  */
 public class MacroController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(MacroController.class);
 
-	// Attributes
-
 	private Thread taskThread;
 	private GlobalKeyboardHook keyboardHook;
 	private static boolean stopMacro = true;
-	private static int kbMacroExec = 0;
-	private static int kbMacroMousePos = 0;
+	private static final int KB_MACRO_EXEC = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindMacroExec());
+	private static final int KB_MACRO_MOUSE_POS = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindMacroMousePos());
 	private static int macroDelay = 3;
-	private static String craftFilePath = "";
-	private static int macroStep = 10;
+	private static int macroStep = 30;
 	private static boolean cbAdvancedValue = false;
+	private static boolean cbAutoValue = false;
+	private static Pane[] gearPanes = new Pane[12];
+	private static String craftFilePath = "";
 	private static String setUpFilePath = "";
 	private static boolean cbFoodValue = false;
-	private static int foodStep = 25;
+	private static int foodStep = 30;
 	private static String foodFilePath = "";
 	private static boolean cbRepairValue = false;
-	private static int repairStep = 25;
+	private static int repairStep = 30;
 	private static String repairFilePath = "";
 	private static boolean cbMateriaValue = false;
-	private static int materiaStep = 25;
+	private static int materiaStep = 30;
 	private static String materiaFilePath = "";
 
 	// Components
@@ -66,19 +68,58 @@ public class MacroController implements GlobalKeyListener {
 	private Spinner<Integer> spMacroDelay;
 
 	@FXML
-	private Button btnCraftSelect;
-
-	@FXML
-	private Button btnCraftFavGet;
-
-	@FXML
-	private Button btnCraftFavSet;
-
-	@FXML
-	private Label lbCraftFilePath;
-
-	@FXML
 	private Spinner<Integer> spMacroStep;
+
+	@FXML
+	private CheckBox cbAdvanced;
+
+	@FXML
+	private CheckBox cbAuto;
+
+	@FXML
+	private Pane buffPane;
+
+	@FXML
+	private Pane buffFood;
+
+	@FXML
+	private Pane gearPane;
+
+	@FXML
+	private Pane gear1;
+
+	@FXML
+	private Pane gear2;
+
+	@FXML
+	private Pane gear3;
+
+	@FXML
+	private Pane gear4;
+
+	@FXML
+	private Pane gear5;
+
+	@FXML
+	private Pane gear6;
+
+	@FXML
+	private Pane gear7;
+
+	@FXML
+	private Pane gear8;
+
+	@FXML
+	private Pane gear9;
+
+	@FXML
+	private Pane gear10;
+
+	@FXML
+	private Pane gear11;
+
+	@FXML
+	private Pane gear12;
 
 	@FXML
 	private Label lbMacroIterationLeft;
@@ -87,10 +128,19 @@ public class MacroController implements GlobalKeyListener {
 	private Label lbMacroTimeLeft;
 
 	@FXML
-	private CheckBox cbAdvanced;
+	private Label lbCraftFilePath;
 
 	@FXML
-	private Button btnSetUpSelect;
+	private Button btnCraftFavGet;
+
+	@FXML
+	private Button btnCraftFavSet;
+
+	@FXML
+	private Pane advancedPane;
+
+	@FXML
+	private Label lbSetUpFilePath;
 
 	@FXML
 	private Button btnSetUpFavGet;
@@ -99,16 +149,16 @@ public class MacroController implements GlobalKeyListener {
 	private Button btnSetUpFavSet;
 
 	@FXML
-	private Label lbSetUpFilePath;
-
-	@FXML
 	private CheckBox cbFood;
 
 	@FXML
 	private Spinner<Integer> spFoodStep;
 
 	@FXML
-	private Button btnFoodSelect;
+	private Label lbFoodStep;
+
+	@FXML
+	private Label lbFoodFilePath;
 
 	@FXML
 	private Button btnFoodFavGet;
@@ -117,16 +167,16 @@ public class MacroController implements GlobalKeyListener {
 	private Button btnFoodFavSet;
 
 	@FXML
-	private Label lbFoodFilePath;
-
-	@FXML
 	private CheckBox cbRepair;
 
 	@FXML
 	private Spinner<Integer> spRepairStep;
 
 	@FXML
-	private Button btnRepairSelect;
+	private Label lbRepairStep;
+
+	@FXML
+	private Label lbRepairFilePath;
 
 	@FXML
 	private Button btnRepairFavGet;
@@ -135,25 +185,22 @@ public class MacroController implements GlobalKeyListener {
 	private Button btnRepairFavSet;
 
 	@FXML
-	private Label lbRepairFilePath;
-
-	@FXML
 	private CheckBox cbMateria;
 
 	@FXML
 	private Spinner<Integer> spMateriaStep;
 
 	@FXML
-	private Button btnMateriaSelect;
+	private Label lbMateriaStep;
+
+	@FXML
+	private Label lbMateriaFilePath;
 
 	@FXML
 	private Button btnMateriaFavGet;
 
 	@FXML
 	private Button btnMateriaFavSet;
-
-	@FXML
-	private Label lbMateriaFilePath;
 
 	@FXML
 	private Button btnMacroMenu;
@@ -181,9 +228,19 @@ public class MacroController implements GlobalKeyListener {
 		logger.info("-> Macro <-");
 		// Init Keyboard Hook
 		initKeyboardHook();
-		// Init settings
-		kbMacroExec = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindMacroExec());
-		kbMacroMousePos = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindMacroMousePos());
+		// Init gear panes
+		gearPanes[0] = gear1;
+		gearPanes[1] = gear2;
+		gearPanes[2] = gear3;
+		gearPanes[3] = gear4;
+		gearPanes[4] = gear5;
+		gearPanes[5] = gear6;
+		gearPanes[6] = gear7;
+		gearPanes[7] = gear8;
+		gearPanes[8] = gear9;
+		gearPanes[9] = gear10;
+		gearPanes[10] = gear11;
+		gearPanes[11] = gear12;
 		// Init spinners listeners
 		spMacroDelay.editorProperty().get().setAlignment(Pos.CENTER);
 		spMacroStep.editorProperty().get().setAlignment(Pos.CENTER);
@@ -196,16 +253,11 @@ public class MacroController implements GlobalKeyListener {
 		spRepairStep.valueProperty().addListener((obs, oldValue, newValue) -> repairStep = newValue);
 		spMateriaStep.valueProperty().addListener((obs, oldValue, newValue) -> materiaStep = newValue);
 		// Init fav filepath
-		try {
-			craftFavGet();
-			setUpFavGet();
-			foodFavGet();
-			repairFavGet();
-			materiaFavGet();
-		} catch (IOException ioe) {
-			logger.error(ioe);
-			ioe.printStackTrace();
-		}
+		craftFavGet();
+		setUpFavGet();
+		foodFavGet();
+		repairFavGet();
+		materiaFavGet();
 	}
 
 	/**
@@ -228,13 +280,14 @@ public class MacroController implements GlobalKeyListener {
 			if (!lbCraftFilePath.getText().equals("...")) {
 				// UI updates
 				lbMacroIterationLeft.setText(String.valueOf(macroStep));
-				lbMacroIterationLeft.setStyle("-fx-text-fill: #5df921;");
-				lbMacroTimeLeft.setText("calcul en cours ...");
+				lbMacroIterationLeft.getStyleClass().clear();
+				lbMacroIterationLeft.getStyleClass().add("font-green");
+				lbMacroTimeLeft.setText("calcul ...");
 				// Init Updater (for UI updates)
 				MacroUpdater macroUpdater = new MacroUpdater() {
 					@Override
 					public void run() {
-						updateUI(iterationLeft, timeLeft);
+						updateUI(iterationLeft, timeLeft, foodStatus, gearStatus);
 					}
 				};
 				// Thread execution controlled by boolean stopMacro
@@ -261,28 +314,131 @@ public class MacroController implements GlobalKeyListener {
 	 * 
 	 * @param iterationLeft
 	 * @param timeLeft
+	 * @param foodStatus
+	 * @param gearStatus
 	 */
-	private void updateUI(int iterationLeft, String timeLeft) {
+	private void updateUI(int iterationLeft, String timeLeft, boolean foodStatus, GearStatus[] gearStatus) {
+		// Set buff status
+		if (foodStatus) {
+			buffFood.setVisible(true);
+		} else {
+			buffFood.setVisible(false);
+		}
+		// Set gear status
+		if (gearStatus != null) {
+			for (int i = 0; i < 12; i++) {
+				if (gearStatus[i] != null && gearStatus[i].equals(GearStatus.MATERIA)) {
+					gearPanes[i].getStyleClass().clear();
+					gearPanes[i].getStyleClass().add("gear-white");
+				} else if (gearStatus[i] != null && gearStatus[i].equals(GearStatus.REPAIR)) {
+					gearPanes[i].getStyleClass().clear();
+					gearPanes[i].getStyleClass().add("gear-red");
+				} else {
+					gearPanes[i].getStyleClass().clear();
+					gearPanes[i].getStyleClass().add("gear-green");
+				}
+			}
+		} else {
+			for (int i = 0; i < 12; i++) {
+				gearPanes[i].getStyleClass().clear();
+				gearPanes[i].getStyleClass().add("gear-green");
+			}
+		}
+		// Set colors
+		if (iterationLeft < 1) {
+			lbMacroIterationLeft.getStyleClass().clear();
+			lbMacroIterationLeft.getStyleClass().add("font-red");
+		} else {
+			lbMacroIterationLeft.getStyleClass().clear();
+			lbMacroIterationLeft.getStyleClass().add("font-green");
+		}
 		// Set values
 		lbMacroIterationLeft.setText(String.valueOf(iterationLeft));
 		lbMacroTimeLeft.setText(timeLeft);
-		// Set colors
-		if (iterationLeft < 1) {
-			lbMacroIterationLeft.setStyle("-fx-text-fill: #d32121;");
-		} else {
-			lbMacroIterationLeft.setStyle("-fx-text-fill: #5df921;");
-		}
 		// Set toggle button
 		tbMacro.setSelected(!stopMacro);
 	}
 
 	/**
-	 * Select Craft
-	 * 
-	 * @throws IOException
+	 * Toggle Advanced
 	 */
 	@FXML
-	private void craftSelect() throws IOException {
+	private void toggleAdvanced() {
+		if (cbAdvanced.isSelected()) {
+			// Advanced ON
+			cbAdvancedValue = true;
+			// Enable auto
+			cbAuto.setDisable(false);
+			// Show advanced
+			advancedPane.setVisible(true);
+		} else {
+			// Advanced OFF
+			cbAdvancedValue = false;
+			// Disable/hide auto
+			cbAutoValue = false;
+			cbAuto.setSelected(false);
+			cbAuto.setDisable(true);
+			// Hide status
+			buffPane.setVisible(false);
+			gearPane.setVisible(false);
+			// Hide advanced
+			advancedPane.setVisible(false);
+			// Show quantity spinners + labels
+			spFoodStep.setVisible(true);
+			lbFoodStep.setVisible(true);
+			spRepairStep.setVisible(true);
+			lbRepairStep.setVisible(true);
+			spMateriaStep.setVisible(true);
+			lbMateriaStep.setVisible(true);
+		}
+	}
+
+	/**
+	 * Toggle Auto
+	 */
+	@FXML
+	private void toggleAuto() {
+		if (cbAuto.isSelected()) {
+			// Auto ON
+			cbAutoValue = true;
+			// Activate food / repair / materia
+			cbFoodValue = true;
+			cbRepairValue = true;
+			cbMateriaValue = true;
+			cbFood.setSelected(true);
+			cbRepair.setSelected(true);
+			cbMateria.setSelected(true);
+			// Show status
+			buffPane.setVisible(true);
+			gearPane.setVisible(true);
+			// Hide quantity spinners + labels
+			spFoodStep.setVisible(false);
+			lbFoodStep.setVisible(false);
+			spRepairStep.setVisible(false);
+			lbRepairStep.setVisible(false);
+			spMateriaStep.setVisible(false);
+			lbMateriaStep.setVisible(false);
+		} else {
+			// Auto OFF
+			cbAutoValue = false;
+			// Hide status
+			buffPane.setVisible(false);
+			gearPane.setVisible(false);
+			// Show quantity spinners + labels
+			spFoodStep.setVisible(true);
+			lbFoodStep.setVisible(true);
+			spRepairStep.setVisible(true);
+			lbRepairStep.setVisible(true);
+			spMateriaStep.setVisible(true);
+			lbMateriaStep.setVisible(true);
+		}
+	}
+
+	/**
+	 * Select Craft
+	 */
+	@FXML
+	private void craftSelect() {
 		// Re-init macro file path
 		craftFilePath = "";
 		lbCraftFilePath.setText("...");
@@ -310,11 +466,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Get Fav Craft
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void craftFavGet() throws IOException {
+	private void craftFavGet() {
 		// Get file path from settings.cfg
 		String favPath = Settings.getCraftFavFile();
 		// If file path is valid, init var and UI
@@ -326,60 +480,29 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Set Fav Craft
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void craftFavSet() throws IOException {
+	private void craftFavSet() {
 		// If filename contains ".mgt"
 		if (lbCraftFilePath.getText().indexOf(".mgt") != -1) {
 			// Get file path
 			craftFilePath = lbCraftFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (craftFilePath != null && craftFilePath.length() >= 8 && !craftFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.saveSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
-						craftFilePath, Settings.getSetUpFavFile(), Settings.getFoodFavFile(), Settings.getRepairFavFile(),
-						Settings.getMateriaFavFile());
+						String.valueOf(Settings.getGearMod()), String.valueOf(Settings.getGearFromX()), String.valueOf(Settings.getGearFromY()),
+						String.valueOf(Settings.getGearOffsetX()), String.valueOf(Settings.getGearOffsetY()), craftFilePath,
+						Settings.getSetUpFavFile(), Settings.getFoodFavFile(), Settings.getRepairFavFile(), Settings.getMateriaFavFile());
 			}
 		}
 	}
 
 	/**
-	 * Toggle Advanced
-	 */
-	@FXML
-	private void toggleAdvanced() {
-		if (cbAdvanced.isSelected()) {
-			// Advanced ON
-			cbAdvancedValue = true;
-			// Enable food / repair / materia
-			cbFood.setDisable(false);
-			cbRepair.setDisable(false);
-			cbMateria.setDisable(false);
-		} else {
-			// Advanced OFF
-			cbAdvancedValue = false;
-			// Disable food / repair / materia
-			cbFoodValue = false;
-			cbRepairValue = false;
-			cbMateriaValue = false;
-			cbFood.setSelected(false);
-			cbFood.setDisable(true);
-			cbRepair.setSelected(false);
-			cbRepair.setDisable(true);
-			cbMateria.setSelected(false);
-			cbMateria.setDisable(true);
-		}
-	}
-
-	/**
 	 * Select Set Up
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void setUpSelect() throws IOException {
+	private void setUpSelect() {
 		// Re-init macro file path
 		setUpFilePath = "";
 		lbSetUpFilePath.setText("...");
@@ -407,11 +530,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Get Fav Set Up
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void setUpFavGet() throws IOException {
+	private void setUpFavGet() {
 		// Get file path from settings.cfg
 		String favPath = Settings.getSetUpFavFile();
 		// If file path is valid, init var and UI
@@ -423,21 +544,20 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Set Fav Set Up
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void setUpFavSet() throws IOException {
+	private void setUpFavSet() {
 		// If filename contains ".mgt"
 		if (lbSetUpFilePath.getText().indexOf(".mgt") != -1) {
 			// Get file path
 			setUpFilePath = lbSetUpFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (setUpFilePath != null && setUpFilePath.length() >= 8 && !setUpFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.saveSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
-						Settings.getCraftFavFile(), setUpFilePath, Settings.getFoodFavFile(), Settings.getRepairFavFile(),
-						Settings.getMateriaFavFile());
+						String.valueOf(Settings.getGearMod()), String.valueOf(Settings.getGearFromX()), String.valueOf(Settings.getGearFromY()),
+						String.valueOf(Settings.getGearOffsetX()), String.valueOf(Settings.getGearOffsetY()), Settings.getCraftFavFile(),
+						setUpFilePath, Settings.getFoodFavFile(), Settings.getRepairFavFile(), Settings.getMateriaFavFile());
 			}
 		}
 	}
@@ -458,11 +578,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Select Food
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void foodSelect() throws IOException {
+	private void foodSelect() {
 		// Re-init macro file path
 		foodFilePath = "";
 		lbFoodFilePath.setText("...");
@@ -490,11 +608,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Get Fav Food
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void foodFavGet() throws IOException {
+	private void foodFavGet() {
 		// Get file path from settings.cfg
 		String favPath = Settings.getFoodFavFile();
 		// If file path is valid, init var and UI
@@ -506,21 +622,20 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Set Fav Food
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void foodFavSet() throws IOException {
+	private void foodFavSet() {
 		// If filename contains ".mgt"
 		if (lbFoodFilePath.getText().indexOf(".mgt") != -1) {
 			// Get file path
 			foodFilePath = lbFoodFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (foodFilePath != null && foodFilePath.length() >= 8 && !foodFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.saveSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
-						Settings.getCraftFavFile(), Settings.getSetUpFavFile(), foodFilePath, Settings.getRepairFavFile(),
-						Settings.getMateriaFavFile());
+						String.valueOf(Settings.getGearMod()), String.valueOf(Settings.getGearFromX()), String.valueOf(Settings.getGearFromY()),
+						String.valueOf(Settings.getGearOffsetX()), String.valueOf(Settings.getGearOffsetY()), Settings.getCraftFavFile(),
+						Settings.getSetUpFavFile(), foodFilePath, Settings.getRepairFavFile(), Settings.getMateriaFavFile());
 			}
 		}
 	}
@@ -541,11 +656,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Select Repair
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void repairSelect() throws IOException {
+	private void repairSelect() {
 		// Re-init macro file path
 		repairFilePath = "";
 		lbRepairFilePath.setText("...");
@@ -573,11 +686,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Get Fav Repair
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void repairFavGet() throws IOException {
+	private void repairFavGet() {
 		// Get file path from settings.cfg
 		String favPath = Settings.getRepairFavFile();
 		// If file path is valid, init var and UI
@@ -589,21 +700,20 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Set Fav Repair
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void repairFavSet() throws IOException {
+	private void repairFavSet() {
 		// If filename contains ".mgt"
 		if (lbRepairFilePath.getText().indexOf(".mgt") != -1) {
 			// Get file path
 			repairFilePath = lbRepairFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (repairFilePath != null && repairFilePath.length() >= 8 && !repairFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.saveSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
-						Settings.getCraftFavFile(), Settings.getSetUpFavFile(), Settings.getFoodFavFile(), repairFilePath,
-						Settings.getMateriaFavFile());
+						String.valueOf(Settings.getGearMod()), String.valueOf(Settings.getGearFromX()), String.valueOf(Settings.getGearFromY()),
+						String.valueOf(Settings.getGearOffsetX()), String.valueOf(Settings.getGearOffsetY()), Settings.getCraftFavFile(),
+						Settings.getSetUpFavFile(), Settings.getFoodFavFile(), repairFilePath, Settings.getMateriaFavFile());
 			}
 		}
 	}
@@ -624,11 +734,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Select Materia
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void materiaSelect() throws IOException {
+	private void materiaSelect() {
 		// Re-init macro file path
 		materiaFilePath = "";
 		lbMateriaFilePath.setText("...");
@@ -656,11 +764,9 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Get Fav Materia
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void materiaFavGet() throws IOException {
+	private void materiaFavGet() {
 		// Get file path from settings.cfg
 		String favPath = Settings.getMateriaFavFile();
 		// If file path is valid, init var and UI
@@ -672,21 +778,20 @@ public class MacroController implements GlobalKeyListener {
 
 	/**
 	 * Set Fav Materia
-	 * 
-	 * @throws IOException
 	 */
 	@FXML
-	private void materiaFavSet() throws IOException {
+	private void materiaFavSet() {
 		// If filename contains ".mgt"
 		if (lbMateriaFilePath.getText().indexOf(".mgt") != -1) {
 			// Get file path
 			materiaFilePath = lbMateriaFilePath.getText();
 			// Write settings.cfg if file path is valid
 			if (materiaFilePath != null && materiaFilePath.length() >= 8 && !materiaFilePath.startsWith("...")) {
-				Settings.writeSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
+				Settings.saveSettings(Settings.getAppFocus(), Settings.getKeybindAntiAfkExec(), Settings.getKeybindAntiAfkAction(),
 						Settings.getKeybindMacroExec(), Settings.getKeybindMacroMousePos(), Settings.getKeybindClose(), Settings.getKeybindConfirm(),
-						Settings.getCraftFavFile(), Settings.getSetUpFavFile(), Settings.getFoodFavFile(), Settings.getRepairFavFile(),
-						materiaFilePath);
+						String.valueOf(Settings.getGearMod()), String.valueOf(Settings.getGearFromX()), String.valueOf(Settings.getGearFromY()),
+						String.valueOf(Settings.getGearOffsetX()), String.valueOf(Settings.getGearOffsetY()), Settings.getCraftFavFile(),
+						Settings.getSetUpFavFile(), Settings.getFoodFavFile(), Settings.getRepairFavFile(), materiaFilePath);
 			}
 		}
 	}
@@ -724,7 +829,7 @@ public class MacroController implements GlobalKeyListener {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				if (event.getVirtualKeyCode() == kbMacroExec) {
+				if (event.getVirtualKeyCode() == KB_MACRO_EXEC) {
 					// Macro
 					if (tbMacro.isSelected()) {
 						tbMacro.setSelected(false);
@@ -734,7 +839,7 @@ public class MacroController implements GlobalKeyListener {
 					// Action
 					macroExec();
 				}
-				if (event.getVirtualKeyCode() == kbMacroMousePos) {
+				if (event.getVirtualKeyCode() == KB_MACRO_MOUSE_POS) {
 					// Mouse Position
 					lbMacroMousePosX.setText(String.valueOf(MouseInfo.getPointerInfo().getLocation().x));
 					lbMacroMousePosY.setText(String.valueOf(MouseInfo.getPointerInfo().getLocation().y));
@@ -760,7 +865,7 @@ public class MacroController implements GlobalKeyListener {
 		}
 	}
 
-	// Getters / Setters
+	// Getters / Setter
 
 	public static boolean getStopMacro() {
 		return stopMacro;
@@ -784,6 +889,10 @@ public class MacroController implements GlobalKeyListener {
 
 	public static boolean getCbAdvanced() {
 		return cbAdvancedValue;
+	}
+
+	public static boolean getCbAuto() {
+		return cbAutoValue;
 	}
 
 	public static String getSetUpFilePath() {
