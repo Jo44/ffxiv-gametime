@@ -19,7 +19,7 @@ public class Settings {
 	private static Logger logger = LogManager.getLogger(Settings.class);
 
 	private static final File SETTINGS_FILE = new File(System.getenv("APPDATA") + "\\ffxiv-gametime\\settings.cfg");
-	private static final String APP_VERSION = "1.8.1";
+	private static final String APP_VERSION = "1.8.2";
 	private static Properties properties;
 
 	/**
@@ -46,7 +46,7 @@ public class Settings {
 			logger.error("-> fichier settings.cfg non valide");
 			// Write default settings file
 			try {
-				writeSettings("Final Fantasy XIV", "F5", "Espace", "F6", "F7", "Echap", "Num 0", false, 1706, 897, 18, 6, "", "", "", "", "");
+				writeSettings("FINAL FANTASY XIV", "F5", "Espace", "F6", "F7", "Echap", "Num 0", false, 1706, 897, 18, 6, "", "", "", "", "");
 				logger.info("-> nouveau fichier settings.cfg cree");
 			} catch (IOException ioe) {
 				logger.error("-> impossible de creer le nouveau fichier settings.cfg");

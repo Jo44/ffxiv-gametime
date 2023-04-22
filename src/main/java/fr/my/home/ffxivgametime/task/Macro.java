@@ -289,8 +289,6 @@ public class Macro implements Runnable {
 						execMacro(craft);
 						// Time marker #2
 						marker2 = LocalDateTime.now();
-						// Set UI values
-						timeLeft = GlobalTools.formatTimeLeft(totalCraftDuration());
 						// Update iterations
 						macroLeftIteration--;
 						if (!cbAutoValue) {
@@ -298,6 +296,8 @@ public class Macro implements Runnable {
 							repairLeftIteration--;
 							materiaLeftIteration--;
 						}
+						// Set UI values
+						timeLeft = GlobalTools.formatTimeLeft(totalCraftDuration());
 
 					}
 				}
@@ -555,8 +555,10 @@ public class Macro implements Runnable {
 
 	/**
 	 * Vérifie le status avancé food/repair/materia
+	 * 
+	 * @throws InterruptedException
 	 */
-	private void checkAdvancedStatus() {
+	private void checkAdvancedStatus() throws InterruptedException {
 
 		// Get application focus
 		GlobalTools.getAppFocus();
@@ -793,8 +795,9 @@ public class Macro implements Runnable {
 	 * 
 	 * @param x
 	 * @param y
+	 * @throws InterruptedException
 	 */
-	private void mouseMove(int x, int y) {
+	private void mouseMove(int x, int y) throws InterruptedException {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
@@ -809,8 +812,9 @@ public class Macro implements Runnable {
 	 * Mouse click
 	 * 
 	 * @param side
+	 * @throws InterruptedException
 	 */
-	private void mouseClick(String side) {
+	private void mouseClick(String side) throws InterruptedException {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
@@ -832,8 +836,9 @@ public class Macro implements Runnable {
 	 * Key press on the given key
 	 * 
 	 * @param key
+	 * @throws InterruptedException
 	 */
-	private void keyPress(int key) {
+	private void keyPress(int key) throws InterruptedException {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
@@ -850,8 +855,9 @@ public class Macro implements Runnable {
 	 * 
 	 * @param modifier
 	 * @param key
+	 * @throws InterruptedException
 	 */
-	private void keyPress(int modifier, int key) {
+	private void keyPress(int modifier, int key) throws InterruptedException {
 		// Get application focus
 		GlobalTools.getAppFocus();
 

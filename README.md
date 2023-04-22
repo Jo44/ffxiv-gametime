@@ -11,7 +11,7 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 
 # Downloads (Windows x64)
 
-* Final Fantasy XIV - GameTime (1.8.1) :  
+* Final Fantasy XIV - GameTime (1.8.2) :  
 https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/FFXIV-GameTime.zip  
 * Java Development Kit (JDK) (16.0.2) :  
 https://drive.google.com/file/d/17rp_mWY9NdcUZeBZoDZaDgS0hSCF_Nu5  
@@ -25,8 +25,11 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
+* Update 1.8.2 - 23/04/2023 :  
+  * Fix macro left time estimation  
+  * Fix request focus on application 
 * Update 1.8.1 - 22/04/2023 :  
-  * Macro - Auto-detect - Fix image resource for food buff comparaison
+  * Fix image resource for food buff comparaison (Auto-detect)
 * Update 1.8 - 20/04/2023 :  
   * Macro - Auto-detect (food/gear)  
   * Settings - Gearbox  

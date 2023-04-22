@@ -205,7 +205,7 @@ public class SettingsController {
 	@FXML
 	private void actionReinit() {
 		// Reinit settings
-		appFocus = "Final Fantasy XIV";
+		appFocus = "FINAL FANTASY XIV";
 		antiAfkExecValue = "F5";
 		antiAfkActionValue = "Espace";
 		macroExecValue = "F6";

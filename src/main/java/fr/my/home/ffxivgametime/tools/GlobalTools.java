@@ -7,7 +7,7 @@ import com.sun.jna.platform.win32.WinDef.HWND;
 /**
  * GlobalTools
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class GlobalTools {
 
@@ -118,19 +118,36 @@ public class GlobalTools {
 
 	/**
 	 * Get application focus
+	 * 
+	 * @throws InterruptedException
 	 */
-	public static void getAppFocus() {
+	public static void getAppFocus() throws InterruptedException {
 		String focusValue = Settings.getAppFocus();
 		if (focusValue != null && !focusValue.trim().isEmpty()) {
 			// Save windows focus
 			saveWindowsFocus();
 			// Focus on application
 			User32 user32 = User32.INSTANCE;
-			HWND hWnd = user32.FindWindow(null, focusValue);
-			if (user32.IsWindowVisible(hWnd)) {
-				user32.ShowWindow(hWnd, User32.SW_SHOWMAXIMIZED);
-				user32.SetForegroundWindow(hWnd);
-				user32.SetFocus(hWnd);
+			HWND targetWindow = user32.FindWindow(null, focusValue);
+			if (targetWindow != null) {
+				user32.ShowWindow(targetWindow, User32.SW_SHOW);
+				user32.SetForegroundWindow(targetWindow);
+				// Wait until got window focus or max attempts
+				int attempt = 0;
+				char[] buffer = null;
+				boolean isFocused = false;
+				while (!isFocused && attempt < 100) {
+					Thread.sleep(10);
+					attempt++;
+					buffer = new char[1024];
+					HWND focusedWindow = user32.GetForegroundWindow();
+					user32.GetWindowText(focusedWindow, buffer, 1024);
+					String windowTitle = new String(buffer);
+					if (windowTitle.trim().equals(focusValue)) {
+						isFocused = true;
+					}
+				}
+				user32.SetFocus(targetWindow);
 			}
 		}
 	}
@@ -139,10 +156,10 @@ public class GlobalTools {
 	 * Save Windows focus
 	 */
 	private static void saveWindowsFocus() {
-		HWND fgWindow = User32.INSTANCE.GetForegroundWindow();
-		int titleLength = User32.INSTANCE.GetWindowTextLength(fgWindow) + 1;
+		HWND fgndWindow = User32.INSTANCE.GetForegroundWindow();
+		int titleLength = User32.INSTANCE.GetWindowTextLength(fgndWindow) + 1;
 		char[] title = new char[titleLength];
-		User32.INSTANCE.GetWindowText(fgWindow, title, titleLength);
+		User32.INSTANCE.GetWindowText(fgndWindow, title, titleLength);
 		windowsFocus = Native.toString(title);
 		windowsFocusSaved = true;
 	}
@@ -153,11 +170,11 @@ public class GlobalTools {
 	public static void restoreWindowsFocus() {
 		if (windowsFocusSaved && windowsFocus != null && !windowsFocus.trim().isEmpty()) {
 			User32 user32 = User32.INSTANCE;
-			HWND hWnd = user32.FindWindow(null, windowsFocus);
-			if (user32.IsWindowVisible(hWnd)) {
-				user32.ShowWindow(hWnd, User32.SW_SHOW);
-				user32.SetForegroundWindow(hWnd);
-				user32.SetFocus(hWnd);
+			HWND targetWindow = user32.FindWindow(null, windowsFocus);
+			if (user32.IsWindowVisible(targetWindow)) {
+				user32.ShowWindow(targetWindow, User32.SW_SHOW);
+				user32.SetForegroundWindow(targetWindow);
+				user32.SetFocus(targetWindow);
 			}
 			windowsFocusSaved = false;
 		}

@@ -102,8 +102,9 @@ public class AntiAfk implements Runnable {
 	 * Press action key
 	 * 
 	 * @param actionAfk
+	 * @throws InterruptedException
 	 */
-	private void action(int actionAfk) {
+	private void action(int actionAfk) throws InterruptedException {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
@@ -118,8 +119,10 @@ public class AntiAfk implements Runnable {
 
 	/**
 	 * Press direction key (random Z, S, A or E)
+	 * 
+	 * @throws InterruptedException
 	 */
-	private void move() {
+	private void move() throws InterruptedException {
 		// Get application focus
 		GlobalTools.getAppFocus();
 
