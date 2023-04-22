@@ -19,7 +19,7 @@ public class Settings {
 	private static Logger logger = LogManager.getLogger(Settings.class);
 
 	private static final File SETTINGS_FILE = new File(System.getenv("APPDATA") + "\\ffxiv-gametime\\settings.cfg");
-	private static final String APP_VERSION = "1.8";
+	private static final String APP_VERSION = "1.8.1";
 	private static Properties properties;
 
 	/**

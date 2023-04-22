@@ -92,7 +92,7 @@ public class AntiAfk implements Runnable {
 			logger.info("[Task] Arret de l'Anti-Afk");
 
 		} catch (AWTException | InterruptedException ex) {
-			logger.error(ex.getMessage());
+			logger.error(ex.toString());
 			ex.printStackTrace();
 		}
 

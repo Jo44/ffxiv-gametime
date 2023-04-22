@@ -35,7 +35,7 @@ import javafx.application.Platform;
 /**
  * Macro Task
  * 
- * @version 1.6
+ * @version 1.7
  */
 public class Macro implements Runnable {
 	private static Logger logger = LogManager.getLogger(Macro.class);
@@ -188,6 +188,7 @@ public class Macro implements Runnable {
 
 					}
 				} else if (setUpChecked) {
+
 					// Advanced ON
 					// Execute action .. (while action isn't stopped and remaining iteration)
 					while (!MacroController.getStopMacro() && macroLeftIteration > 0) {
@@ -305,7 +306,7 @@ public class Macro implements Runnable {
 			logger.info("[Task] Arret de Macro");
 
 		} catch (AWTException | InterruptedException ex) {
-			logger.error(ex.getMessage());
+			logger.error(ex.toString());
 			ex.printStackTrace();
 		} finally {
 			// Turn off task when finished
@@ -356,7 +357,7 @@ public class Macro implements Runnable {
 			// File fully readed
 			readed = true;
 		} catch (IOException ioe) {
-			logger.error(ioe.getMessage());
+			logger.error(ioe.toString());
 			ioe.printStackTrace();
 		} finally {
 			// Close reader
@@ -364,7 +365,7 @@ public class Macro implements Runnable {
 				try {
 					reader.close();
 				} catch (IOException ioe) {
-					logger.error(ioe.getMessage());
+					logger.error(ioe.toString());
 					ioe.printStackTrace();
 				}
 			}
@@ -556,6 +557,7 @@ public class Macro implements Runnable {
 	 * Vérifie le status avancé food/repair/materia
 	 */
 	private void checkAdvancedStatus() {
+
 		// Get application focus
 		GlobalTools.getAppFocus();
 
@@ -664,13 +666,14 @@ public class Macro implements Runnable {
 		BufferedImage mainImage = robot.createScreenCapture(new Rectangle(screenWidth, screenHeight));
 		try {
 			// Get comparaison image
-			BufferedImage subImage = ImageIO.read(Macro.class.getResource("../img/buff_food_check.png"));
+			BufferedImage subImage = ImageIO.read(Macro.class.getResourceAsStream("/fr/my/home/ffxivgametime/img/buff_food_check.png"));
 			// Precision threshold
 			int threshold = 100;
 			// Search ...
 			foodStatus = existInsideImage(mainImage, subImage, threshold);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+		} catch (Exception ex) {
+			logger.error(ex.toString());
+			ex.printStackTrace();
 			foodStatus = true;
 		}
 		return !foodStatus;
@@ -927,7 +930,7 @@ public class Macro implements Runnable {
 		try {
 			duration = (Duration.between(marker1, marker2).getSeconds()) * macroLeftIteration;
 		} catch (Exception ex) {
-			logger.error(ex.getMessage());
+			logger.error(ex.toString());
 			ex.printStackTrace();
 		}
 		return duration;
