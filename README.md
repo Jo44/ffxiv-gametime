@@ -25,9 +25,11 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
+* Update 1.8.1 - 22/04/2023 :  
+  * Macro - Auto-detect - Fix image resource for food buff comparaison
 * Update 1.8 - 20/04/2023 :  
   * Macro - Auto-detect (food/gear)  
-  * Settings - Gearbox
+  * Settings - Gearbox  
   * Test Windows  
   * Improve global UI  
 * Update 1.7 - 14/12/2022 :  
