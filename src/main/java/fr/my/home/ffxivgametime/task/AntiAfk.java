@@ -16,7 +16,7 @@ import fr.my.home.ffxivgametime.tools.Settings;
 /**
  * Anti-Afk Task
  * 
- * @version 1.3
+ * @version 1.4
  */
 public class AntiAfk implements Runnable {
 	private static Logger logger = LogManager.getLogger(AntiAfk.class);
@@ -106,7 +106,7 @@ public class AntiAfk implements Runnable {
 	 */
 	private void action(int actionAfk) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(AntiAfkController.getCbNotif(), AntiAfkController.getSlVolume());
 
 		// Keypress
 		robot.keyPress(actionAfk);
@@ -124,7 +124,7 @@ public class AntiAfk implements Runnable {
 	 */
 	private void move() throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(AntiAfkController.getCbNotif(), AntiAfkController.getSlVolume());
 
 		// Random keypress
 		switch (GlobalTools.getRandomIntBetween1and4()) {

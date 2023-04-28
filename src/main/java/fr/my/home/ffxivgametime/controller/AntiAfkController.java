@@ -15,9 +15,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import lc.kra.system.keyboard.GlobalKeyboardHook;
 import lc.kra.system.keyboard.event.GlobalKeyEvent;
 import lc.kra.system.keyboard.event.GlobalKeyListener;
@@ -25,7 +28,7 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * AntiAfkController
  * 
- * @version 1.4
+ * @version 1.5
  */
 public class AntiAfkController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(AntiAfkController.class);
@@ -38,6 +41,8 @@ public class AntiAfkController implements GlobalKeyListener {
 	private static int antiAfkMin = 2;
 	private static int antiAfkMax = 5;
 	private static AntiAfkMethod antiAfkMethod = AntiAfkMethod.ACTION;
+	private static boolean cbNotifValue = false;
+	private static double slVolumeValue = 25.0;
 
 	// Components
 
@@ -55,6 +60,15 @@ public class AntiAfkController implements GlobalKeyListener {
 
 	@FXML
 	private ComboBox<String> cbAntiAfkMethod;
+
+	@FXML
+	private CheckBox cbNotif;
+
+	@FXML
+	private Pane notifPane;
+
+	@FXML
+	private Slider slVolume;
 
 	@FXML
 	private Button btnAntiAfkMenu;
@@ -83,6 +97,11 @@ public class AntiAfkController implements GlobalKeyListener {
 		spAntiAfkDelay.valueProperty().addListener((obs, oldValue, newValue) -> antiAfkDelay = newValue);
 		spAntiAfkMin.valueProperty().addListener((obs, oldValue, newValue) -> antiAfkMin = newValue);
 		spAntiAfkMax.valueProperty().addListener((obs, oldValue, newValue) -> antiAfkMax = newValue);
+		// Init notif
+		cbNotif.setSelected(cbNotifValue);
+		notifPane.setVisible(cbNotifValue);
+		slVolume.setValue(slVolumeValue);
+		slVolume.valueProperty().addListener((obs, oldValue, newValue) -> slVolumeValue = (double) newValue);
 	}
 
 	/**
@@ -137,6 +156,20 @@ public class AntiAfkController implements GlobalKeyListener {
 			case "Déplacement":
 				antiAfkMethod = AntiAfkMethod.MOVE;
 				break;
+		}
+	}
+
+	/**
+	 * Toggle Notif
+	 */
+	@FXML
+	private void toggleNotif() {
+		if (cbNotif.isSelected()) {
+			cbNotifValue = true;
+			notifPane.setVisible(true);
+		} else {
+			cbNotifValue = false;
+			notifPane.setVisible(false);
 		}
 	}
 
@@ -224,6 +257,14 @@ public class AntiAfkController implements GlobalKeyListener {
 
 	public static AntiAfkMethod getAntiAfkMethod() {
 		return antiAfkMethod;
+	}
+
+	public static boolean getCbNotif() {
+		return cbNotifValue;
+	}
+
+	public static double getSlVolume() {
+		return slVolumeValue;
 	}
 
 }

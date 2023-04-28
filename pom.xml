@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.my.home</groupId>
 	<artifactId>ffxiv-gametime</artifactId>
-	<version>1.8.2</version>
+	<version>1.9</version>
 	<packaging>jar</packaging>
 	<name>ffxiv-gametime</name>
 	<!-- Properties -->
@@ -26,6 +26,13 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
 			<version>16</version>
+		</dependency>
+		<!-- JavaFX Media -->
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
+		<dependency>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-media</artifactId>
+		    <version>16</version>
 		</dependency>
 		<!-- JavaFX FXML -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->

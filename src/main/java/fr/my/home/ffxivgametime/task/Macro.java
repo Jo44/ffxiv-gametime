@@ -35,7 +35,7 @@ import javafx.application.Platform;
 /**
  * Macro Task
  * 
- * @version 1.7
+ * @version 1.8
  */
 public class Macro implements Runnable {
 	private static Logger logger = LogManager.getLogger(Macro.class);
@@ -561,7 +561,7 @@ public class Macro implements Runnable {
 	private void checkAdvancedStatus() throws InterruptedException {
 
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		// Speed-up robot for checking
 		robot.setAutoDelay(0);
@@ -799,7 +799,7 @@ public class Macro implements Runnable {
 	 */
 	private void mouseMove(int x, int y) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		// Mouse move
 		robot.mouseMove(x, y);
@@ -816,7 +816,7 @@ public class Macro implements Runnable {
 	 */
 	private void mouseClick(String side) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		if (side.equals("right")) {
 			// Right click
@@ -840,7 +840,7 @@ public class Macro implements Runnable {
 	 */
 	private void keyPress(int key) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		// Keypress
 		robot.keyPress(key);
@@ -859,7 +859,7 @@ public class Macro implements Runnable {
 	 */
 	private void keyPress(int modifier, int key) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		// Keypress with modifier
 		robot.keyPress(modifier);
@@ -880,7 +880,7 @@ public class Macro implements Runnable {
 	 */
 	private void keyPressTime(int key, int time) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		// Keypress
 		robot.keyPress(key);
@@ -901,7 +901,7 @@ public class Macro implements Runnable {
 	 */
 	private void keyPressTime(int modifier, int key, int time) throws InterruptedException {
 		// Get application focus
-		GlobalTools.getAppFocus();
+		GlobalTools.getAppFocus(MacroController.getCbNotif(), MacroController.getSlVolume());
 
 		// Keypress with modifier
 		robot.keyPress(modifier);

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory?>
 <?import javafx.scene.control.ToggleButton?>
@@ -64,13 +65,13 @@
 								<Tooltip text="ON / OFF" />
 							</tooltip>
 						</ToggleButton>
-						<Label layoutX="30.0" layoutY="85.0" maxHeight="28.0" maxWidth="80.0" prefHeight="28.0" prefWidth="80.0" text="Début dans :"
+						<Label layoutX="30.0" layoutY="66.0" maxHeight="28.0" maxWidth="80.0" prefHeight="28.0" prefWidth="80.0" text="Début dans :"
 							textFill="#e8e8e8" textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Spinner fx:id="spMacroDelay" editable="false" layoutX="114.0" layoutY="85.0" maxHeight="28.0" maxWidth="52.0" prefHeight="28.0"
+						<Spinner fx:id="spMacroDelay" editable="false" layoutX="114.0" layoutY="66.0" maxHeight="28.0" maxWidth="52.0" prefHeight="28.0"
 							prefWidth="52.0">
 							<valueFactory>
 								<SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="3" max="10" min="1" />
@@ -79,19 +80,19 @@
 								<Cursor fx:constant="HAND" />
 							</cursor>
 						</Spinner>
-						<Label layoutX="171.0" layoutY="85.0" maxHeight="28.0" maxWidth="24.0" prefHeight="28.0" prefWidth="24.0" text="sec." textFill="#e8e8e8"
+						<Label layoutX="171.0" layoutY="66.0" maxHeight="28.0" maxWidth="24.0" prefHeight="28.0" prefWidth="24.0" text="sec." textFill="#e8e8e8"
 							textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Label layoutX="30.0" layoutY="124.0" maxHeight="28.0" maxWidth="72.0" prefHeight="28.0" prefWidth="72.0" text="Répétition :"
+						<Label layoutX="30.0" layoutY="105.0" maxHeight="28.0" maxWidth="72.0" prefHeight="28.0" prefWidth="72.0" text="Répétition :"
 							textFill="#e8e8e8" textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Spinner fx:id="spMacroStep" layoutX="108.0" layoutY="125.0" prefHeight="28.0" prefWidth="66.0">
+						<Spinner fx:id="spMacroStep" layoutX="108.0" layoutY="106.0" prefHeight="28.0" prefWidth="66.0">
 							<valueFactory>
 								<SpinnerValueFactory.IntegerSpinnerValueFactory initialValue="30" max="9999" min="1" />
 							</valueFactory>
@@ -99,31 +100,44 @@
 								<Cursor fx:constant="HAND" />
 							</cursor>
 						</Spinner>
-						<Label layoutX="179.0" layoutY="124.0" maxHeight="28.0" maxWidth="26.0" prefHeight="28.0" prefWidth="26.0" text="fois" textFill="#e8e8e8"
+						<Label layoutX="179.0" layoutY="105.0" maxHeight="28.0" maxWidth="26.0" prefHeight="28.0" prefWidth="26.0" text="fois" textFill="#e8e8e8"
 							textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Label layoutX="18.0" layoutY="168.0" prefHeight="30.0" prefWidth="195.0" text="- - - - - - - - - - - - - - - - - - - - -"
+						<Label layoutX="18.0" layoutY="135.0" prefHeight="30.0" prefWidth="195.0" text="- - - - - - - - - - - - - - - - - - - - -"
 							textFill="#e8e8e8" textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<CheckBox fx:id="cbAdvanced" layoutX="32.0" layoutY="219.0" mnemonicParsing="false" onAction="#toggleAdvanced" text="Mode avancé"
+						<CheckBox fx:id="cbAdvanced" layoutX="32.0" layoutY="176.0" mnemonicParsing="false" onAction="#toggleAdvanced" text="Mode avancé"
 							textFill="#e8e8e8">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</CheckBox>
-						<CheckBox fx:id="cbAuto" disable="true" layoutX="32.0" layoutY="257.0" mnemonicParsing="false" onAction="#toggleAuto"
+						<CheckBox fx:id="cbAuto" disable="true" layoutX="32.0" layoutY="214.0" mnemonicParsing="false" onAction="#toggleAuto"
 							text="Détection auto." textFill="#e8e8e8">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</CheckBox>
-						<Pane fx:id="buffPane" layoutX="180.0" layoutY="198.0" prefHeight="30.0" prefWidth="30.0" styleClass="status" visible="false">
+						<CheckBox fx:id="cbNotif" layoutX="32.0" layoutY="252.0" mnemonicParsing="false" onAction="#toggleNotif" text="Notifications"
+							textFill="#e8e8e8">
+							<font>
+								<Font name="Ebrima" size="14.0" />
+							</font>
+						</CheckBox>
+						<Pane fx:id="notifPane" layoutX="32.0" layoutY="280.0" prefHeight="30.0" prefWidth="110.0" visible="false">
+							<children>
+								<Pane layoutY="5.0" prefHeight="20.0" prefWidth="20.0" styleClass="speaker" />
+								<Slider fx:id="slVolume" blockIncrement="1.0" layoutX="22.0" layoutY="8.0" minorTickCount="2" prefWidth="86.0" showTickMarks="true"
+									value="25.0" />
+							</children>
+						</Pane>
+						<Pane fx:id="buffPane" layoutX="180.0" layoutY="190.0" prefHeight="30.0" prefWidth="30.0" styleClass="status" visible="false">
 							<children>
 								<Pane fx:id="buffFood" prefHeight="30.0" prefWidth="30.0" styleClass="buff-food" visible="false" />
 							</children>
@@ -144,31 +158,31 @@
 								<Pane fx:id="gear12" layoutX="16.0" layoutY="55.0" prefHeight="8.0" prefWidth="8.0" styleClass="gear-green" />
 							</children>
 						</Pane>
-						<Label layoutX="18.0" layoutY="293.0" prefHeight="30.0" prefWidth="195.0" text="- - - - - - - - - - - - - - - - - - - - -"
+						<Label layoutX="18.0" layoutY="319.0" prefHeight="30.0" prefWidth="195.0" text="- - - - - - - - - - - - - - - - - - - - -"
 							textFill="#e8e8e8" textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER_RIGHT" layoutX="34.0" layoutY="336.0" prefHeight="28.0" prefWidth="100.0" text="Craft restant :"
+						<Label alignment="CENTER_RIGHT" layoutX="34.0" layoutY="354.0" prefHeight="28.0" prefWidth="100.0" text="Craft restant :"
 							textFill="#e8e8e8" textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Label fx:id="lbMacroIterationLeft" layoutX="145.0" layoutY="336.0" prefHeight="28.0" prefWidth="80.0" text="0" textFill="#ff2020"
+						<Label fx:id="lbMacroIterationLeft" layoutX="145.0" layoutY="354.0" prefHeight="28.0" prefWidth="80.0" text="0" textFill="#ff2020"
 							textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Label alignment="CENTER_RIGHT" layoutX="34.0" layoutY="367.0" prefHeight="28.0" prefWidth="100.0" text="Temps restant :"
+						<Label alignment="CENTER_RIGHT" layoutX="34.0" layoutY="385.0" prefHeight="28.0" prefWidth="100.0" text="Temps restant :"
 							textFill="#e8e8e8" textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />
 							</font>
 						</Label>
-						<Label fx:id="lbMacroTimeLeft" layoutX="145.0" layoutY="367.0" prefHeight="28.0" prefWidth="80.0" text="0" textFill="#e8e8e8"
+						<Label fx:id="lbMacroTimeLeft" layoutX="145.0" layoutY="385.0" prefHeight="28.0" prefWidth="80.0" text="0" textFill="#e8e8e8"
 							textOverrun="CLIP">
 							<font>
 								<Font name="Ebrima" size="14.0" />

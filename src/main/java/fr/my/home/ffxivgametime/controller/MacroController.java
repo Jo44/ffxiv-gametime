@@ -21,6 +21,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
@@ -32,7 +33,7 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * MacroController
  * 
- * @version 1.5
+ * @version 1.6
  */
 public class MacroController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(MacroController.class);
@@ -46,6 +47,8 @@ public class MacroController implements GlobalKeyListener {
 	private static int macroStep = 30;
 	private static boolean cbAdvancedValue = false;
 	private static boolean cbAutoValue = false;
+	private static boolean cbNotifValue = false;
+	private static double slVolumeValue = 25.0;
 	private static Pane[] gearPanes = new Pane[12];
 	private static String craftFilePath = "";
 	private static String setUpFilePath = "";
@@ -75,6 +78,15 @@ public class MacroController implements GlobalKeyListener {
 
 	@FXML
 	private CheckBox cbAuto;
+
+	@FXML
+	private CheckBox cbNotif;
+
+	@FXML
+	private Pane notifPane;
+
+	@FXML
+	private Slider slVolume;
 
 	@FXML
 	private Pane buffPane;
@@ -252,6 +264,11 @@ public class MacroController implements GlobalKeyListener {
 		spFoodStep.valueProperty().addListener((obs, oldValue, newValue) -> foodStep = newValue);
 		spRepairStep.valueProperty().addListener((obs, oldValue, newValue) -> repairStep = newValue);
 		spMateriaStep.valueProperty().addListener((obs, oldValue, newValue) -> materiaStep = newValue);
+		// Init notif
+		cbNotif.setSelected(cbNotifValue);
+		notifPane.setVisible(cbNotifValue);
+		slVolume.setValue(slVolumeValue);
+		slVolume.valueProperty().addListener((obs, oldValue, newValue) -> slVolumeValue = (double) newValue);
 		// Init fav filepath
 		craftFavGet();
 		setUpFavGet();
@@ -431,6 +448,20 @@ public class MacroController implements GlobalKeyListener {
 			lbRepairStep.setVisible(true);
 			spMateriaStep.setVisible(true);
 			lbMateriaStep.setVisible(true);
+		}
+	}
+
+	/**
+	 * Toggle Notif
+	 */
+	@FXML
+	private void toggleNotif() {
+		if (cbNotif.isSelected()) {
+			cbNotifValue = true;
+			notifPane.setVisible(true);
+		} else {
+			cbNotifValue = false;
+			notifPane.setVisible(false);
 		}
 	}
 
@@ -893,6 +924,14 @@ public class MacroController implements GlobalKeyListener {
 
 	public static boolean getCbAuto() {
 		return cbAutoValue;
+	}
+
+	public static boolean getCbNotif() {
+		return cbNotifValue;
+	}
+
+	public static double getSlVolume() {
+		return slVolumeValue;
 	}
 
 	public static String getSetUpFilePath() {

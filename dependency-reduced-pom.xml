@@ -4,7 +4,7 @@
   <groupId>fr.my.home</groupId>
   <artifactId>ffxiv-gametime</artifactId>
   <name>ffxiv-gametime</name>
-  <version>1.8.2</version>
+  <version>1.9</version>
   <build>
     <plugins>
       <plugin>

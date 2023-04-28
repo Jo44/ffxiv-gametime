@@ -4,10 +4,13 @@ import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef.HWND;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 /**
  * GlobalTools
  * 
- * @version 1.3
+ * @version 1.4
  */
 public class GlobalTools {
 
@@ -119,9 +122,20 @@ public class GlobalTools {
 	/**
 	 * Get application focus
 	 * 
+	 * @param notif
+	 * @param volume
 	 * @throws InterruptedException
 	 */
-	public static void getAppFocus() throws InterruptedException {
+	public static void getAppFocus(boolean notif, double volume) throws InterruptedException {
+		// Play sound if notif activated
+		if (notif) {
+			Media media = new Media(GlobalTools.class.getClassLoader().getResource("fr/my/home/ffxivgametime/audio/notif.mp3").toExternalForm());
+			MediaPlayer mediaPlayer = new MediaPlayer(media);
+			mediaPlayer.setVolume(volume / 100);
+			mediaPlayer.play();
+			// Quick sleep before next step
+			Thread.sleep(500);
+		}
 		String focusValue = Settings.getAppFocus();
 		if (focusValue != null && !focusValue.trim().isEmpty()) {
 			// Save windows focus

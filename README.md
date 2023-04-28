@@ -11,7 +11,7 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 
 # Downloads (Windows x64)
 
-* Final Fantasy XIV - GameTime (1.8.2) :  
+* Final Fantasy XIV - GameTime (1.9) :  
 https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/FFXIV-GameTime.zip  
 * Java Development Kit (JDK) (16.0.2) :  
 https://drive.google.com/file/d/17rp_mWY9NdcUZeBZoDZaDgS0hSCF_Nu5  
@@ -25,6 +25,8 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
+* Update 1.9 - 29/04/2023 :  
+  * Add audio notification
 * Update 1.8.2 - 23/04/2023 :  
   * Fix macro left time estimation  
   * Fix request focus on application 

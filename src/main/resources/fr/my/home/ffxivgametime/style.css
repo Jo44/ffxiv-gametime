@@ -114,6 +114,14 @@
 
 /* Macro */
 
+.speaker, .speaker:hover {
+	-fx-background-color: #0000;
+	-fx-background-image: url(img/speaker.png);
+    -fx-background-size: 20.0px 20.0px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 .status {
 	-fx-background-color: #000;
 	-fx-border-color: #bbb;
