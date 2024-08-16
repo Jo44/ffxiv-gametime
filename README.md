@@ -1,6 +1,6 @@
 # Final Fantasy XIV - GameTime
 
-![gametime](https://user-images.githubusercontent.com/38272817/235270700-5da84961-0f53-412c-bfc8-bca0fc3bcf88.png)
+![gametime](https://github.com/user-attachments/assets/73543f8d-5848-475d-96f0-427e31d9d735)
 
 This third-party software saves your time while playing Final Fantasy XIV  
 The "Anti-Afk" feature simulates activity preventing being kicked from an instance due to inactivity  
@@ -11,7 +11,7 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 
 # Downloads (Windows x64)
 
-* Final Fantasy XIV - GameTime (1.9) :  
+* Final Fantasy XIV - GameTime (2.0) :  
 https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/FFXIV-GameTime.zip  
 * Java Development Kit (JDK) (16.0.2) :  
 https://drive.google.com/file/d/17rp_mWY9NdcUZeBZoDZaDgS0hSCF_Nu5  
