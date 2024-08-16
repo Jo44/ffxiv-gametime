@@ -135,7 +135,7 @@ public class MenuController {
 		dialog.initModality(Modality.APPLICATION_MODAL);
 		dialog.initOwner(MyApp.getStage());
 		dialog.setResizable(false);
-		dialog.setScene(new Scene(MyApp.loadFXML("settings"), 600, 600));
+		dialog.setScene(new Scene(MyApp.loadFXML("settings"), 600, 700));
 		dialog.setTitle("FFXIV GameTime - Paramètres");
 		// Calculate the center position of the parent Stage
 		double centerXPosition = MyApp.getStage().getX() + MyApp.getStage().getWidth() / 2d;

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.function.IntBinaryOperator;
 
 import javax.imageio.ImageIO;
+import javax.naming.CannotProceedException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,11 +32,13 @@ import fr.my.home.ffxivgametime.tools.GlobalTools;
 import fr.my.home.ffxivgametime.tools.KeyboardStrokeMap;
 import fr.my.home.ffxivgametime.tools.Settings;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 /**
  * Macro Task
  * 
- * @version 1.8
+ * @version 2.0
  */
 public class Macro implements Runnable {
 	private static Logger logger = LogManager.getLogger(Macro.class);
@@ -50,6 +53,10 @@ public class Macro implements Runnable {
 	private boolean setUpRequired = false;
 	private final int kbClose = KeyboardStrokeMap.getKeyEvent(Settings.getKeybindClose());
 	private String timeLeft = "calcul ...";
+	private String msgMacro = "Macro en cours d'exécution ...";
+	private String msgRepair = "Réparation en cours ...";
+	private String msgMateria = "Matérialisation en cours ...";
+	private String msgFood = "Nourriture en cours ...";
 	private AdvancedStatus advancedStatus = AdvancedStatus.ALL_GOOD;
 	private boolean foodStatus = false;
 	private final GearStatus[] gearStatus = new GearStatus[12];
@@ -86,6 +93,9 @@ public class Macro implements Runnable {
 	private int materiaLeftIteration = materiaStep;
 	private final String materiaFilePath = MacroController.getMateriaFilePath();
 
+	@FXML
+	private Label lbMessage;
+
 	/**
 	 * Constructor
 	 * 
@@ -107,6 +117,9 @@ public class Macro implements Runnable {
 	@Override
 	public void run() {
 
+		boolean allReaded = true;
+		boolean allChecked = true;
+
 		try {
 
 			// Init robot
@@ -125,20 +138,38 @@ public class Macro implements Runnable {
 			boolean materiaReaded = false;
 			if (craftFilePath != null && !craftFilePath.isEmpty()) {
 				craftReaded = readFile(craftFilePath, MacroType.CRAFT);
+				if (!craftReaded) {
+					allReaded = false;
+				}
 				if (cbAdvancedValue) {
 					if (setUpFilePath != null && !setUpFilePath.isEmpty()) {
 						setUpReaded = readFile(setUpFilePath, MacroType.SETUP);
+						if (!setUpReaded) {
+							allReaded = false;
+						}
 					}
 					if (cbFoodValue && foodFilePath != null && !foodFilePath.isEmpty()) {
 						foodReaded = readFile(foodFilePath, MacroType.FOOD);
+						if (!foodReaded) {
+							allReaded = false;
+						}
 					}
 					if (cbRepairValue && repairFilePath != null && !repairFilePath.isEmpty()) {
 						repairReaded = readFile(repairFilePath, MacroType.REPAIR);
+						if (!repairReaded) {
+							allReaded = false;
+						}
 					}
 					if (cbMateriaValue && materiaFilePath != null && !materiaFilePath.isEmpty()) {
 						materiaReaded = readFile(materiaFilePath, MacroType.MATERIA);
+						if (!materiaReaded) {
+							allReaded = false;
+						}
 					}
 				}
+			}
+			if (!allReaded) {
+				throw new CannotProceedException("File error");
 			}
 
 			// Check macro commands
@@ -149,20 +180,38 @@ public class Macro implements Runnable {
 			boolean materiaChecked = false;
 			if (craftReaded) {
 				craftChecked = checkMacro(craft);
+				if (!craftChecked) {
+					allChecked = false;
+				}
 				if (cbAdvancedValue) {
 					if (setUpReaded) {
 						setUpChecked = checkMacro(setUp);
+						if (!setUpChecked) {
+							allChecked = false;
+						}
 					}
 					if (cbFoodValue && foodReaded) {
 						foodChecked = checkMacro(food);
+						if (!foodChecked) {
+							allChecked = false;
+						}
 					}
 					if (cbRepairValue && repairReaded) {
 						repairChecked = checkMacro(repair);
+						if (!repairChecked) {
+							allChecked = false;
+						}
 					}
 					if (cbMateriaValue && materiaReaded) {
 						materiaChecked = checkMacro(materia);
+						if (!materiaChecked) {
+							allChecked = false;
+						}
 					}
 				}
+			}
+			if (!allChecked) {
+				throw new CannotProceedException("Cmd error");
 			}
 
 			// Exec
@@ -173,7 +222,7 @@ public class Macro implements Runnable {
 					while (!MacroController.getStopMacro() && macroLeftIteration > 0) {
 
 						// Update UI
-						macroUpdater.setValues(macroLeftIteration, timeLeft, false, null);
+						macroUpdater.setValues(macroLeftIteration, timeLeft, msgMacro, false, null);
 						Platform.runLater(macroUpdater);
 						// Time marker #1
 						marker1 = LocalDateTime.now();
@@ -199,9 +248,9 @@ public class Macro implements Runnable {
 						if (cbAutoValue) {
 							// Check status
 							checkAdvancedStatus();
-							macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
+							macroUpdater.setValues(macroLeftIteration, timeLeft, msgMacro, foodStatus, gearStatus);
 						} else {
-							macroUpdater.setValues(macroLeftIteration, timeLeft, false, null);
+							macroUpdater.setValues(macroLeftIteration, timeLeft, msgMacro, false, null);
 						}
 						Platform.runLater(macroUpdater);
 
@@ -211,15 +260,15 @@ public class Macro implements Runnable {
 							logger.info("[Task] Repair");
 							// Close UI if needed
 							closeRequired = closeUI(closeRequired);
+							// Update UI
+							macroUpdater.setValues(macroLeftIteration, timeLeft, msgRepair, foodStatus, gearStatus);
+							Platform.runLater(macroUpdater);
 							// Execute macro
 							execMacro(repair);
-							// Update UI
+							// Check status
 							if (cbAutoValue) {
-								// Check status
 								checkAdvancedStatus();
-								macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
 							}
-							Platform.runLater(macroUpdater);
 							// Reset Iteration
 							this.repairLeftIteration = repairStep;
 							// New set up required
@@ -233,15 +282,15 @@ public class Macro implements Runnable {
 							logger.info("[Task] Materialisation");
 							// Close UI if needed
 							closeRequired = closeUI(closeRequired);
+							// Update UI
+							macroUpdater.setValues(macroLeftIteration, timeLeft, msgMateria, foodStatus, gearStatus);
+							Platform.runLater(macroUpdater);
 							// Execute macro
 							execMacro(materia);
-							// Update UI
+							// Check status
 							if (cbAutoValue) {
-								// Check status
 								checkAdvancedStatus();
-								macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
 							}
-							Platform.runLater(macroUpdater);
 							// Reset Iteration
 							this.materiaLeftIteration = materiaStep;
 							// New set up required
@@ -255,15 +304,15 @@ public class Macro implements Runnable {
 							logger.info("[Task] Food");
 							// Close UI if needed
 							closeRequired = closeUI(closeRequired);
+							// Update UI
+							macroUpdater.setValues(macroLeftIteration, timeLeft, msgFood, foodStatus, gearStatus);
+							Platform.runLater(macroUpdater);
 							// Execute macro
 							execMacro(food);
-							// Update UI
+							// Check status
 							if (cbAutoValue) {
-								// Check status
 								checkAdvancedStatus();
-								macroUpdater.setValues(macroLeftIteration, timeLeft, foodStatus, gearStatus);
 							}
-							Platform.runLater(macroUpdater);
 							// Reset Iteration
 							this.foodLeftIteration = foodStep;
 							// New set up required
@@ -274,6 +323,9 @@ public class Macro implements Runnable {
 						// Check new set up
 						if (setUpRequired) {
 
+							// Update UI
+							macroUpdater.setValues(macroLeftIteration, timeLeft, msgMacro, foodStatus, gearStatus);
+							Platform.runLater(macroUpdater);
 							// Execute macro
 							execMacro(setUp);
 							// Reset set up parameter
@@ -305,14 +357,20 @@ public class Macro implements Runnable {
 
 			logger.info("[Task] Arret de Macro");
 
-		} catch (AWTException | InterruptedException ex) {
+		} catch (AWTException | CannotProceedException | InterruptedException ex) {
 			logger.error(ex.toString());
 			ex.printStackTrace();
 		} finally {
 			// Turn off task when finished
 			MacroController.setStopMacro(true);
 			// Set UI values
-			macroUpdater.setValues(0, "0 min", false, null);
+			if (!allChecked) {
+				macroUpdater.setValues(0, "0 min", null, false, null);
+			} else if (!allReaded) {
+				macroUpdater.setValues(0, "0 min", null, false, null);
+			} else {
+				macroUpdater.setValues(0, "0 min", "Macro terminée !", false, null);
+			}
 			Platform.runLater(macroUpdater);
 		}
 
@@ -359,6 +417,10 @@ public class Macro implements Runnable {
 		} catch (IOException ioe) {
 			logger.error(ioe.toString());
 			ioe.printStackTrace();
+			// Update UI
+			String message = "<File error> - " + filePath;
+			macroUpdater.setValues(macroLeftIteration, timeLeft, message, false, null);
+			Platform.runLater(macroUpdater);
 		} finally {
 			// Close reader
 			if (reader != null) {
@@ -392,13 +454,14 @@ public class Macro implements Runnable {
 		// STOP
 
 		boolean allValid = true;
+		int index = 0;
 		// Check all commands
 		try {
-			for (int i = 0; i < list.size(); i++) {
+			for (index = 0; index < list.size(); index++) {
 				boolean valid = false;
-				String cmd = list.get(i);
+				String cmd = list.get(index);
 				// Macro should starts with START cmd and ends with STOP cmd
-				if ((i == 0 && cmd.startsWith("START")) || (i == list.size() - 1 && cmd.startsWith("STOP"))) {
+				if ((index == 0 && cmd.startsWith("START")) || (index == list.size() - 1 && cmd.startsWith("STOP"))) {
 					valid = true;
 				} else if (cmd.startsWith("mousemove(")) {
 					// Cmd mousemove
@@ -458,10 +521,17 @@ public class Macro implements Runnable {
 				// If the current cmd isn't valid
 				if (!valid) {
 					allValid = false;
+					// Update UI
+					String message = "<Cmd error> - " + cmd;
+					macroUpdater.setValues(macroLeftIteration, timeLeft, message, false, null);
+					Platform.runLater(macroUpdater);
 				}
 			}
 		} catch (Exception ex) {
 			allValid = false;
+			String message = "<Cmd error> - " + list.get(index);
+			macroUpdater.setValues(macroLeftIteration, timeLeft, message, false, null);
+			Platform.runLater(macroUpdater);
 		}
 		return allValid;
 	}

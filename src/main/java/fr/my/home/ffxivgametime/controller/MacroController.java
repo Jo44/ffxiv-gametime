@@ -33,7 +33,7 @@ import lc.kra.system.keyboard.event.GlobalKeyListener;
 /**
  * MacroController
  * 
- * @version 1.6
+ * @version 2.0
  */
 public class MacroController implements GlobalKeyListener {
 	private static Logger logger = LogManager.getLogger(MacroController.class);
@@ -52,13 +52,13 @@ public class MacroController implements GlobalKeyListener {
 	private static Pane[] gearPanes = new Pane[12];
 	private static String craftFilePath = "";
 	private static String setUpFilePath = "";
-	private static boolean cbFoodValue = false;
+	private static boolean cbFoodValue = true;
 	private static int foodStep = 30;
 	private static String foodFilePath = "";
-	private static boolean cbRepairValue = false;
+	private static boolean cbRepairValue = true;
 	private static int repairStep = 30;
 	private static String repairFilePath = "";
-	private static boolean cbMateriaValue = false;
+	private static boolean cbMateriaValue = true;
 	private static int materiaStep = 30;
 	private static String materiaFilePath = "";
 
@@ -215,6 +215,9 @@ public class MacroController implements GlobalKeyListener {
 	private Button btnMateriaFavSet;
 
 	@FXML
+	private Label lbMessage;
+
+	@FXML
 	private Button btnMacroMenu;
 
 	@FXML
@@ -300,11 +303,12 @@ public class MacroController implements GlobalKeyListener {
 				lbMacroIterationLeft.getStyleClass().clear();
 				lbMacroIterationLeft.getStyleClass().add("font-green");
 				lbMacroTimeLeft.setText("calcul ...");
+				lbMessage.setText("Lancement en cours ...");
 				// Init Updater (for UI updates)
 				MacroUpdater macroUpdater = new MacroUpdater() {
 					@Override
 					public void run() {
-						updateUI(iterationLeft, timeLeft, foodStatus, gearStatus);
+						updateUI(iterationLeft, timeLeft, message, foodStatus, gearStatus);
 					}
 				};
 				// Thread execution controlled by boolean stopMacro
@@ -321,7 +325,7 @@ public class MacroController implements GlobalKeyListener {
 				tbMacro.setSelected(false);
 			}
 		} else {
-			// Stop
+			// Stop.
 			stopMacro = true;
 		}
 	}
@@ -331,10 +335,11 @@ public class MacroController implements GlobalKeyListener {
 	 * 
 	 * @param iterationLeft
 	 * @param timeLeft
+	 * @param message
 	 * @param foodStatus
 	 * @param gearStatus
 	 */
-	private void updateUI(int iterationLeft, String timeLeft, boolean foodStatus, GearStatus[] gearStatus) {
+	private void updateUI(int iterationLeft, String timeLeft, String message, boolean foodStatus, GearStatus[] gearStatus) {
 		// Set buff status
 		if (foodStatus) {
 			buffFood.setVisible(true);
@@ -372,6 +377,7 @@ public class MacroController implements GlobalKeyListener {
 		// Set values
 		lbMacroIterationLeft.setText(String.valueOf(iterationLeft));
 		lbMacroTimeLeft.setText(timeLeft);
+		lbMessage.setText(message);
 		// Set toggle button
 		tbMacro.setSelected(!stopMacro);
 	}

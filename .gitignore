@@ -6,3 +6,4 @@
 # Compile
 shade/*
 target/*
+/target/

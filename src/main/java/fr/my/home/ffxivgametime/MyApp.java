@@ -75,7 +75,7 @@ public class MyApp extends Application {
 		switch (scene) {
 			case "test":
 				// Test
-				newScene = new Scene(loadFXML("test"), 600, 600);
+				newScene = new Scene(loadFXML("test"), 600, 700);
 				TestController testController = fxmlLoader.getController();
 				stage.setOnCloseRequest(e -> testController.shutdown());
 				stage.setTitle("FFXIV GameTime - Test");
@@ -89,7 +89,7 @@ public class MyApp extends Application {
 				break;
 			case "macro":
 				// Macro
-				newScene = new Scene(loadFXML("macro"), 600, 600);
+				newScene = new Scene(loadFXML("macro"), 600, 700);
 				MacroController macroController = fxmlLoader.getController();
 				stage.setOnCloseRequest(e -> macroController.shutdown());
 				stage.setTitle("FFXIV GameTime - Macro");

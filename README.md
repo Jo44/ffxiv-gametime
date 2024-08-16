@@ -25,6 +25,9 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
+* Update 2.0 - 16/08/2024 :  
+  * Add macro messages (running/errors/done)
+  * Improve global IUI
 * Update 1.9 - 29/04/2023 :  
   * Add audio notification
 * Update 1.8.2 - 23/04/2023 :  
