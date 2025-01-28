@@ -9,13 +9,10 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 /!\ Executable files must be run as administrator /!\  
 /!\ User Interface is in french /!\  
 
-# Downloads (Windows x64)
+# Download
 
-* Final Fantasy XIV - GameTime (2.0) :  
+* Final Fantasy XIV - GameTime v2.1 (Windows x64) :  
 https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/FFXIV-GameTime.zip  
-* Java Development Kit (JDK) (16.0.2) :  
-https://drive.google.com/file/d/17rp_mWY9NdcUZeBZoDZaDgS0hSCF_Nu5  
-NB: Java JDK v16+ is required to run Final Fantasy XIV - GameTime
 
 # /!\ Warning /!\\
 
@@ -25,6 +22,9 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 # Changelog
 
+* Update 2.1 - 28/01/2025 :  
+  * Migration Java 16 -> Java 21
+  * JRE 21 now included (/lib)
 * Update 2.0 - 16/08/2024 :  
   * Add macro messages (running/errors/done)
   * Improve global IUI
