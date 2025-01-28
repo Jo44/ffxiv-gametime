@@ -7,6 +7,4 @@
 shade/*
 target/*
 /target/
-distrib/FFXIV-GameTime.exe
-distrib/FFXIV-GameTime-Updater.exe
 /distrib/lib
