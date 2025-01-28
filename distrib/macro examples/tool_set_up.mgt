@@ -1,0 +1,13 @@
+START
+sleep(3)
+keypress(N)          // open crafting log
+sleep(3)
+mousemove(900,115)   // focus window
+sleep(1)
+mouseclick(left)
+sleep(1)
+mousemove(1167,450)  // set item2 HQ
+sleep(1)
+mouseclick(left)
+sleep(1)
+STOP

@@ -1,0 +1,10 @@
+START                // required
+mousemove(1284,709)  // mouse move to 'Synthesize' button
+sleep(1)             // wait 1 sec
+mouseclick(left)     // left mouse click
+sleep(3)             // wait 3 sec
+keypress(Alt,9)      // key press #Macro-1 (with optional modifier)
+sleep(39)            // wait 39 sec
+keypress(Maj,9)      // key press #Macro-2 (with optional modifier)
+sleep(31)            // wait 31 sec
+STOP                 // required

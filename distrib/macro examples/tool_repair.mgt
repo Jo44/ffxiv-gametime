@@ -1,0 +1,22 @@
+START
+mousemove(1600,830)  // mouse move to repair shortcut
+sleep(1)
+mouseclick(left)
+sleep(3)
+mousemove(960,245)   // focus window
+sleep(1)
+mouseclick(left)
+sleep(1)
+keypress(Num 0)      // move to 'Equipped' combobox
+sleep(1)
+keypress(Num 6)      // move to 'Repair All' button
+sleep(1)
+keypress(Num 0)      // confirm
+sleep(1)
+mousemove(910,575)   // mouse move to 'Yes' button
+sleep(1)
+mouseclick(left)     // confirm
+sleep(4)
+keypress(Echap)      // escape repair UI
+sleep(2)
+STOP
