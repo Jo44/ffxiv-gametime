@@ -1,6 +1,0 @@
-START
-mousemove(1700,830)  // mouse move to food shortcut
-sleep(1)
-mouseclick(left)
-sleep(4)
-STOP

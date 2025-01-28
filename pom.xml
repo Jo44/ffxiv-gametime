@@ -2,58 +2,58 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.my.home</groupId>
 	<artifactId>ffxiv-gametime</artifactId>
-	<version>1.9</version>
+	<version>2.1</version>
 	<packaging>jar</packaging>
 	<name>ffxiv-gametime</name>
 	<!-- Properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>16</maven.compiler.source>
-		<maven.compiler.target>16</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 	<!-- Dependencies -->
 	<dependencies>
 		<!-- JavaFX Controls -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>16</version>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-controls</artifactId>
+		    <version>21.0.6</version>
 		</dependency>
 		<!-- JavaFX Graphics -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
 		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>16</version>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-graphics</artifactId>
+		    <version>21.0.6</version>
 		</dependency>
 		<!-- JavaFX Media -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-media -->
 		<dependency>
 		    <groupId>org.openjfx</groupId>
 		    <artifactId>javafx-media</artifactId>
-		    <version>16</version>
+		    <version>21.0.6</version>
 		</dependency>
 		<!-- JavaFX FXML -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>16</version>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-fxml</artifactId>
+		    <version>21.0.6</version>
 		</dependency>
 		<!-- Java Native Access -->
 		<!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
 		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna</artifactId>
-			<version>5.12.1</version>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>jna</artifactId>
+		    <version>5.16.0</version>
 		</dependency>
 		<!-- Java Native Access Platform -->
 		<!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna-platform -->
 		<dependency>
-			<groupId>net.java.dev.jna</groupId>
-			<artifactId>jna-platform</artifactId>
-			<version>5.12.1</version>
+		    <groupId>net.java.dev.jna</groupId>
+		    <artifactId>jna-platform</artifactId>
+		    <version>5.16.0</version>
 		</dependency>
 		<!-- System Hook -->
 		<!-- https://mvnrepository.com/artifact/lc.kra.system/system-hook -->
@@ -62,19 +62,19 @@
 			<artifactId>system-hook</artifactId>
 			<version>3.8</version>
 		</dependency>
-		<!-- Log4j API -->
-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.19.0</version>
-		</dependency>
-		<!-- Log4j Core -->
+		<!-- Apache Log4j Core -->
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.19.0</version>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.24.3</version>
+		</dependency>
+		<!-- Apache Log4j API -->
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>2.24.3</version>
 		</dependency>
 	</dependencies>
 	<!-- Build -->
@@ -84,9 +84,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.10.1</version>
+				<version>3.13.0</version>
 				<configuration>
-					<release>16</release>
+					<release>21</release>
 				</configuration>
 			</plugin>
 			<!-- JavaFX Maven Plugin -->
@@ -100,7 +100,7 @@
 						<!-- Usage: mvn clean javafx:run -->
 						<id>default-cli</id>
 						<configuration>
-							<release>16</release>
+							<release>21</release>
 							<jlinkImageName>ffxiv-gametime</jlinkImageName>
 							<launcher>launcher</launcher>
 							<mainClass>fr.my.home.ffxivgametime.MyApp</mainClass>
@@ -112,7 +112,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.4.0</version>
+				<version>3.6.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>

@@ -5,11 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +33,7 @@ import javafx.stage.Stage;
 /**
  * MenuController
  * 
- * @version 1.2
+ * @version 1.3
  */
 public class MenuController {
 	private static Logger logger = LogManager.getLogger(MenuController.class);
@@ -283,8 +285,8 @@ public class MenuController {
 	private void startUpdater() throws IOException, InterruptedException {
 
 		// Exec runtime
-		Runtime runtime = Runtime.getRuntime();
-		Process process = runtime.exec(UPDATER_FILE);
+		ProcessBuilder pb = new ProcessBuilder(List.of(new File(UPDATER_FILE).getAbsolutePath()));
+		Process process = pb.start();
 		process.waitFor();
 
 	}
@@ -301,7 +303,7 @@ public class MenuController {
 
 		File downloadFile = new File(TMP_DIR + "\\" + filename);
 		// Create connection
-		URL url = new URL(link);
+		URL url = URI.create(link).toURL();
 		URLConnection con = url.openConnection();
 		con.setRequestProperty("User-Agent",
 				"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 1.2.30703)");

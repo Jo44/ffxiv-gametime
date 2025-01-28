@@ -3,7 +3,7 @@ package fr.my.home.ffxivgametime;
 /**
  * FFXIV GameTime Launcher
  * 
- * @version 1.9
+ * @version 2.1
  */
 public class Launcher {
 
