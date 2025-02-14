@@ -13,7 +13,7 @@ The 'Macro' feature automates execution of in-game macros for easier crafting pr
 
 * Final Fantasy XIV - GameTime v2.1 (Windows x64) :  
 https://raw.githubusercontent.com/Jo44/ffxiv-gametime/main/distrib/FFXIV-GameTime.zip
-* Macro examples :
+* Macro examples :  
 https://github.com/Jo44/ffxiv-gametime/tree/main/distrib/macro%20examples
 
 # /!\ Warning /!\\
