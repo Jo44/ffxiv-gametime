@@ -7,7 +7,7 @@ The "Anti-Afk" feature simulates activity preventing being kicked from an instan
 The 'Macro' feature automates execution of in-game macros for easier crafting process
 
 /!\ Executable files must be run as administrator /!\  
-/!\ User Interface is in french /!\  
+/!\ User interface is in french /!\  
 
 # Download
 
