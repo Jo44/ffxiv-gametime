@@ -26,7 +26,7 @@ THIS TOOL WAS MADE FOR EDUCATIONAL AND DEV SKILL DEVELOPMENT PURPOSES ONLY, AND 
 
 * Update 2.1 (hotfix) - 16/02/2025 :  
   * Missing lib in JRE (blocking update process)
-  * Compress JRE
+  * Compress Embedded JRE
 * Update 2.1 - 28/01/2025 :  
   * Migration Java 16 -> Java 21
   * JRE 21 now included (/lib)
